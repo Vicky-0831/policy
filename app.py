@@ -167,7 +167,6 @@ elif st.session_state.step == 'L3':
                     <div class="opp-title">{p}</div>
                     <div style="color: #666; font-size: 14px; margin-top: 5px;">
                         • 核心点提取...<br/>
-                        • 点击下方按钮查看官方原件
                     </div>
                 </div>
             """, unsafe_allow_html=True)
