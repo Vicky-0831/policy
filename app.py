@@ -99,7 +99,7 @@ STRUCTURE = {
 # --- 4. 界面逻辑 ---
 
 # 顶部 Banner
-st.markdown('<div class="portal-banner"><h1>政策直通车</h1><p>直击核心政策，抓取绿色机会</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="portal-banner"><h1>政策直通车</h1><p>……</p></div>', unsafe_allow_html=True)
 
 # 导航处理
 def go_back():
