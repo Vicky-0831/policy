@@ -11,66 +11,79 @@ st.set_page_config(
 # --- 🎨 极简门户 CSS ---
 st.markdown("""
     <style>
-    /* 隐藏顶部默认装饰 */
+    /* 隐藏默认组件 */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
 
-    /* 顶部蓝色 Banner */
-    .portal-banner {
-        background: linear-gradient(90deg, #005bac 0%, #0072ce 100%);
-        padding: 30px;
-        color: white;
-        text-align: center;
-        border-radius: 0 0 15px 15px;
-        margin: -50px -50px 30px -50px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    
-    /* 导航卡片样式 */
-    .nav-card {
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 25px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        margin-bottom: 20px;
-    }
-    .nav-card:hover {
-        transform: translateY(-5px);
-        border-color: #005bac;
-        box-shadow: 0 8px 15px rgba(0,91,172,0.1);
-    }
-    .nav-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: #333;
+    /* 莫兰迪色值定义 */
+    :root {
+        --morandi-blue: #92a8d1;    /* 灰蓝色 - 顶栏 */
+        --morandi-green: #b5c6b1;   /* 豆沙绿 - 机会点 */
+        --morandi-bg: #f7f3f0;      /* 米灰色 - 背景 */
+        --morandi-text: #5d5d5d;    /* 深灰色 - 文字 */
+        --morandi-white: #ffffff;   /* 纯白 - 卡片 */
     }
 
-    /* 三级机会点卡片 (绿色) */
+    /* 页面背景 */
+    .stApp {
+        background-color: var(--morandi-bg);
+    }
+
+    /* 顶部 Banner - 莫兰迪灰蓝 */
+    .portal-banner {
+        background-color: var(--morandi-blue);
+        padding: 40px;
+        color: white;
+        text-align: center;
+        border-radius: 0 0 20px 20px;
+        margin: -50px -50px 40px -50px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .portal-banner h1 {
+        font-weight: 300 !important;
+        letter-spacing: 2px;
+    }
+
+    /* 导航按钮样式 */
+    .stButton>button {
+        background-color: var(--morandi-white);
+        color: var(--morandi-text);
+        border: 1px solid #dcdcdc;
+        border-radius: 10px;
+        padding: 15px;
+        transition: all 0.3s;
+        font-weight: 500;
+    }
+    .stButton>button:hover {
+        border-color: var(--morandi-blue);
+        color: var(--morandi-blue);
+        background-color: #fafafa;
+    }
+
+    /* 三级机会点卡片 - 莫兰迪豆沙绿 */
     .opp-card {
-        background-color: #f0fff4;
-        border-left: 6px solid #28a745;
-        padding: 18px;
-        border-radius: 8px;
-        margin-bottom: 15px;
+        background-color: var(--morandi-white);
+        border-left: 8px solid var(--morandi-green);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     }
     .opp-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #155724;
-    }
-    
-    /* 返回按钮 */
-    .back-btn {
-        color: #005bac;
+        font-size: 18px;
         font-weight: 600;
-        cursor: pointer;
-        margin-bottom: 20px;
+        color: var(--morandi-text);
+        margin-bottom: 10px;
+    }
+    .opp-tag {
         display: inline-block;
+        background-color: var(--morandi-green);
+        color: white;
+        padding: 2px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        margin-bottom: 8px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -113,12 +126,12 @@ def go_back():
 if st.session_state.step == 'L1':
     cols = st.columns(2)
     with cols[0]:
-        if st.button("🏛️ 国家级政策", use_container_width=True, type="primary"):
+        if st.button("🏛️ 国家", use_container_width=True, type="primary"):
             st.session_state.l1_choice = "国家"
             st.session_state.step = 'L2'
             st.rerun()
     with cols[1]:
-        if st.button("📍 地方性政策", use_container_width=True, type="primary"):
+        if st.button("📍 地方", use_container_width=True, type="primary"):
             st.session_state.l1_choice = "地方"
             st.session_state.step = 'L2'
             st.rerun()
