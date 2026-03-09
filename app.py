@@ -99,7 +99,7 @@ STRUCTURE = {
 # --- 4. 界面逻辑 ---
 
 # 顶部 Banner
-st.markdown('<div class="portal-banner"><h1>医保卫健政策机会点看板</h1><p>直击核心政策，抓取绿色机会</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="portal-banner"><h1>政策直通车</h1><p>直击核心政策，抓取绿色机会</p></div>', unsafe_allow_html=True)
 
 # 导航处理
 def go_back():
@@ -144,7 +144,7 @@ elif st.session_state.step == 'L3':
     if st.button(f"⬅️ 返回{st.session_state.l1_choice}目录"):
         go_back()
     
-    st.subheader(f"📌 {st.session_state.l2_choice} - 政策机会点")
+    st.subheader(f"📌 {st.session_state.l2_choice}")
     policies = STRUCTURE[st.session_state.l1_choice][st.session_state.l2_choice]
     
     for p in policies:
@@ -153,7 +153,7 @@ elif st.session_state.step == 'L3':
                 <div class="opp-card">
                     <div class="opp-title">{p}</div>
                     <div style="color: #666; font-size: 14px; margin-top: 5px;">
-                        • 核心机会点提取中...<br/>
+                        • 核心点提取...<br/>
                         • 点击下方按钮查看官方原件
                     </div>
                 </div>
@@ -163,4 +163,4 @@ elif st.session_state.step == 'L3':
 
 # --- 5. 页脚 ---
 st.markdown("---")
-st.caption("注：本看板仅展示“绿色”级别机会点。 [cite: 11, 64, 152, 184, 226, 255]")
+st.caption("注： [cite: 11, 64, 152, 184, 226, 255]")
