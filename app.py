@@ -112,7 +112,7 @@ STRUCTURE = {
 }
 
 # 对应的跳转链接
-BASE_RAW_URL = "https://raw.githubusercontent.com/vicky-0831/policy/main/pdfs/"
+BASE_RAW_URL = "https://vicky-0831.github.io/policy/pdfs/"
 LINKS = {
    "第二批DRG付费新药新技术除外支付工作通知": BASE_RAW_URL + "bj_drg.pdf",
     "集采药品接续采购公告（第1号）": BASE_RAW_URL + "gd_vbp_1.pdf",
