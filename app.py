@@ -7,73 +7,77 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- 🎨 医疗极简配色 (洁净蓝白) & 字体适配 ---
+# --- 🎨 医疗专业配色 & 极简字体 CSS ---
 st.markdown("""
     <style>
-    /* 全局背景：极淡灰，专业感 */
+    /* 全局背景：洁净白 */
     .stApp { background-color: #ffffff; }
 
-    /* 字体大小严格控制 - 参考直通车 */
-    h1 { font-size: 20px !important; font-weight: 700 !important; color: #003366; margin-bottom: 20px !important; text-align: center; }
-    h3 { font-size: 16px !important; font-weight: 600 !important; color: #0056b3; margin-top: 10px !important; }
+    /* 字体大小严格控制 */
+    h1 { font-size: 20px !important; font-weight: 700 !important; color: #003366; text-align: center; }
+    h3 { font-size: 16px !important; font-weight: 600 !important; color: #004a99; }
     p, div, span { font-size: 13px !important; color: #333333; }
 
-    /* 顶部标题：去除背景框 */
+    /* 顶部标题：无背景框 */
     .clean-header {
-        padding: 20px 0;
+        padding: 30px 0;
         text-align: center;
-        border-bottom: 1px solid #eee;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
-    /* 一级/二级按钮：医学蓝风格 */
+    /* 统一按钮样式：医学蓝 */
     .stButton>button {
         border-radius: 4px;
         font-size: 14px;
         font-weight: 500;
-        height: 45px;
+        height: 50px;
+        background-color: #f8fbff;
+        border: 1px solid #d1e2f3;
+        color: #003366;
         transition: 0.3s;
     }
-    
-    /* 三级政策列表：栅格布局 */
+    .stButton>button:hover {
+        background-color: #eef6ff;
+        border-color: #004a99;
+        color: #004a99;
+    }
+
+    /* 三级卡片布局 */
     .policy-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 15px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
     
-    /* 极简卡片：高对比度蓝白 */
     .simple-card {
-        background-color: #f8fbff;
-        padding: 15px;
-        border: 1px solid #e1e8f0;
+        background-color: #fcfdfe;
+        padding: 20px;
+        border: 1px solid #eef2f6;
+        border-top: 3px solid #0056b3;
         border-radius: 6px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 80px;
+        text-align: left;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .card-title-text { 
+    .card-title { 
         font-size: 14px !important; 
-        font-weight: 600 !important; 
+        font-weight: 700 !important; 
         color: #003366; 
-        margin-bottom: 8px;
+        margin-bottom: 12px;
+        line-height: 1.4;
     }
 
     /* 注脚颜色修正 */
     .footer-note {
         text-align: center;
-        padding: 20px;
-        color: #666;
+        padding: 30px;
+        color: #888;
         font-size: 12px !important;
-        margin-top: 50px;
-        border-top: 1px solid #eee;
+        margin-top: 60px;
+        border-top: 1px solid #f0f0f0;
     }
     .text-green { color: #2d9d78; font-weight: bold; }
-    .text-yellow { color: #f0ad4e; font-weight: bold; }
+    .text-yellow { color: #ffcc00; font-weight: bold; } /* 修正为黄色 */
     </style>
 """, unsafe_allow_html=True)
 
@@ -89,76 +93,84 @@ def nav_to(step, l1=None, l2=None):
     st.rerun()
 
 # --- 3. 目录与真实链接数据 ---
+# 简化后的三级目录标题
 STRUCTURE = {
     "国家": {
         "国家卫健委": ["抗菌药物管理办法", "绩效监测", "基药", "超品规备案", "医院管理质控", "其他"],
         "国家医保局": ["国谈落地", "红黄标", "基金监管", "DRG/DIP", "VBP", "其他"]
     },
     "地方": {
-        "北京": ["DRG新药新技术除外支付"],
-        "广东": ["集采药品协议期满接续采购"],
-        "浙江": ["创新医药技术医保支付激励"]
+        "北京": ["第二批DRG付费新药新技术除外支付工作通知"],
+        "广东": [
+            "集采药品接续采购公告（第1号）",
+            "集采药品接续采购公告（第2号）",
+            "集采药品接续采购公告（第3号）",
+            "集采药品接续采购公告（第4号）"
+        ],
+        "浙江": ["第一批创新医药技术医保支付激励名单公示"]
     }
 }
 
-# 预设链接
+# 对应的跳转链接
 LINKS = {
-    "DRG新药新技术除外支付": "https://ybj.beijing.gov.cn/zwgk/2024zcwj/202512/t20251230_4378695.html",
-    "集采药品协议期满接续采购": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4847124.html",
-    "创新医药技术医保支付激励": "https://ybj.zj.gov.cn/art/2025/8/12/art_1229225636_5566097.html"
+    "第二批DRG付费新药新技术除外支付工作通知": "https://ybj.beijing.gov.cn/zwgk/2024zcwj/202512/t20251230_4378695.html",
+    "集采药品接续采购公告（第1号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4847124.html",
+    "集采药品接续采购公告（第2号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4851155.html",
+    "集采药品接续采购公告（第3号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4852505.html",
+    "集采药品接续采购公告（第4号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4854271.htm",
+    "第一批创新医药技术医保支付激励名单公示": "https://ybj.zj.gov.cn/art/2025/8/12/art_1229225636_5566097.html"
 }
 
 # --- 4. 界面渲染 ---
 
-# 顶部标题 (无背景框)
+# 顶部标题
 st.markdown('<div class="clean-header"><h1>🏥 政策直通车</h1></div>', unsafe_allow_html=True)
 
-# --- 一级页面：国家 vs 地方 (上下排列) ---
+# --- 一级页面：国家 vs 地方 (上下排列，颜色一致) ---
 if st.session_state.step == 'L1':
-    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:30px;'></div>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns([1, 2, 1])
     with c2:
-        if st.button("🏛️ 国家级政策维度", use_container_width=True, type="primary"):
+        if st.button("🏛️ 国家级政策维度", use_container_width=True):
             nav_to('L2', l1="国家")
-        st.markdown("<div style='height:15px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
         if st.button("📍 地方性政策维度", use_container_width=True):
             nav_to('L2', l1="地方")
 
-# --- 二级页面：部门 / 省份 (横向平铺) ---
+# --- 二级页面：部门 / 省份 ---
 elif st.session_state.step == 'L2':
-    if st.button("⬅️ 返回主目录"): nav_to('L1')
+    if st.button("⬅️ 返回首页"): nav_to('L1')
     st.markdown(f"### 📂 当前选择：{st.session_state.l1}")
     
     opts = list(STRUCTURE[st.session_state.l1].keys())
+    # 动态列数，适应不同省份数量
     cols = st.columns(len(opts))
     for i, opt in enumerate(opts):
         with cols[i]:
-            if st.button(opt, use_container_width=True, key=opt):
+            if st.button(opt, use_container_width=True):
                 nav_to('L3', l2=opt)
 
-# --- 三级页面：纯净卡片展示 ---
+# --- 三级页面：简化后的卡片 (无标题字样) ---
 elif st.session_state.step == 'L3':
-    if st.button("⬅️ 返回"): nav_to('L2')
-    # 删除了标题字样，直接展示内容
+    if st.button("⬅️ 返回上级"): nav_to('L2')
     
     policies = STRUCTURE[st.session_state.l1][st.session_state.l2]
     st.markdown('<div class="policy-grid">', unsafe_allow_html=True)
     for p in policies:
-        # 获取对应的跳转链接
         url = LINKS.get(p, "#")
         st.markdown(f"""
             <div class="simple-card">
-                <div class="card-title-text">{p}</div>
-                <a href="{url}" target="_blank" style="text-decoration:none; color:#0056b3; font-size:12px;">🔗 查看官方原文</a>
+                <div class="card-title">{p}</div>
+                <a href="{url}" target="_blank" style="text-decoration:none; color:#0066cc; font-weight:600; font-size:12px;">🔗 查看官方原文</a>
             </div>
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 5. 注脚：颜色修正 ---
+# --- 5. 注脚：颜色与内容修正 ---
 st.markdown(f"""
     <div class="footer-note">
         文件中<span class="text-green">绿色标识</span>为机会点，
         <span class="text-yellow">黄色标识</span>为风险点。<br>
-        © 2026 政策直通车 | 数据来源：各官方公示文件
+        © 2026 政策直通车 | 数据来源：北京、广东、浙江及国家局官方公示文件
     </div>
 """, unsafe_allow_html=True)
