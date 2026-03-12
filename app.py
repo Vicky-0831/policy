@@ -7,7 +7,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff; }
-    h1 { font-size: 28px !important; font-weight: 700 !important; color: #003366; text-align: center; padding: 20px 0; }
+    h1 { font-size: 30px !important; font-weight: 700 !important; color: #003366; text-align: center; padding: 20px 0; }
     h3 { font-size: 16px !important; font-weight: 600 !important; color: #004a99; margin-bottom: 15px !important; }
     p, div, span { font-size: 13px !important; color: #333333; }
     
@@ -113,7 +113,7 @@ LINKS = {
 }
 
 # --- 4. 界面渲染 ---
-st.markdown('<h1>🏥 政策直通车</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="font-size: 30px !important;">🏥 政策直通车</h1>', unsafe_allow_html=True)
 
 # L1: 国家 vs 地方
 if st.session_state.step == 'L1':
