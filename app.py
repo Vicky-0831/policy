@@ -112,13 +112,14 @@ STRUCTURE = {
 }
 
 # 对应的跳转链接
+BASE_RAW_URL = "https://raw.githubusercontent.com/vicky-0831/policy/main/pdfs/"
 LINKS = {
-    "第二批DRG付费新药新技术除外支付工作通知": "https://github.com/Vicky-0831/policy/blob/main/pdfs/bj_drg.pdf",
-    "集采药品接续采购公告（第1号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_1.pdf",
-    "集采药品接续采购公告（第2号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_2.pdf",
-    "集采药品接续采购公告（第3号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_3.pdf",
-    "集采药品接续采购公告（第4号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_4.pdf",
-    "第一批创新医药技术医保支付激励名单公示": "https://github.com/Vicky-0831/policy/blob/main/pdfs/zj_incentive.pdf"
+    "第二批DRG付费新药新技术除外支付工作通知": "BASE_RAW_URL + "bj_drg.pdf"",
+    "集采药品接续采购公告（第1号）": "BASE_RAW_URL + "gd_vbp_1.pdf",
+    "集采药品接续采购公告（第2号）": "BASE_RAW_URL + "gd_vbp_2.pdf",
+    "集采药品接续采购公告（第3号）": "BASE_RAW_URL + "gd_vbp_3.pdf",
+    "集采药品接续采购公告（第4号）": "BASE_RAW_URL + "gd_vbp_4.pdf",
+    "第一批创新医药技术医保支付激励名单公示": "BASE_RAW_URL + "zj_incentive.pdf""
 }
 
 # --- 4. 界面渲染 ---
