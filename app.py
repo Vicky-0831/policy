@@ -96,8 +96,29 @@ def nav_to(step, l1=None, l2=None):
 # 简化后的三级目录标题
 STRUCTURE = {
     "国家": {
-        "国家卫健委": ["抗菌药物管理办法", "绩效监测", "基药", "超品规备案", "医院管理质控", "其他"],
-        "国家医保局": ["国谈落地", "红黄标", "基金监管", "DRG/DIP", "VBP", "其他"]
+        "国家卫健委": [
+            "2012年抗菌药物临床应用管理办法", 
+            "2015年抗菌药物应用评价指标及要求",
+            "2025版公立医院绩效监测操作手册", 
+            "国家基本药物目录管理办法通知", 
+            "国家基本药物目录管理办法", 
+            "2026年版基药目录管理办法",
+            "2025年药事管理医疗质量控制指标", 
+            "超品规备案", 
+            "其他"
+        ],
+        "国家医保局": [
+            "2025年版国家医保药品目录通知", 
+            "做好谈判药品落地工作的通知", 
+            "挂网药品价格风险预警标识通知", 
+            "2026年医保基金监管工作通知",  
+            "药品RWE综合价值评价指南征求意见", 
+            "RWE国家可信评价点网络公约公告", 
+            "支持创新药高质量发展若干措施", 
+            "药品RWE综合价值评价系列指南汇总",
+            "DRG/DIP", 
+            "VBP"
+        ]
     },
     "地方": {
         "北京": ["第二批DRG付费新药新技术除外支付工作通知"],
@@ -113,15 +134,35 @@ STRUCTURE = {
 
 # 对应的跳转链接
 BASE_RAW_URL = "https://vicky-0831.github.io/policy/pdfs/"
+
 LINKS = {
-   "第二批DRG付费新药新技术除外支付工作通知": BASE_RAW_URL + "bj_drg.pdf",
+    # 地方政策链接
+    "第二批DRG付费新药新技术除外支付工作通知": BASE_RAW_URL + "bj_drg.pdf",
     "集采药品接续采购公告（第1号）": BASE_RAW_URL + "gd_vbp_1.pdf",
     "集采药品接续采购公告（第2号）": BASE_RAW_URL + "gd_vbp_2.pdf",
     "集采药品接续采购公告（第3号）": BASE_RAW_URL + "gd_vbp_3.pdf",
     "集采药品接续采购公告（第4号）": BASE_RAW_URL + "gd_vbp_4.pdf",
-    "第一批创新医药技术医保支付激励名单公示": BASE_RAW_URL + "zj_incentive.pdf"
-}
+    "第一批创新医药技术医保支付激励名单公示": BASE_RAW_URL + "zj_incentive.pdf",
 
+    # 国家卫健委链接
+    "2012年抗菌药物临床应用管理办法": BASE_RAW_URL + "nhc_kjyw_2012.pdf",
+    "2015年抗菌药物应用评价指标及要求": BASE_RAW_URL + "nhc_kjyw_zk_2015.pdf",
+    "2025版公立医院绩效监测操作手册": BASE_RAW_URL + "nhc_jxjc_2025.pdf",
+    "国家基本药物目录管理办法通知": BASE_RAW_URL + "nhc_jy_tz.pdf",
+    "国家基本药物目录管理办法": BASE_RAW_URL + "nhc_jy_glbf.pdf",
+    "2026年版基药目录管理办法": BASE_RAW_URL + "nhc_jy_2026.pdf",
+    "2025年药事管理医疗质量控制指标": BASE_RAW_URL + "nhc_zk_2025.pdf",
+
+    # 国家医保局链接
+    "2025年版国家医保药品目录通知": BASE_RAW_URL + "nhsa_ypml_2025.pdf",
+    "做好谈判药品落地工作的通知": BASE_RAW_URL + "nhsa_tpyp_ld.pdf",
+    "挂网药品价格风险预警标识通知": BASE_RAW_URL + "nhsa_fx_yj.pdf",
+    "2026年医保基金监管工作通知": BASE_RAW_URL + "nhsa_jjjg_2026.pdf",
+    "药品RWE综合价值评价指南征求意见": BASE_RAW_URL + "nhsa_rwe_yj.pdf",
+    "RWE国家可信评价点网络公约公告": BASE_RAW_URL + "nhsa_rwe_kxd.pdf",
+    "支持创新药高质量发展若干措施": BASE_RAW_URL + "nhsa_cxyp_cs.pdf",
+    "药品RWE综合价值评价系列指南汇总": BASE_RAW_URL + "nhsa_rwe_hz.pdf"
+}
 # --- 4. 界面渲染 ---
 
 # 顶部标题
