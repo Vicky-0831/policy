@@ -113,12 +113,12 @@ STRUCTURE = {
 
 # 对应的跳转链接
 LINKS = {
-    "第二批DRG付费新药新技术除外支付工作通知": "https://ybj.beijing.gov.cn/zwgk/2024zcwj/202512/t20251230_4378695.html",
-    "集采药品接续采购公告（第1号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4847124.html",
-    "集采药品接续采购公告（第2号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4851155.html",
-    "集采药品接续采购公告（第3号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4852505.html",
-    "集采药品接续采购公告（第4号）": "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4854271.htm",
-    "第一批创新医药技术医保支付激励名单公示": "https://ybj.zj.gov.cn/art/2025/8/12/art_1229225636_5566097.html"
+    "第二批DRG付费新药新技术除外支付工作通知": "https://github.com/Vicky-0831/policy/blob/main/pdfs/bj_drg.pdf",
+    "集采药品接续采购公告（第1号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_1.pdf",
+    "集采药品接续采购公告（第2号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_2.pdf",
+    "集采药品接续采购公告（第3号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_3.pdf",
+    "集采药品接续采购公告（第4号）": "https://github.com/Vicky-0831/policy/blob/main/pdfs/gd_vbp_4.pdf",
+    "第一批创新医药技术医保支付激励名单公示": "https://github.com/Vicky-0831/policy/blob/main/pdfs/zj_incentive.pdf"
 }
 
 # --- 4. 界面渲染 ---
