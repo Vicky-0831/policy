@@ -131,10 +131,10 @@ if st.session_state.step == 'L1':
     st.markdown("<div style='height:30px;'></div>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns([1, 2, 1])
     with c2:
-        if st.button("🏛️ 国家级政策维度", use_container_width=True):
+        if st.button("🏛️ 国家级政策", use_container_width=True):
             nav_to('L2', l1="国家")
         st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
-        if st.button("📍 地方性政策维度", use_container_width=True):
+        if st.button("📍 地方性政策", use_container_width=True):
             nav_to('L2', l1="地方")
 
 # --- 二级页面：部门 / 省份 ---
@@ -171,6 +171,6 @@ st.markdown(f"""
     <div class="footer-note">
         文件中<span class="text-green">绿色标识</span>为机会点，
         <span class="text-yellow">黄色标识</span>为风险点。<br>
-        © 2026 政策直通车 | 数据来源：北京、广东、浙江及国家局官方公示文件
+        © 2026 政策直通车 | 数据来源：各官方公示文件
     </div>
 """, unsafe_allow_html=True)
