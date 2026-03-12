@@ -7,7 +7,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff; }
-    h1 { font-size: 20px !important; font-weight: 700 !important; color: #003366; text-align: center; padding: 20px 0; }
+    h1 { font-size: 28px !important; font-weight: 700 !important; color: #003366; text-align: center; padding: 20px 0; }
     h3 { font-size: 16px !important; font-weight: 600 !important; color: #004a99; margin-bottom: 15px !important; }
     p, div, span { font-size: 13px !important; color: #333333; }
     
