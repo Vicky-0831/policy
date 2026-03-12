@@ -1,178 +1,165 @@
 import streamlit as st
 
-# 1. 页面配置
+# 1. 页面配置 (参考直通车：小间距、宽布局)
 st.set_page_config(
     page_title="政策机会点看板", 
     layout="wide", 
-    page_icon="🏥",
     initial_sidebar_state="collapsed"
 )
 
-# --- 🎨 极简门户 CSS ---
+# --- 🎨 莫兰迪色系 + 精致小字体 CSS ---
 st.markdown("""
     <style>
-    /* 隐藏默认组件 */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-
-    /* 莫兰迪色值定义 */
+    /* 莫兰迪配色 */
     :root {
-        --morandi-blue: #92a8d1;    /* 灰蓝色 - 顶栏 */
-        --morandi-green: #b5c6b1;   /* 豆沙绿 - 机会点 */
-        --morandi-bg: #f7f3f0;      /* 米灰色 - 背景 */
-        --morandi-text: #5d5d5d;    /* 深灰色 - 文字 */
-        --morandi-white: #ffffff;   /* 纯白 - 卡片 */
+        --m-blue: #92a8d1;    /* 灰蓝 */
+        --m-green: #b5c6b1;   /* 豆沙绿 */
+        --m-bg: #f7f3f0;      /* 米灰背景 */
+        --m-text: #5d5d5d;    /* 深灰文字 */
+        --m-card-bg: #ffffff; 
     }
 
-    /* 页面背景 */
-    .stApp {
-        background-color: var(--morandi-bg);
-    }
+    .stApp { background-color: var(--m-bg); }
 
-    /* 顶部 Banner - 莫兰迪灰蓝 */
+    /* 全站字体适配 */
+    h1 { font-size: 20px !important; font-weight: 700 !important; color: var(--m-text); }
+    h3 { font-size: 16px !important; font-weight: 600 !important; color: var(--m-text); }
+    p, div, span { font-size: 13px !important; color: var(--m-text); }
+
+    /* 顶部 Banner */
     .portal-banner {
-        background-color: var(--morandi-blue);
-        padding: 40px;
+        background-color: var(--m-blue);
+        padding: 20px;
         color: white;
         text-align: center;
-        border-radius: 0 0 20px 20px;
-        margin: -50px -50px 40px -50px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-    .portal-banner h1 {
-        font-weight: 300 !important;
-        letter-spacing: 2px;
+        border-radius: 0 0 15px 15px;
+        margin: -50px -50px 25px -50px;
     }
 
-    /* 导航按钮样式 */
-    .stButton>button {
-        background-color: var(--morandi-white);
-        color: var(--morandi-text);
-        border: 1px solid #dcdcdc;
-        border-radius: 10px;
-        padding: 15px;
-        transition: all 0.3s;
-        font-weight: 500;
+    /* 政策栅格布局 (参考直通车) */
+    #policy-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        margin-top: 10px;
     }
-    .stButton>button:hover {
-        border-color: var(--morandi-blue);
-        color: var(--morandi-blue);
-        background-color: #fafafa;
+    @media (min-width: 900px) {
+        #policy-grid { grid-template-columns: repeat(3, 1fr) !important; }
     }
 
-    /* 三级机会点卡片 - 莫兰迪豆沙绿 */
-    .opp-card {
-        background-color: var(--morandi-white);
-        border-left: 8px solid var(--morandi-green);
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    /* 莫兰迪机会点卡片 (Sage Green) */
+    .custom-card {
+        background-color: var(--m-card-bg);
+        padding: 12px !important;
+        border-radius: 8px;
+        border-left: 5px solid var(--m-green) !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        height: 100%;
     }
-    .opp-title {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--morandi-text);
-        margin-bottom: 10px;
+    .card-title {
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        color: #888;
+        margin-bottom: 5px;
+        text-transform: uppercase;
     }
-    .opp-tag {
-        display: inline-block;
-        background-color: var(--morandi-green);
-        color: white;
-        padding: 2px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        margin-bottom: 8px;
+    .card-value {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        color: var(--m-text);
+        line-height: 1.4;
     }
+    
+    /* 绿色机会点高亮 */
+    .opp-green { color: #5a8d66; font-weight: bold; }
     </style>
 """, unsafe_allow_html=True)
 
-# --- 2. 状态管理 ---
-if 'step' not in st.session_state:
-    st.session_state.step = 'L1'  # L1: 国家/地方, L2: 部门/省份, L3: 政策列表
-if 'l1_choice' not in st.session_state:
-    st.session_state.l1_choice = None
-if 'l2_choice' not in st.session_state:
-    st.session_state.l2_choice = None
+# --- 2. 导航状态管理 ---
+if 'l1' not in st.session_state: st.session_state.l1 = "国家"
+if 'l2' not in st.session_state: st.session_state.l2 = "国家医保局"
 
-# --- 3. 目录数据定义 ---
+# --- 3. 目录与内容定义 ---
 STRUCTURE = {
     "国家": {
-        "卫健委": ["抗菌药管理办法", "绩效监测", "基药目录管理办法", "质控指标"],
-        "医保局": ["国谈", "红黄标", "基金监管", "其他政策"]
+        "国家卫健委": ["抗菌药物管理办法", "绩效监测", "基药", "超品规备案", "医院管理质控", "其他"],
+        "国家医保局": ["国谈落地", "红黄标", "基金监管", "DRG/DIP", "VBP", "其他"]
     },
     "地方": {
-        "北京": ["DRG除外支付政策"],  # 
-        "广东": ["VBP集采接续政策"],  # 
-        "浙江": ["创新医药支付激励"]   # 
+        "北京": ["DRG除外支付政策"],
+        "广东": ["VBP集采接续政策"],
+        "浙江": ["创新医药支付激励"]
     }
 }
 
 # --- 4. 界面逻辑 ---
 
 # 顶部 Banner
-st.markdown('<div class="portal-banner"><h1>政策直通车</h1><p>……</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="portal-banner"><h1>医保卫健政策机会点看板</h1></div>', unsafe_allow_html=True)
 
-# 导航处理
-def go_back():
-    if st.session_state.step == 'L3':
-        st.session_state.step = 'L2'
-    elif st.session_state.step == 'L2':
-        st.session_state.step = 'L1'
-    st.rerun()
+# 一级选项：国家/地方 (上下排列)
+st.markdown("### 🏷️ 维度选择")
+col_nav1, col_nav2 = st.columns(2)
+with col_nav1:
+    if st.button("🏛️ 国家级政策", use_container_width=True, type="primary" if st.session_state.l1=="国家" else "secondary"):
+        st.session_state.l1 = "国家"
+        st.session_state.l2 = "国家卫健委"
+        st.rerun()
+with col_nav2:
+    if st.button("📍 地方性政策", use_container_width=True, type="primary" if st.session_state.l1=="地方" else "secondary"):
+        st.session_state.l1 = "地方"
+        st.session_state.l2 = "北京"
+        st.rerun()
 
-# --- 第一级：国家 vs 地方 ---
-if st.session_state.step == 'L1':
-    cols = st.columns(2)
-    with cols[0]:
-        if st.button("🏛️ 国家", use_container_width=True, type="primary"):
-            st.session_state.l1_choice = "国家"
-            st.session_state.step = 'L2'
-            st.rerun()
-    with cols[1]:
-        if st.button("📍 地方", use_container_width=True, type="primary"):
-            st.session_state.l1_choice = "地方"
-            st.session_state.step = 'L2'
-            st.rerun()
-
-# --- 第二级：具体部门/省份 ---
-elif st.session_state.step == 'L2':
-    if st.button("⬅️ 返回主目录"):
-        go_back()
-    
-    st.subheader(f"当前选择：{st.session_state.l1_choice}")
-    options = list(STRUCTURE[st.session_state.l1_choice].keys())
-    
-    cols = st.columns(len(options))
-    for idx, opt in enumerate(options):
-        with cols[idx]:
-            if st.button(opt, use_container_width=True, key=opt):
-                st.session_state.l2_choice = opt
-                st.session_state.step = 'L3'
-                st.rerun()
-
-# --- 第三级：具体政策列表 ---
-elif st.session_state.step == 'L3':
-    if st.button(f"⬅️ 返回{st.session_state.l1_choice}目录"):
-        go_back()
-    
-    st.subheader(f"📌 {st.session_state.l2_choice}")
-    policies = STRUCTURE[st.session_state.l1_choice][st.session_state.l2_choice]
-    
-    for p in policies:
-        with st.container():
-            st.markdown(f"""
-                <div class="opp-card">
-                    <div class="opp-title">{p}</div>
-                    <div style="color: #666; font-size: 14px; margin-top: 5px;">
-                        • 核心点提取...<br/>
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
-            # 预留跳转按钮
-            st.button(f"查看 {p} 原文", key=f"btn_{p}")
-
-# --- 5. 页脚 ---
 st.markdown("---")
-st.caption("注： [cite: 11, 64, 152, 184, 226, 255]")
+
+# 二级选项：横向切换
+st.markdown(f"### 📂 {st.session_state.l1}维度分类")
+l2_options = list(STRUCTURE[st.session_state.l1].keys())
+l2_tabs = st.tabs([f" {opt}" for opt in l2_options])
+
+for i, opt in enumerate(l2_options):
+    with l2_tabs[i]:
+        st.session_state.l2 = opt
+        st.markdown(f"### 📌 {opt} - 核心机会点")
+        
+        # 三级内容：栅格卡片
+        policies = STRUCTURE[st.session_state.l1][opt]
+        
+        html_grid = '<div id="policy-grid">'
+        
+        for p in policies:
+            # 模拟匹配提取的机会点内容
+            detail = "核心机会点提取中..."
+            link_icon = "📄"
+            
+            # 填入已有文件信息
+            if p == "DRG除外支付政策": 
+                detail = "第二批除外支付名单(2026-2028)，包含22种新药 [cite: 11, 23, 37]"
+            elif p == "VBP集采接续政策": 
+                detail = "1-8批协议期满品种接续采购，需求量填报已完成 [cite: 68, 70]"
+            elif p == "创新医药支付激励": 
+                detail = "首批创新药支付激励名单，包含25种创新药品 [cite: 254, 274]"
+            elif p == "DRG/DIP" and st.session_state.l1 == "国家":
+                detail = "<span class='opp-green'>暂无国家层面除外政策更新</span>"
+
+            html_grid += f"""
+            <div class="custom-card">
+                <div class="card-title">{p}</div>
+                <div class="card-value">{detail}</div>
+                <div style="margin-top:10px; font-size:11px; color:#92a8d1; cursor:pointer;">{link_icon} 查看原文</div>
+            </div>
+            """
+        
+        html_grid += '</div>'
+        st.markdown(html_grid, unsafe_allow_html=True)
+
+# 5. 注脚
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; padding: 20px; color: #888; font-size: 12px;">
+    文件中<span style="color: #5a8d66; font-weight:bold;">绿色标识</span>为机会点，
+    <span style="color: #b38b3d; font-weight:bold;">黄色标识</span>为风险点。<br>
+    © 2026 政策机会点看板 | 数据基于官方公开文件
+</div>
+""", unsafe_allow_html=True)
