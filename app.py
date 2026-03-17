@@ -47,7 +47,7 @@ st.markdown("""
     }
     .st-key-nat_btn button p {
         color: #0369a1 !important;
-        font-size: 22px !important; /* 22px 放大文字 */
+        font-size: 20px !important; /* 20px 放大文字 */
         font-weight: 700 !important;
     }
 
@@ -61,7 +61,7 @@ st.markdown("""
     }
     .st-key-loc_btn button p {
         color: #15803d !important;
-        font-size: 22px !important; /* 22px 放大文字 */
+        font-size: 20px !important; /* 20px 放大文字 */
         font-weight: 700 !important;
     }
 
