@@ -21,16 +21,14 @@ if "keep_alive_started" not in st.session_state:
 # --- 1. 页面配置 ---
 st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_state="collapsed")
 
-# --- 2. 强效 CSS 注入 (解决底色、按钮大小、备注显示问题) ---
+# --- 2. 强效 CSS 注入 ---
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff; }
 
-    /* 标题：26px 精致主标题 */
-    .main-title { font-size: 26px !important; font-weight: 800 !important; color: #003366; text-align: center; padding-top: 15px; }
-    
-    /* 胶囊装饰线 */
-    .capsule-line-container { display: flex; justify-content: center; margin: 8px 0 20px 0; }
+    /* 标题与胶囊线 (26px) */
+    .main-title { font-size: 26px !important; font-weight: 800; color: #003366; text-align: center; padding-top: 15px; }
+    .capsule-line-container { display: flex; justify-content: center; margin: 10px 0 25px 0; }
     .capsule-line {
         width: 120px; height: 6px; border-radius: 10px; position: relative;
         background: linear-gradient(90deg, rgba(0,74,153,0) 0%, #004a99 50%, rgba(0,74,153,0) 100%);
@@ -40,51 +38,57 @@ st.markdown("""
         width: 20px; height: 10px; background: #004a99; border-radius: 10px; border: 2px solid white;
     }
 
-    /* --- 首页按钮：终极底色锁定 (针对内部 P 标签) --- */
-    /* 国家级政策：渐变蓝 */
-    div[data-testid="stButton"] button:has(p:contains("国家级政策")) {
-        background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%) !important;
+    /* --- 首页按钮底色：ID 强力渗透 --- */
+    div#nat-btn-box button {
+        background: linear-gradient(135deg, #f0f9ff 0%, #7dd3fc 100%) !important;
         color: #0369a1 !important;
+        border-radius: 50px !important;
+        height: 65px !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
         border: none !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08) !important;
+        box-shadow: 0 4px 12px rgba(0,74,153,0.15) !important;
     }
-    /* 地方性政策：渐变绿 */
-    div[data-testid="stButton"] button:has(p:contains("地方性政策")) {
+    div#loc-btn-box button {
         background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%) !important;
         color: #15803d !important;
+        border-radius: 50px !important;
+        height: 65px !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
         border: none !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08) !important;
+        box-shadow: 0 4px 12px rgba(21,128,61,0.15) !important;
     }
 
-    /* --- 返回主页按钮：微型化控制 --- */
-    div[data-testid="stButton"] button:has(p:contains("返回主页")) {
-        height: 30px !important;
+    /* --- 微型返回键 --- */
+    div#back-btn-box button {
+        height: 28px !important;
         width: auto !important;
-        min-width: 90px !important;
-        padding: 0 10px !important;
-        font-size: 12px !important; /* 字体缩小 */
-        color: #888 !important;
+        padding: 0 12px !important;
+        font-size: 11px !important;
         background-color: #f8f9fa !important;
+        color: #666 !important;
         border: 1px solid #eee !important;
         border-radius: 4px !important;
-        box-shadow: none !important;
-        margin-bottom: 15px !important;
+        margin-bottom: 20px !important;
     }
-    div[data-testid="stButton"] button:has(p:contains("返回主页")) p {
-        font-size: 12px !important;
-    }
+    div#back-btn-box button p { font-size: 11px !important; }
 
     /* 文件卡片 */
     .file-card {
-        background-color: #fcfdfe; padding: 12px; border: 1px solid #eef2f6;
-        border-top: 3px solid #0056b3; border-radius: 8px; margin-bottom: 10px;
+        background-color: #fcfdfe; padding: 15px; border: 1px solid #eef2f6;
+        border-top: 3px solid #0056b3; border-radius: 8px; margin-bottom: 12px;
     }
 
-    /* 注脚与备注 */
-    .footer-note { 
-        text-align: center; padding: 30px; color: #666; 
-        font-size: 14px !important; margin-top: 60px; border-top: 1px solid #eee; 
+    /* Excel 指标卡片 */
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+    .metric-card {
+        padding: 10px; border-radius: 6px; border-left: 4px solid;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
+
+    /* 注脚备注 */
+    .footer-note { text-align: center; padding: 30px; color: #666; font-size: 14px !important; border-top: 1px solid #eee; margin-top: 60px; }
     .text-green { color: #2d9d78; font-weight: bold; }
     .text-yellow { color: #f0ad4e; font-weight: bold; }
     </style>
@@ -112,10 +116,10 @@ def load_excel_data():
         return df
     except: return None
 
-# --- 5. 链接与渲染逻辑 ---
+# --- 5. 链接定义 (校对无误版) ---
 BASE_URL = "https://vicky-0831.github.io/policy/pdfs/"
 LINKS = {
-    # 国家级...
+    # 国家级
     "2012年抗菌药物管理办法": BASE_URL + "nhc_kjyw_2012.pdf",
     "2015年抗菌药物评价指标": BASE_URL + "nhc_kjyw_zk_2015.pdf",
     "2025版公立医院绩效监测手册": BASE_URL + "nhc_jxjc_2025.pdf",
@@ -131,12 +135,16 @@ LINKS = {
     "RWE国家可信点公约": BASE_URL + "nhsa_rwe_kxd.pdf",
     "支持创新药高质量发展若干措施": BASE_URL + "nhsa_cxyp_cs.pdf",
     "药品RWE指南汇总": BASE_URL + "nhsa_rwe_hz.pdf",
-    # 地方级 (带地域标注)
+    # 地方级 - 严格匹配下方名称
     "【北京】DRG付费新药新技术除外支付通知": BASE_URL + "bj_drg.pdf",
-    "【广东】集采药品接续采购公告(1-4号)": BASE_URL + "gd_vbp_1.pdf",
+    "【广东】集采药品接续采购公告(第1号)": BASE_URL + "gd_vbp_1.pdf",
+    "【广东】集采药品接续采购公告(第2号)": BASE_URL + "gd_vbp_2.pdf",
+    "【广东】集采药品接续采购公告(第3号)": BASE_URL + "gd_vbp_3.pdf",
+    "【广东】集采药品接续采购公告(第4号)": BASE_URL + "gd_vbp_4.pdf",
     "【浙江】第一批创新医药技术医保支付激励名单": BASE_URL + "zj_incentive.pdf"
 }
 
+# --- 6. 界面渲染 ---
 st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_html=True)
 st.markdown('<div class="capsule-line-container"><div class="capsule-line"></div></div>', unsafe_allow_html=True)
 
@@ -145,19 +153,22 @@ if st.session_state.step == 'L1':
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
     c1, mid, c3 = st.columns([1, 2, 1])
     with mid:
+        st.markdown('<div id="nat-btn-box">', unsafe_allow_html=True)
         st.button("国家级政策", use_container_width=True, on_click=nav_to, args=('L2', "国家"))
-        st.markdown("<div style='height:25px;'></div>", unsafe_allow_html=True)
+        st.markdown('</div><div style="height:25px;"></div>', unsafe_allow_html=True)
+        st.markdown('<div id="loc-btn-box">', unsafe_allow_html=True)
         st.button("地方性政策", use_container_width=True, on_click=nav_to, args=('L2', "地方"))
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# L2: 二级内容页
+# L2: 内容展示
 elif st.session_state.step == 'L2':
-    # 微型返回按钮 (不使用 container_width)
+    st.markdown('<div id="back-btn-box">', unsafe_allow_html=True)
     st.button("⬅️ 返回主页", on_click=nav_to, args=('L1',))
+    st.markdown('</div>', unsafe_allow_html=True)
     
     if st.session_state.l1 == "国家":
         dept = st.selectbox("请选择政策部门", ["国家医保局", "国家卫健委"])
         st.markdown(f"#### 📂 {dept}")
-        
         nat_struct = {
             "国家卫健委": {
                 "抗菌药物管理办法": ["2012年抗菌药物管理办法", "2015年抗菌药物评价指标"],
@@ -174,37 +185,60 @@ elif st.session_state.step == 'L2':
             }
         }
         for cat, files in nat_struct[dept].items():
-            # 默认收起 expander
             with st.expander(f"🔹 {cat}", expanded=False):
-                if not files: st.caption("暂无相关文件")
+                if not files: st.caption("暂无文件")
                 else:
                     for f in files:
                         url = LINKS.get(f, "#")
-                        st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc; text-decoration:none;">🔗 查看官方原文</a></div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     else: # 地方性政策
-        # 业务领域排序，其他在末尾
         biz_opts = ["国谈落地", "集采", "DRG/DIP", "超品规备案", "VBP", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
         if biz == "国谈落地":
             df = load_excel_data()
-            if df is not None:
+            if df is None: st.warning("⚠️ 根目录下未找到 '数据.xlsx'。")
+            else:
                 prov = st.selectbox("查询省份核心指标", df['省份'].unique().tolist())
                 row = df[df['省份'] == prov].iloc[0]
                 st.markdown(f"##### 📌 {prov} - 核心指标分析")
-                # (保持 Excel 指标栅格渲染逻辑...)
-                st.write(f"正在展示 {prov} 的详细落地数据...")
+                metrics = [("📅 药事会时限", '药事会召开时限'), ("💊 思福诺双通道", '思福诺是否纳入双通道'),
+                           ("💊 康新博双通道", '康新博胶囊是否纳入双通道'), ("💰 康新博单独支付", '康新博胶囊是否纳入双通道单独支付'),
+                           ("📊 总额单列/调整", '国谈药医保总额单列'), ("🚫 DRG/DIP除外", '国谈药DRG/DIP除外支付')]
+                html_m = '<div class="metric-grid">'
+                for label, key in metrics:
+                    val = str(row[key])
+                    color = "#28a745" if "是" in val else "#dc3545" if "否" in val else "#007bff"
+                    bg = "#e6fffa" if "是" in val else "#ffe6e6" if "否" in val else "#e6f2ff"
+                    html_m += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
+                st.markdown(html_m + '</div>', unsafe_allow_html=True)
+                st.markdown("---")
+                st.markdown("##### 📄 关联原文")
+                for _, r in df[df['省份'] == prov].iterrows():
+                    if pd.notna(r['链接']): st.markdown(f"📄 [{r['原文']}]({r['链接']})")
 
         elif biz == "集采":
-            st.markdown("##### 📁 集中带量采购政策 (广东)")
-            st.markdown(f'<div class="file-card"><b>【广东】集采药品接续采购公告(1-4号)</b><br><a href="#" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
-            
-        elif biz == "DRG/DIP":
-            st.markdown("##### 📁 支付方式改革政策 (北京)")
-            st.markdown(f'<div class="file-card"><b>【北京】DRG付费新药新技术除外支付工作通知</b><br><a href="#" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            st.markdown("##### 📁 集中带量采购采购公告")
+            # --- 广东 1-4 号文件独立分拆，禁止合并 ---
+            gd_files = ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]
+            for f in gd_files:
+                url = LINKS.get(f, "#")
+                st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
-# --- 6. 注脚 (找回备注内容) ---
+        elif biz == "DRG/DIP":
+            st.markdown("##### 📁 支付改革文件")
+            f_name = "【北京】DRG付费新药新技术除外支付通知"
+            url = LINKS.get(f_name, "#")
+            st.markdown(f'<div class="file-card"><b>{f_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            
+        elif biz == "其他":
+            st.markdown("##### 📁 其他政策相关公示")
+            f_name = "【浙江】第一批创新医药技术医保支付激励名单"
+            url = LINKS.get(f_name, "#")
+            st.markdown(f'<div class="file-card"><b>{f_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+
+# --- 7. 注脚 (备注前缀恢复) ---
 st.markdown("""
     <div class="footer-note">
         <b>备注：</b>文件中<span class="text-green">绿色标识</span>为机会点，
