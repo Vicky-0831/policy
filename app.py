@@ -91,6 +91,22 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 3. 状态管理 ---
+def inject_home_css():
+    st.markdown("""
+        <style>
+        /* 国家级按钮：临床蓝渐变 */
+        div.stButton:nth-of-type(1) button {
+            background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%) !important;
+            color: #0369a1 !important;
+        }
+        /* 地方性按钮：医学红渐变 */
+        div.stButton:nth-of-type(2) button {
+            background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%) !important;
+            color: #b91c1c !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
 if 'step' not in st.session_state: st.session_state.step = 'L1'
 if 'l1' not in st.session_state: st.session_state.l1 = None
 
