@@ -38,7 +38,7 @@ st.markdown("""
         padding: 20px 0 10px 0;
     }
 
-    /* 部门/领域副标题 */
+    /* 部门名称副标题 */
     .dept-header {
         font-size: 20px !important;
         font-weight: 600 !important;
@@ -46,7 +46,7 @@ st.markdown("""
         margin-bottom: 15px;
     }
 
-    /* 通用按钮基础样式 */
+    /* 首页按钮样式：强制显色与渐变 */
     .stButton > button {
         border-radius: 12px !important;
         height: 65px !important;
@@ -55,6 +55,18 @@ st.markdown("""
         transition: all 0.3s ease;
         border: none !important;
         box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    /* 针对首页“国家级政策”按钮：蓝色渐变 */
+    button[aria-label="国家级政策"] {
+        background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%) !important;
+        color: #0369a1 !important;
+    }
+
+    /* 针对首页“地方性政策”按钮：红色渐变 */
+    button[aria-label="地方性政策"] {
+        background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%) !important;
+        color: #b91c1c !important;
     }
 
     /* 文件卡片 */
@@ -78,32 +90,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- 3. 首页专用彩色按钮样式 (只在 L1 阶段加载) ---
-def inject_home_css():
-    st.markdown("""
-        <style>
-        /* 国家级按钮：临床蓝渐变 */
-        div.stButton:nth-of-type(1) button {
-            background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%) !important;
-            color: #0369a1 !important;
-        }
-        /* 地方性按钮：医学红渐变 */
-        div.stButton:nth-of-type(2) button {
-            background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%) !important;
-            color: #b91c1c !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
-# --- 4. 状态管理与数据加载 ---
+# --- 3. 状态管理 ---
 if 'step' not in st.session_state: st.session_state.step = 'L1'
 if 'l1' not in st.session_state: st.session_state.l1 = None
 
 def nav_to(step, l1=None):
     st.session_state.step = step
     if l1: st.session_state.l1 = l1
-    # 删除了 rerun，解决警告问题
 
+# --- 4. 数据加载 (Excel 模块) ---
 @st.cache_data
 def load_excel_data():
     file_path = '数据.xlsx'
@@ -135,7 +130,6 @@ LINKS = {
     "RWE国家可信点公约": BASE_URL + "nhsa_rwe_kxd.pdf",
     "支持创新药高质量发展若干措施": BASE_URL + "nhsa_cxyp_cs.pdf",
     "药品RWE指南汇总": BASE_URL + "nhsa_rwe_hz.pdf",
-    # 地方政策
     "【北京】DRG付费新药新技术除外支付通知": BASE_URL + "bj_drg.pdf",
     "【广东】集采药品接续采购公告(第1号)": BASE_URL + "gd_vbp_1.pdf",
     "【广东】集采药品接续采购公告(第2号)": BASE_URL + "gd_vbp_2.pdf",
@@ -149,7 +143,6 @@ st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_h
 
 # L1: 首页
 if st.session_state.step == 'L1':
-    inject_home_css() # 强制注入彩色样式
     st.markdown("<div style='height:30px;'></div>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns([1, 2, 1])
     with c2:
@@ -181,7 +174,8 @@ elif st.session_state.step == 'L2':
             }
         }
         for cat, files in nat_struct[dept].items():
-            with st.expander(f"📁 {cat}", expanded=True):
+            # 这里改为 expanded=False，默认收起
+            with st.expander(f"📁 {cat}", expanded=False):
                 if not files: st.caption("暂未补充文件")
                 else:
                     for f in files:
@@ -189,13 +183,12 @@ elif st.session_state.step == 'L2':
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc; text-decoration:none;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     else: # 地方性政策
-        # 下拉框排序：其他在末尾
         biz_options = ["国谈落地", "集采", "DRG/DIP", "超品规备案", "VBP", "其他"]
         biz = st.selectbox("请选择政策领域", biz_options)
         
         if biz == "国谈落地":
             df = load_excel_data()
-            if df is None: st.warning("根目录下未检测到 '数据.xlsx'。")
+            if df is None: st.warning("未检测到 '数据.xlsx'。")
             else:
                 prov = st.selectbox("查询省份核心指标", df['省份'].unique().tolist())
                 row = df[df['省份'] == prov].iloc[0]
