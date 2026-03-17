@@ -1,0 +1,15 @@
+name: 24h 全天候网页保活
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  wake_up:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 模拟浏览器访问
+        run: |
+          curl -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" \
+               -L https://policy-search-vk.streamlit.app/
