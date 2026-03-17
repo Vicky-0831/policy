@@ -21,7 +21,7 @@ if "keep_alive_started" not in st.session_state:
 # --- 1. 页面配置 ---
 st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_state="collapsed")
 
-# --- 2. 强效 CSS 注入 (针对底色锁定、按钮缩放、微型导航) ---
+# --- 2. 核心样式表：通过 Key 强制锁定样式 ---
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff; }
@@ -30,71 +30,61 @@ st.markdown("""
     .main-title { font-size: 26px !important; font-weight: 800; color: #003366; text-align: center; padding-top: 15px; }
     
     /* 胶囊线 */
-    .capsule-line-container { display: flex; justify-content: center; margin: 10px 0 25px 0; }
+    .capsule-line-container { display: flex; justify-content: center; margin: 5px 0 20px 0; }
     .capsule-line {
         width: 120px; height: 6px; border-radius: 10px; position: relative;
         background: linear-gradient(90deg, rgba(0,74,153,0) 0%, #004a99 50%, rgba(0,74,153,0) 100%);
     }
-    .capsule-line::after {
-        content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-        width: 20px; height: 10px; background: #004a99; border-radius: 10px; border: 2px solid white;
-    }
 
-    /* --- 首页按钮：锁定 ID 容器，强效底色 + 放大尺寸 --- */
-    /* 1. 国家级政策按钮 (淡蓝渐变) */
-    div#nat-btn-box button {
-        background-image: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%) !important;
-        background-color: #e0f2fe !important;
+    /* --- 首页大按钮：强制染色与放大 --- */
+    /* 国家级政策 (Blue Gradient) */
+    div[data-testid="stButton"] > button[key="nat_btn"] {
+        background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%) !important;
+        height: 85px !important;
+        border-radius: 15px !important;
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(0,74,153,0.2) !important;
+    }
+    div[data-testid="stButton"] > button[key="nat_btn"] p {
         color: #0369a1 !important;
-        border-radius: 50px !important;
-        height: 85px !important; /* 放大按钮高度 */
-        width: 100% !important;
-        border: none !important;
-        box-shadow: 0 4px 15px rgba(0,74,153,0.15) !important;
-    }
-    div#nat-btn-box button p {
-        font-size: 22px !important; /* 放大文字，但不超过26px */
+        font-size: 22px !important;
         font-weight: 700 !important;
     }
 
-    /* 2. 地方性政策按钮 (淡绿渐变) */
-    div#loc-btn-box button {
-        background-image: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%) !important;
-        background-color: #f0fdf4 !important;
+    /* 地方性政策 (Green Gradient) */
+    div[data-testid="stButton"] > button[key="loc_btn"] {
+        background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%) !important;
+        height: 85px !important;
+        border-radius: 15px !important;
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(21,128,61,0.2) !important;
+    }
+    div[data-testid="stButton"] > button[key="loc_btn"] p {
         color: #15803d !important;
-        border-radius: 50px !important;
-        height: 85px !important; /* 放大按钮高度 */
-        width: 100% !important;
-        border: none !important;
-        box-shadow: 0 4px 15px rgba(21,128,61,0.15) !important;
-    }
-    div#loc-btn-box button p {
-        font-size: 22px !important; /* 放大文字 */
+        font-size: 22px !important;
         font-weight: 700 !important;
     }
 
-    /* --- ⬅️ 返回主页按钮：极致微型化 --- */
-    div#back-btn-box button {
-        height: 24px !important; /* 极低高度 */
-        min-height: 24px !important;
+    /* --- 返回主页按钮：极致缩小 (Mini Label) --- */
+    div[data-testid="stButton"] > button[key="back_btn"] {
+        height: 22px !important;
+        min-height: 22px !important;
         width: auto !important;
         padding: 0 8px !important;
         background-color: #f1f3f5 !important;
         border: 1px solid #dee2e6 !important;
         border-radius: 4px !important;
-        box-shadow: none !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 10px !important;
     }
-    div#back-btn-box button p {
-        font-size: 10px !important; /* 文字极小 */
-        color: #495057 !important;
-        font-weight: 500 !important;
+    div[data-testid="stButton"] > button[key="back_btn"] p {
+        font-size: 10px !important;
+        color: #666 !important;
     }
 
-    /* 卡片 & 指标样式 */
+    /* 卡片与 Excel 指标样式 */
     .file-card { background-color: #fcfdfe; padding: 15px; border: 1px solid #eef2f6; border-top: 3px solid #0056b3; border-radius: 8px; margin-bottom: 12px; }
     .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
-    .metric-card { padding: 10px; border-radius: 6px; border-left: 4px solid; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .metric-card { padding: 8px; border-radius: 6px; border-left: 4px solid; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 
     /* 注脚备注 */
     .footer-note { text-align: center; padding: 30px; color: #666; font-size: 14px !important; border-top: 1px solid #eee; margin-top: 60px; }
@@ -125,9 +115,10 @@ def load_excel_data():
         return df
     except: return None
 
-# --- 5. 链接定义 (分拆广东) ---
+# --- 5. 链接定义 ---
 BASE_URL = "https://vicky-0831.github.io/policy/pdfs/"
 LINKS = {
+    # 国家级 ... (保持 V8.3 全部内容)
     "2012年抗菌药物管理办法": BASE_URL + "nhc_kjyw_2012.pdf",
     "2015年抗菌药物评价指标": BASE_URL + "nhc_kjyw_zk_2015.pdf",
     "2025版公立医院绩效监测手册": BASE_URL + "nhc_jxjc_2025.pdf",
@@ -143,6 +134,7 @@ LINKS = {
     "RWE国家可信点公约": BASE_URL + "nhsa_rwe_kxd.pdf",
     "支持创新药高质量发展若干措施": BASE_URL + "nhsa_cxyp_cs.pdf",
     "药品RWE指南汇总": BASE_URL + "nhsa_rwe_hz.pdf",
+    # 地方级 (分拆广东 1-4)
     "【北京】DRG付费新药新技术除外支付通知": BASE_URL + "bj_drg.pdf",
     "【广东】集采药品接续采购公告(第1号)": BASE_URL + "gd_vbp_1.pdf",
     "【广东】集采药品接续采购公告(第2号)": BASE_URL + "gd_vbp_2.pdf",
@@ -160,18 +152,16 @@ if st.session_state.step == 'L1':
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
     c1, mid, c3 = st.columns([1, 2, 1])
     with mid:
-        st.markdown('<div id="nat-btn-box">', unsafe_allow_html=True)
-        st.button("国家级政策", use_container_width=True, on_click=nav_to, args=('L2', "国家"))
-        st.markdown('</div><div style="height:30px;"></div>', unsafe_allow_html=True)
-        st.markdown('<div id="loc-btn-box">', unsafe_allow_html=True)
-        st.button("地方性政策", use_container_width=True, on_click=nav_to, args=('L2', "地方"))
-        st.markdown('</div>', unsafe_allow_html=True)
+        # 使用关键 Key：nat_btn
+        st.button("国家级政策", key="nat_btn", use_container_width=True, on_click=nav_to, args=('L2', "国家"))
+        st.markdown("<div style='height:25px;'></div>", unsafe_allow_html=True)
+        # 使用关键 Key：loc_btn
+        st.button("地方性政策", key="loc_btn", use_container_width=True, on_click=nav_to, args=('L2', "地方"))
 
 # L2: 内容页
 elif st.session_state.step == 'L2':
-    st.markdown('<div id="back-btn-box">', unsafe_allow_html=True)
-    st.button("⬅️ 返回主页", on_click=nav_to, args=('L1',))
-    st.markdown('</div>', unsafe_allow_html=True)
+    # 使用关键 Key：back_btn
+    st.button("⬅️ 返回主页", key="back_btn", on_click=nav_to, args=('L1',))
     
     if st.session_state.l1 == "国家":
         dept = st.selectbox("请选择政策部门", ["国家医保局", "国家卫健委"])
@@ -205,14 +195,14 @@ elif st.session_state.step == 'L2':
         
         if biz == "国谈落地":
             df = load_excel_data()
-            if df is None: st.warning("⚠️ 根目录下未找到 '数据.xlsx'。")
-            else:
+            if df is not None:
                 prov = st.selectbox("查询省份核心指标", df['省份'].unique().tolist())
                 row = df[df['省份'] == prov].iloc[0]
                 st.markdown(f"##### 📌 {prov} - 核心指标分析")
                 metrics = [("📅 药事会时限", '药事会召开时限'), ("💊 思福诺双通道", '思福诺是否纳入双通道'),
                            ("💊 康新博双通道", '康新博胶囊是否纳入双通道'), ("💰 康新博单独支付", '康新博胶囊是否纳入双通道单独支付'),
                            ("📊 总额单列/调整", '国谈药医保总额单列'), ("🚫 DRG/DIP除外", '国谈药DRG/DIP除外支付')]
+                
                 html_m = '<div class="metric-grid">'
                 for label, key in metrics:
                     val = str(row[key])
@@ -221,25 +211,22 @@ elif st.session_state.step == 'L2':
                     html_m += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_m + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
-                st.markdown("##### 📄 关联原文")
                 for _, r in df[df['省份'] == prov].iterrows():
                     if pd.notna(r['链接']): st.markdown(f"📄 [{r['原文']}]({r['链接']})")
 
         elif biz == "集采":
-            st.markdown("##### 📁 集中带量采购政策文件")
-            # --- 分拆广东 1-4 号 ---
-            gd_files = ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采采购公告(第3号)", "【广东】集采采购公告(第4号)"]
-            for f in ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]:
+            st.markdown("##### 📁 采购公告")
+            gd_list = ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]
+            for f in gd_list:
                 url = LINKS.get(f, "#")
                 st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
         elif biz == "DRG/DIP":
             st.markdown("##### 📁 支付改革")
-            f_name = "【北京】DRG付费新药新技术除外支付通知"
-            url = LINKS.get(f_name, "#")
-            st.markdown(f'<div class="file-card"><b>{f_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            f_n = "【北京】DRG付费新药新技术除外支付通知"
+            st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{LINKS[f_n]}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
-# --- 7. 注脚 (备注前置) ---
+# --- 7. 注脚 (备注完整找回) ---
 st.markdown("""
     <div class="footer-note">
         <b>备注：</b>文件中<span class="text-green">绿色标识</span>为机会点，
