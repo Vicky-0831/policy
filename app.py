@@ -154,8 +154,8 @@ LINKS = {
     "【广东】集采药品接续采购公告(第3号)": BASE_URL + "gd_vbp_3.pdf",
     "【广东】集采药品接续采购公告(第4号)": BASE_URL + "gd_vbp_4.pdf",
     "【浙江】第一批创新医药技术医保支付激励名单": BASE_URL + "zj_incentive.pdf",
-    "国采1-8批接续采购政策要点详表(详细版)": "https://github.com/Vicky-0831/policy/blob/main/pdfs/vbp_policy_detail.xlsx",
-    "国采1-8批接续采购政策要点详表(招标版)": "https://github.com/Vicky-0831/policy/blob/main/pdfs/vbp_policy_bid.xlsx"
+    "国采1-8批接续采购政策要点详表(详细版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_detail.xlsx",
+    "国采1-8批接续采购政策要点详表(招标版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_bid.xlsx"
 }
 
 # ==========================================
