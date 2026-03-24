@@ -154,8 +154,8 @@ LINKS = {
     "【广东】集采药品接续采购公告(第3号)": BASE_URL + "gd_vbp_3.pdf",
     "【广东】集采药品接续采购公告(第4号)": BASE_URL + "gd_vbp_4.pdf",
     "【浙江】第一批创新医药技术医保支付激励名单": BASE_URL + "zj_incentive.pdf",
-    "国采1-8批接续采购政策要点详表(详细版)": BASE_URL + "vbp_policy_detail.xlsx",
-    "国采1-8批接续采购政策要点详表(招标版)": BASE_URL + "vbp_policy_bid.xlsx"
+    "国采1-8批接续采购政策要点详表(详细版)": "https://github.com/Vicky-0831/policy/blob/main/pdfs/vbp_policy_detail.xlsx",
+    "国采1-8批接续采购政策要点详表(招标版)": "https://github.com/Vicky-0831/policy/blob/main/pdfs/vbp_policy_bid.xlsx"
 }
 
 # ==========================================
@@ -251,7 +251,7 @@ elif st.session_state.step == 'L2':
             vbp_files = ["国采1-8批接续采购政策要点详表(详细版)", "国采1-8批接续采购政策要点详表(招标版)"]
             for f in vbp_files:
                 url = LINKS.get(f, "#")
-                st.markdown(f'<div class="file-card" style="border-top-color:#673ab7;"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#673ab7;">🔗 下载/查看详表</a></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看详表</a></div>', unsafe_allow_html=True)
 
 # ==========================================
 # --- 7. 底部注脚与备注 ---
