@@ -175,7 +175,7 @@ elif st.session_state.step == 'L2':
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     else:
-        biz_opts = ["国谈落地", "VBP", "集采", "DRG/DIP", "超品规备案", "其他"]
+        biz_opts = ["国谈落地", "1-8批国采续约", "集采", "DRG/DIP", "超品规备案", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
         if biz == "国谈落地":
@@ -199,13 +199,13 @@ elif st.session_state.step == 'L2':
                 for _, r in df[df['省份'] == prov].iterrows():
                     if pd.notna(r['链接']): st.markdown(f"📄 [{r['原文']}]({r['链接']})")
 
-        elif biz == "VBP":
+        elif biz == "1-8批国采续约":
             df_vbp = load_vbp_data()
             if df_vbp is None: st.warning("⚠️ 没找到 'VBP.xlsx'！")
             else:
-                prov_v = st.selectbox("查询省份 VBP 执行政策", df_vbp['省份'].unique().tolist())
+                prov_v = st.selectbox("查询省份", df_vbp['省份'].unique().tolist())
                 row_v = df_vbp[df_vbp['省份'] == prov_v].iloc[0]
-                st.markdown(f"##### 📌 {prov_v} - 1-8批接续采购政策要点")
+                st.markdown(f"##### 📌 {prov_v} - 1-8批国采续约政策要点")
                 v_metrics = [
                     ("⚖️ 中选:非中选比例", '中选:非中选比例'), ("📊 提及合并考核", '提及合并考核'),
                     ("🚦 提及红黄标色", '提及红黄标色'), ("🛡️ 提及不搞一刀切", '提及不一刀切'),
