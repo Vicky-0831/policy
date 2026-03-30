@@ -76,7 +76,7 @@ def nav_to(step, l1=None):
     if l1: st.session_state.l1 = l1
 
 # ==========================================
-# --- 4. 数据加载逻辑 (新增 VBP 加载) ---
+# --- 4. 数据加载 (解决 nan 问题) ---
 # ==========================================
 @st.cache_data
 def load_excel_data():
@@ -88,24 +88,24 @@ def load_excel_data():
         cols = ['药事会召开时限', '思福诺是否纳入双通道', '康新博胶囊是否纳入双通道', 
                 '康新博胶囊是否纳入双通道单独支付', '国谈药医保总额单列', '国谈药DRG/DIP除外支付']
         df[cols] = df[cols].ffill()
-        return df
+        return df.fillna('-')
     except: return None
 
 @st.cache_data
 def load_vbp_data():
-    """ 专门读取新增的 VBP.xlsx 文件 """
     file_path = 'VBP.xlsx'
     if not os.path.exists(file_path): return None
     try:
         df = pd.read_excel(file_path)
-        return df
+        return df.fillna('-')
     except: return None
 
 # ==========================================
-# --- 5. 链接仓库 (保持不变) ---
+# --- 5. 链接仓库 ---
 # ==========================================
 BASE_URL = "https://vicky-0831.github.io/policy/pdfs/"
 LINKS = {
+    # 国家级 ...
     "2012年抗菌药物管理办法": BASE_URL + "nhc_kjyw_2012.pdf",
     "2015年抗菌药物评价指标": BASE_URL + "nhc_kjyw_zk_2015.pdf",
     "2025版公立医院绩效监测手册": BASE_URL + "nhc_jxjc_2025.pdf",
@@ -121,12 +121,14 @@ LINKS = {
     "RWE国家可信点公约": BASE_URL + "nhsa_rwe_kxd.pdf",
     "支持创新药高质量发展若干措施": BASE_URL + "nhsa_cxyp_cs.pdf",
     "药品RWE指南汇总": BASE_URL + "nhsa_rwe_hz.pdf",
+    # 地方级 ...
     "【北京】DRG付费新药新技术除外支付通知": BASE_URL + "bj_drg.pdf",
     "【广东】集采药品接续采购公告(第1号)": BASE_URL + "gd_vbp_1.pdf",
     "【广东】集采药品接续采购公告(第2号)": BASE_URL + "gd_vbp_2.pdf",
     "【广东】集采药品接续采购公告(第3号)": BASE_URL + "gd_vbp_3.pdf",
     "【广东】集采药品接续采购公告(第4号)": BASE_URL + "gd_vbp_4.pdf",
     "【浙江】第一批创新医药技术医保支付激励名单": BASE_URL + "zj_incentive.pdf",
+    # VBP 跳转预览（保持微软在线预览模式，像 PDF 一样直接看表）
     "国采1-8批接续采购政策要点详表(详细版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_detail.xlsx",
     "国采1-8批接续采购政策要点详表(招标版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_bid.xlsx"
 }
@@ -137,7 +139,6 @@ LINKS = {
 st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_html=True)
 st.markdown('<div class="capsule-line-container"><div class="capsule-line"></div></div>', unsafe_allow_html=True)
 
-# --- 首页 (L1) ---
 if st.session_state.step == 'L1':
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
     c1, mid, c3 = st.columns([1, 2, 1])
@@ -146,12 +147,10 @@ if st.session_state.step == 'L1':
         st.markdown("<div style='height:25px;'></div>", unsafe_allow_html=True)
         st.button("地方性政策", key="loc_btn", use_container_width=True, on_click=nav_to, args=('L2', "地方"))
 
-# --- 内容页 (L2) ---
 elif st.session_state.step == 'L2':
     st.button("⬅️ 返回主页", key="back_btn", on_click=nav_to, args=('L1',))
     
     if st.session_state.l1 == "国家":
-        # ... 国家级逻辑保持不变 ...
         dept = st.selectbox("请选择政策部门", ["国家医保局", "国家卫健委"])
         st.markdown(f"#### 📂 {dept}")
         nat_struct = {
@@ -177,11 +176,10 @@ elif st.session_state.step == 'L2':
                         url = LINKS.get(f, "#")
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
-    else: # --- 地方性政策 ---
+    else:
         biz_opts = ["国谈落地", "VBP", "集采", "DRG/DIP", "超品规备案", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
-        # 1. 国谈落地 (保持原来的交互方式)
         if biz == "国谈落地":
             df = load_excel_data()
             if df is None: st.warning("⚠️ 没找到 '数据.xlsx'！")
@@ -201,46 +199,38 @@ elif st.session_state.step == 'L2':
                 st.markdown(html_m + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
                 for _, r in df[df['省份'] == prov].iterrows():
-                    if pd.notna(r['链接']): st.markdown(f"📄 [{r['原文']}]({r['链接']})")
+                    if pd.notna(r['链接']) and r['链接'] != '-': 
+                        st.markdown(f"📄 [{r['原文']}]({r['链接']})")
 
-        # 2. VBP (仿照国谈落地，交互式展示新表格内容)
         elif biz == "VBP":
             df_vbp = load_vbp_data()
-            if df_vbp is None: st.warning("⚠️ 没找到 'VBP.xlsx'！请确保文件已上传至根目录。")
+            if df_vbp is None: st.warning("⚠️ 没找到 'VBP.xlsx'！")
             else:
                 prov_v = st.selectbox("查询省份 VBP 执行政策", df_vbp['省份'].unique().tolist())
                 row_v = df_vbp[df_vbp['省份'] == prov_v].iloc[0]
                 st.markdown(f"##### 📌 {prov_v} - 1-8批接续采购政策要点")
-                
-                # 定义 VBP 的核心指标卡片
                 v_metrics = [
-                    ("⚖️ 中选:非中选比例", '中选:非中选比例'),
-                    ("📊 提及合并考核", '提及合并考核'),
-                    ("🚦 提及红黄标色", '提及红黄标色'),
-                    ("🛡️ 提及不搞一刀切", '提及不一刀切'),
-                    ("👁️ 提及高价非中选异常使用", '提及高价非中选异常使用')
+                    ("⚖️ 中选:非中选比例", '中选:非中选比例'), ("📊 合并考核", '提及合并考核'),
+                    ("🚦 红黄标预警", '提及红黄标色'), ("🛡️ 不搞一刀切", '提及不一刀切'),
+                    ("👁️ 监控异常使用", '提及高价非中选异常使用')
                 ]
-                
                 html_v = '<div class="metric-grid">'
                 for label, key in v_metrics:
                     val = str(row_v[key])
-                    # 绿色代表是/有比例，红色代表否，蓝色代表其他
                     color = "#28a745" if val in ["是", "5:5", "中选品完成任务量"] else "#dc3545" if val == "否" else "#007bff"
                     bg = "#e6fffa" if val in ["是", "5:5", "中选品完成任务量"] else "#ffe6e6" if val == "否" else "#e6f2ff"
                     html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_v + '</div>', unsafe_allow_html=True)
                 
                 st.markdown("---")
-                if pd.notna(row_v['原文链接']):
-                    st.markdown(f"🔗 [查看该省执行文件原文]({row_v['原文链接']})")
-                
-                # 保留之前的详表跳转链接（放在底部作为补充）
-                st.info("💡 更多详情，请点击：")
+                # 底部直连：去掉蓝色 info 框，直接放两个重要跳转
                 c1, c2 = st.columns(2)
-                with c1: st.markdown(f"📄 [国采1-8批接续政策详表(详细版)]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
-                with c2: st.markdown(f"📄 [国采1-8批接续政策详表(招标版)]({LINKS['国采1-8批接续采购政策要点详表(招标版)']})")
+                with c1: st.markdown(f"📄 [接续政策详表(详细版)]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
+                with c2: st.markdown(f"📄 [接续政策详表(招标版)]({LINKS['国采1-8批接续采购政策要点详表(招标版)']})")
+                
+                if pd.notna(row_v['原文链接']) and row_v['原文链接'] != '-':
+                    st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
 
-        # 3. 集采 (广东 1-4 号)
         elif biz == "集采":
             st.markdown("##### 📁 集中带量采购政策公告 (广东)")
             gd_list = ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]
@@ -248,7 +238,6 @@ elif st.session_state.step == 'L2':
                 url = LINKS.get(f, "#")
                 st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
-        # 4. DRG/DIP
         elif biz == "DRG/DIP":
             st.markdown("##### 📁 支付改革文件 (北京)")
             f_n = "【北京】DRG付费新药新技术除外支付通知"
