@@ -214,7 +214,7 @@ elif st.session_state.step == 'L2':
                 html_v = '<div class="metric-grid">'
                 for label, key in v_metrics:
                     val = str(row_v[key]) if pd.notna(row_v[key]) else ""
-                    if key == '提及合并考核', '提及不一刀切':
+                    if key == '提及合并考核','提及不一刀切':
                         color = "#28a745" if val == "是" else "#dc3545" if val == "否" else "#007bff"
                         bg = "#e6fffa" if val == "是" else "#ffe6e6" if val == "否" else "#e6f2ff"
                     else:
