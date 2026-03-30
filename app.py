@@ -74,7 +74,7 @@ def nav_to(step, l1=None):
     if l1: st.session_state.l1 = l1
 
 # ==========================================
-# --- 4. 数据加载 (核心过滤逻辑：只读到陕西) ---
+# --- 4. 数据加载 (含符号自动修正) ---
 # ==========================================
 @st.cache_data
 def load_excel_data():
@@ -82,8 +82,7 @@ def load_excel_data():
     if not os.path.exists(file_path): return None
     try:
         df = pd.read_excel(file_path)
-        # 💡 关键：强制过滤掉省份为空的行，防止读到空白模板行
-        df = df.dropna(subset=['省份'])
+        df = df.dropna(subset=['省份']) # 只读到有省份内容的地方
         df['省份'] = df['省份'].ffill()
         cols = ['药事会召开时限', '思福诺是否纳入双通道', '康新博胶囊是否纳入双通道', 
                 '康新博胶囊是否纳入双通道单独支付', '国谈药医保总额单列', '国谈药DRG/DIP除外支付']
@@ -97,8 +96,10 @@ def load_vbp_data():
     if not os.path.exists(file_path): return None
     try:
         df = pd.read_excel(file_path)
-        # 💡 关键：只读到有省份内容的地方（如陕西），后面的空行全部扔掉
-        df = df.dropna(subset=['省份'])
+        df = df.dropna(subset=['省份']) # 关键：只读到陕西，后面空行不读
+        # 💡 新增：自动修正比例中的中文冒号，确保格式统一
+        if '中选:非中选比例' in df.columns:
+            df['中选:非中选比例'] = df['中选:非中选比例'].astype(str).str.replace('：', ':').str.strip()
         return df
     except: return None
 
@@ -132,9 +133,7 @@ LINKS = {
     "国采1-8批接续采购政策要点详表(招标版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_bid.xlsx"
 }
 
-# ==========================================
-# --- 6. 界面内容渲染 ---
-# ==========================================
+# --- 6. 界面渲染 ---
 st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_html=True)
 st.markdown('<div class="capsule-line-container"><div class="capsule-line"></div></div>', unsafe_allow_html=True)
 
@@ -210,7 +209,7 @@ elif st.session_state.step == 'L2':
                 v_metrics = [
                     ("⚖️ 中选:非中选比例", '中选:非中选比例'), ("📊 提及合并考核", '提及合并考核'),
                     ("🚦 提及红黄标色", '提及红黄标色'), ("🛡️ 提及不搞一刀切", '提及不一刀切'),
-                    ("👁️ 提及监控异常使用", '提及高价非中选异常使用')
+                    ("👁️ 提及高价非中选异常使用", '提及高价非中选异常使用')
                 ]
                 html_v = '<div class="metric-grid">'
                 for label, key in v_metrics:
@@ -238,9 +237,6 @@ elif st.session_state.step == 'L2':
             url = LINKS.get(f_n, "#")
             st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
-# ==========================================
-# --- 7. 底部注脚与备注 ---
-# ==========================================
 st.markdown("""
     <div class="footer-note">
         <b>备注：</b>文件中<span class="text-green">绿色标识</span>为机会点，
