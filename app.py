@@ -208,14 +208,18 @@ elif st.session_state.step == 'L2':
                 st.markdown(f"##### 📌 {prov_v} - 1-8批集采续约政策要点")
                 v_metrics = [
                     ("⚖️ 中选:非中选比例", '中选:非中选比例'), ("📊 提及合并考核", '提及合并考核'),
-                    ("🚦 提及红黄标色", '提及红黄标色'), ("🛡️ 提及不搞一刀切", '提及不一刀切'),
+                    ("🚦 提及红黄标色", '提及红黄标色'), ("🛡️ 提及不一刀切", '提及不一刀切'),
                     ("👁️ 提及高价非中选异常使用", '提及高价非中选异常使用')
                 ]
                 html_v = '<div class="metric-grid">'
                 for label, key in v_metrics:
                     val = str(row_v[key]) if pd.notna(row_v[key]) else ""
-                    color = "#28a745" if val in ["否", "5:5", "中选品完成任务量"] else "#dc3545" if val == "是" else "#007bff"
-                    bg = "#e6fffa" if val in ["否", "5:5", "中选品完成任务量"] else "#ffe6e6" if val == "是" else "#e6f2ff"
+                    if key == '提及合并考核', '提及不一刀切':
+                        color = "#28a745" if val == "是" else "#dc3545" if val == "否" else "#007bff"
+                        bg = "#e6fffa" if val == "是" else "#ffe6e6" if val == "否" else "#e6f2ff"
+                    else:
+                        color = "#28a745" if val in ["否", "5:5", "中选品完成任务量"] else "#dc3545" if val == "是" else "#007bff"
+                        bg = "#e6fffa" if val in ["否", "5:5", "中选品完成任务量"] else "#ffe6e6" if val == "是" else "#e6f2ff"
                     html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_v + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
