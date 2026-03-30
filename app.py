@@ -227,7 +227,7 @@ elif st.session_state.step == 'L2':
                 for label, key in metrics:
                     val = str(row[key]) if pd.notna(row[key]) else ""
                     color = "#28a745" if "是" in val else "#f0ad4e" if "否" in val else "#007bff"
-                    bg = "#e6fffa" if "是" in val else "#ffe6e6" if "否" in val else "#e6f2ff"
+                    bg = "#e6fffa" if "是" in val else "#fff9e6" if "否" in val else "#e6f2ff"
                     html_m += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_m + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
@@ -251,10 +251,14 @@ elif st.session_state.step == 'L2':
                     val = str(row_v[key]) if pd.notna(row_v[key]) else ""
                     if key in ['提及合并考核', '提及不一刀切']:
                         color = "#28a745" if val == "是" else "#f0ad4e" if val == "否" else "#007bff"
-                        bg = "#e6fffa" if val == "是" else "#ffe6e6" if val == "否" else "#e6f2ff"
+                        bg = "#e6fffa" if val == "是" else "#fff9e6" if val == "否" else "#e6f2ff"
                     else:
-                        color = "#28a745" if val in ["否", "5:5", "中选品完成任务量"] else "#dc3545" if val == "是" else "#007bff"
-                        bg = "#e6fffa" if val in ["否", "5:5", "中选品完成任务量"] else "#ffe6e6" if val == "是" else "#e6f2ff"
+                        if val in ["否", "5:5"]:
+                            color, bg = "#28a745", "#e6fffa"
+                        elif val in ["是", "中选品完成任务量"]:
+                            color, bg = "#f0ad4e", "#fff9e6"
+                        else:
+                            color, bg = "#007bff", "#e6f2ff"
                     html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_v + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
