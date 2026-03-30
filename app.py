@@ -225,7 +225,6 @@ elif st.session_state.step == 'L2':
                 st.markdown("---")
                 c1, c2 = st.columns(2)
                 with c1: st.markdown(f"📄 [接续政策详表(详细版)]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
-                with c2: st.markdown(f"📄 [接续政策详表(招标版)]({LINKS['国采1-8批接续采购政策要点详表(招标版)']})")
                 if pd.notna(row_v['原文链接']):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
 
