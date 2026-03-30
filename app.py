@@ -175,7 +175,7 @@ elif st.session_state.step == 'L2':
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     else:
-        biz_opts = ["国谈落地", "1-8批国采续约", "地方VBP", "DRG/DIP", "分级管理目录", "超品规备案", "其他"]
+        biz_opts = ["国谈落地", "1-8批集采续约", "PVBP", "DRG/DIP", "分级管理目录", "超品规备案", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
         if biz == "国谈落地":
@@ -199,13 +199,13 @@ elif st.session_state.step == 'L2':
                 for _, r in df[df['省份'] == prov].iterrows():
                     if pd.notna(r['链接']): st.markdown(f"📄 [{r['原文']}]({r['链接']})")
 
-        elif biz == "1-8批国采续约":
+        elif biz == "1-8批集采续约":
             df_vbp = load_vbp_data()
             if df_vbp is None: st.warning("⚠️ 没找到 'VBP.xlsx'！")
             else:
                 prov_v = st.selectbox("查询省份", df_vbp['省份'].unique().tolist())
                 row_v = df_vbp[df_vbp['省份'] == prov_v].iloc[0]
-                st.markdown(f"##### 📌 {prov_v} - 1-8批国采续约政策要点")
+                st.markdown(f"##### 📌 {prov_v} - 1-8批集采续约政策要点")
                 v_metrics = [
                     ("⚖️ 中选:非中选比例", '中选:非中选比例'), ("📊 提及合并考核", '提及合并考核'),
                     ("🚦 提及红黄标色", '提及红黄标色'), ("🛡️ 提及不搞一刀切", '提及不一刀切'),
@@ -214,8 +214,8 @@ elif st.session_state.step == 'L2':
                 html_v = '<div class="metric-grid">'
                 for label, key in v_metrics:
                     val = str(row_v[key]) if pd.notna(row_v[key]) else ""
-                    color = "#28a745" if val in ["是", "5:5", "中选品完成任务量"] else "#dc3545" if val == "否" else "#007bff"
-                    bg = "#e6fffa" if val in ["是", "5:5", "中选品完成任务量"] else "#ffe6e6" if val == "否" else "#e6f2ff"
+                    color = "#28a745" if val in ["否", "5:5", "中选品完成任务量"] else "#dc3545" if val == "是" else "#007bff"
+                    bg = "#e6fffa" if val in ["否", "5:5", "中选品完成任务量"] else "#ffe6e6" if val == "是" else "#e6f2ff"
                     html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_v + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
@@ -225,7 +225,7 @@ elif st.session_state.step == 'L2':
                 if pd.notna(row_v['原文链接']):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
 
-        elif biz == "地方VBP":
+        elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购政策公告 (广东)")
             for f in ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]:
                 url = LINKS.get(f, "#")
