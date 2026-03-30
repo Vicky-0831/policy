@@ -103,10 +103,45 @@ def load_vbp_data():
         return df
     except: return None
 
+@st.cache_data
+def load_cpzba_data():
+    if not os.path.exists('cpzba.xlsx'): return None
+    return pd.read_excel('cpzba.xlsx').dropna(subset=['省份'])
+
+@st.cache_data
+def load_cfjmlpzba_data():
+    if not os.path.exists('cfjmlpzba.xlsx'): return None
+    return pd.read_excel('cfjmlpzba.xlsx').dropna(subset=['省份'])
+
 # ==========================================
 # --- 5. 链接仓库 ---
 # ==========================================
 BASE_URL = "https://vicky-0831.github.io/policy/pdfs/"
+LEVEL_CATALOG_PDFS = {
+    "北京": BASE_URL + "bj_tj_hb_2024.pdf",
+    "天津": BASE_URL + "bj_tj_hb_2024.pdf",
+    "河北": BASE_URL + "bj_tj_hb_2024.pdf",
+    "重庆": BASE_URL + "cq2015.pdf",
+    "安徽": BASE_URL + "ah2012.pdf",
+    "宁夏": BASE_URL + "nx2012.pdf",
+    "福建": BASE_URL + "fj2022.pdf",
+    "海南": BASE_URL + "hn2022.pdf",
+    "湖南": BASE_URL + "hunan2021.pdf",
+    "四川": BASE_URL + "sc2025.pdf",
+    "陕西": BASE_URL + "sx2023.pdf",
+    "河南": BASE_URL + "henan2021.pdf",
+    "广东": BASE_URL + "gd2024.pdf",
+    "湖北": BASE_URL + "hubei2021.pdf",
+    "新疆": BASE_URL + "xj2025.pdf",
+    "甘肃": BASE_URL + "gansu2025.pdf",
+    "江苏": BASE_URL + "js2024.pdf",
+    "江西": BASE_URL + "jiangxi2012.pdf",
+    "辽宁": BASE_URL + "liaoning2012.pdf",
+    "内蒙古": BASE_URL + "nmg2012.pdf",
+    "青海": BASE_URL + "qh2025.pdf",
+    "浙江": BASE_URL + "zj2021.pdf"
+}
+
 LINKS = {
     "2012年抗菌药物管理办法": BASE_URL + "nhc_kjyw_2012.pdf",
     "2015年抗菌药物评价指标": BASE_URL + "nhc_kjyw_zk_2015.pdf",
@@ -227,6 +262,41 @@ elif st.session_state.step == 'L2':
                 with c1: st.markdown(f"📄 [接续政策详表]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
                 if pd.notna(row_v['原文链接']):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
+
+        elif biz == "分级管理目录":
+            df_cp = load_cpzba_data()
+            df_cf = load_cfjmlpzba_data()
+            all_provs = sorted(list(set(df_cp['省份'].unique()) if df_cp is not None else [] | set(df_cf['省份'].unique()) if df_cf is not None else []))
+            prov_sel = st.selectbox("查询省份", all_provs)
+            st.markdown(f"##### 📌 {prov_sel} - 抗菌药物备案管理政策")
+            
+            col_a, col_b = st.columns(2)
+            with col_a:
+                st.markdown('<p style="font-size:14px; font-weight:bold; color:#003366;">📁 超50/35品种备案</p>', unsafe_allow_html=True)
+                if df_cp is not None and not df_cp[df_cp['省份'] == prov_sel].empty:
+                    rc = df_cp[df_cp['省份'] == prov_sel].iloc[0]
+                    for lab, k in [("🔹 是否提及", "是否提及"), ("📝 明确流程", "是否有明确流程")]:
+                        v = str(rc[k]) if pd.notna(rc[k]) else "未提及"
+                        clr = "#28a745" if v == "是" else "#dc3545" if v == "否" else "#666"
+                        b_clr = "#e6fffa" if v == "是" else "#ffe6e6" if v == "否" else "#f8f9fa"
+                        st.markdown(f'<div class="metric-card" style="border-left-color:{clr}; background-color:{b_clr}; margin-bottom:5px;"><div style="font-size:11px; color:#666;">{lab}</div><div style="font-size:14px; font-weight:700; color:{clr};">{v}</div></div>', unsafe_allow_html=True)
+
+            with col_b:
+                st.markdown('<p style="font-size:14px; font-weight:bold; color:#003366;">📁 超分级目录品种备案</p>', unsafe_allow_html=True)
+                if df_cf is not None and not df_cf[df_cf['省份'] == prov_sel].empty:
+                    rf = df_cf[df_cf['省份'] == prov_sel].iloc[0]
+                    for lab, k in [("🔹 是否提及", "是否提及"), ("📝 明确流程", "是否有明确流程")]:
+                        v = str(rf[k]) if pd.notna(rf[k]) else "未提及"
+                        clr = "#28a745" if v == "是" else "#dc3545" if v == "否" else "#666"
+                        b_clr = "#e6fffa" if v == "是" else "#ffe6e6" if v == "否" else "#f8f9fa"
+                        st.markdown(f'<div class="metric-card" style="border-left-color:{clr}; background-color:{b_clr}; margin-bottom:5px;"><div style="font-size:11px; color:#666;">{lab}</div><div style="font-size:14px; font-weight:700; color:{clr};">{v}</div></div>', unsafe_allow_html=True)
+
+            st.markdown("---")
+            if prov_sel in LEVEL_CATALOG_PDFS:
+                pdf_url = LEVEL_CATALOG_PDFS[prov_sel]
+                st.markdown(f'<div class="file-card"><b>📄 {prov_sel}抗菌药物分级管理目录原文</b><br><a href="{pdf_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 立即查看原文</a></div>', unsafe_allow_html=True)
+            else:
+                st.caption("ℹ️ 该省份分级目录文件非公开")
 
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购政策公告 (广东)")
