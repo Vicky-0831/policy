@@ -162,8 +162,8 @@ elif st.session_state.step == 'L2':
                 "国谈落地": ["2025年医保药品目录通知", "做好谈判药品落地工作的通知"],
                 "红黄标": ["挂网药品价格风险预警标识通知"],
                 "基金监管": ["2026年医保基金监管工作通知"],
-                "其他": ["药品RWE价值评价指南", "RWE国家可信点公约", "支持创新药高质量发展若干措施", "药品RWE指南汇总"],
-                "VBP": [], "DRG/DIP": []
+                "VBP": [], "DRG/DIP": [],
+                "其他": ["药品RWE价值评价指南", "RWE国家可信点公约", "支持创新药高质量发展若干措施", "药品RWE指南汇总"]
             }
         }
         for cat, files in nat_struct[dept].items():
@@ -175,7 +175,7 @@ elif st.session_state.step == 'L2':
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     else:
-        biz_opts = ["国谈落地", "1-8批国采续约", "集采", "DRG/DIP", "超品规备案", "其他"]
+        biz_opts = ["国谈落地", "1-8批国采续约", "地方VBP", "DRG/DIP", "超品规备案", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
         if biz == "国谈落地":
@@ -225,7 +225,7 @@ elif st.session_state.step == 'L2':
                 if pd.notna(row_v['原文链接']):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
 
-        elif biz == "集采":
+        elif biz == "地方VBP":
             st.markdown("##### 📁 集中带量采购政策公告 (广东)")
             for f in ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]:
                 url = LINKS.get(f, "#")
