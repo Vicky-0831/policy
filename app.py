@@ -7,6 +7,7 @@ import requests
 
 # ==========================================
 # --- 0. 技术保活（后台自动运行，通常不用管） ---
+# #️⃣ 这里的代码是保证网页不掉线的“小闹钟”
 # ==========================================
 def keep_alive():
     while True:
@@ -26,29 +27,40 @@ if "keep_alive_started" not in st.session_state:
 st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_state="collapsed")
 
 # ==========================================
-# --- 2. 界面装修（CSS 样式） ---
+# --- 2. 界面装修（CSS 样式：管字号、颜色、按钮大小） ---
 # ==========================================
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff; }
+
+    /* 【修改处】主标题设置 */
     .main-title { font-size: 26px !important; font-weight: 800; color: #003366; text-align: center; padding-top: 15px; }
+    
+    /* 标题下方的小横线装饰 */
     .capsule-line-container { display: flex; justify-content: center; margin: 10px 0 25px 0; }
     .capsule-line {
         width: 120px; height: 6px; border-radius: 10px; position: relative;
         background: linear-gradient(90deg, rgba(0,74,153,0) 0%, #004a99 50%, rgba(0,74,153,0) 100%);
     }
+
+    /* --- 【首页大按钮设置】 --- */
+    /* 1. 国家级政策按钮（蓝色渐变） */
     .st-key-nat_btn button {
         background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 100%) !important;
         height: 85px !important; border-radius: 15px !important; border: none !important;
         box-shadow: 0 4px 15px rgba(0,74,153,0.2) !important;
     }
     .st-key-nat_btn button p { color: #0369a1 !important; font-size: 20px !important; font-weight: 700 !important; }
+
+    /* 2. 地方性政策按钮（绿色渐变） */
     .st-key-loc_btn button {
         background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%) !important;
         height: 85px !important; border-radius: 15px !important; border: none !important;
         box-shadow: 0 4px 15px rgba(21,128,61,0.2) !important;
     }
     .st-key-loc_btn button p { color: #15803d !important; font-size: 20px !important; font-weight: 700 !important; }
+
+    /* --- 【返回主页小按钮设置】 --- */
     .st-key-back_btn { width: auto !important; margin-bottom: 15px !important; }
     .st-key-back_btn button {
         height: 24px !important; min-height: 24px !important; width: auto !important;
@@ -56,9 +68,13 @@ st.markdown("""
         border: 1px solid #dee2e6 !important; border-radius: 4px !important;
     }
     .st-key-back_btn button p { font-size: 10px !important; color: #888 !important; }
+
+    /* 备注信息样式 */
     .footer-note { text-align: center; padding: 30px; color: #666; font-size: 14px !important; border-top: 1px solid #eee; margin-top: 60px; }
     .text-green { color: #2d9d78; font-weight: bold; }
     .text-yellow { color: #f0ad4e; font-weight: bold; }
+    
+    /* 文件夹卡片和指标方块样式 */
     .file-card { background-color: #fcfdfe; padding: 15px; border: 1px solid #eef2f6; border-top: 3px solid #0056b3; border-radius: 8px; margin-bottom: 12px; }
     .metric-card { padding: 10px; border-radius: 6px; border-left: 4px solid; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
@@ -66,7 +82,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# --- 3. 状态管理 ---
+# --- 3. 页面跳转管理 ---
 # ==========================================
 if 'step' not in st.session_state: st.session_state.step = 'L1'
 if 'l1' not in st.session_state: st.session_state.l1 = None
@@ -76,7 +92,7 @@ def nav_to(step, l1=None):
     if l1: st.session_state.l1 = l1
 
 # ==========================================
-# --- 4. 数据加载 (解决 nan 问题) ---
+# --- 4. Excel 表格读取逻辑（包含去 nan 处理） ---
 # ==========================================
 @st.cache_data
 def load_excel_data():
@@ -88,7 +104,7 @@ def load_excel_data():
         cols = ['药事会召开时限', '思福诺是否纳入双通道', '康新博胶囊是否纳入双通道', 
                 '康新博胶囊是否纳入双通道单独支付', '国谈药医保总额单列', '国谈药DRG/DIP除外支付']
         df[cols] = df[cols].ffill()
-        return df.fillna('-')
+        return df.fillna('-') # 将空白处填为横杠
     except: return None
 
 @st.cache_data
@@ -97,15 +113,15 @@ def load_vbp_data():
     if not os.path.exists(file_path): return None
     try:
         df = pd.read_excel(file_path)
-        return df.fillna('-')
+        return df.fillna('-') # 将空白处填为横杠
     except: return None
 
 # ==========================================
-# --- 5. 链接仓库 ---
+# --- 5. 【PDF 链接仓库】 ---
 # ==========================================
 BASE_URL = "https://vicky-0831.github.io/policy/pdfs/"
 LINKS = {
-    # 国家级 ...
+    # 国家级及地方普通文件
     "2012年抗菌药物管理办法": BASE_URL + "nhc_kjyw_2012.pdf",
     "2015年抗菌药物评价指标": BASE_URL + "nhc_kjyw_zk_2015.pdf",
     "2025版公立医院绩效监测手册": BASE_URL + "nhc_jxjc_2025.pdf",
@@ -121,14 +137,14 @@ LINKS = {
     "RWE国家可信点公约": BASE_URL + "nhsa_rwe_kxd.pdf",
     "支持创新药高质量发展若干措施": BASE_URL + "nhsa_cxyp_cs.pdf",
     "药品RWE指南汇总": BASE_URL + "nhsa_rwe_hz.pdf",
-    # 地方级 ...
     "【北京】DRG付费新药新技术除外支付通知": BASE_URL + "bj_drg.pdf",
     "【广东】集采药品接续采购公告(第1号)": BASE_URL + "gd_vbp_1.pdf",
     "【广东】集采药品接续采购公告(第2号)": BASE_URL + "gd_vbp_2.pdf",
     "【广东】集采药品接续采购公告(第3号)": BASE_URL + "gd_vbp_3.pdf",
     "【广东】集采药品接续采购公告(第4号)": BASE_URL + "gd_vbp_4.pdf",
     "【浙江】第一批创新医药技术医保支付激励名单": BASE_URL + "zj_incentive.pdf",
-    # VBP 跳转预览（保持微软在线预览模式，像 PDF 一样直接看表）
+    
+    # VBP 跳转预览（微软在线预览，像 PDF 一样直接看表）
     "国采1-8批接续采购政策要点详表(详细版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_detail.xlsx",
     "国采1-8批接续采购政策要点详表(招标版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_bid.xlsx"
 }
@@ -139,6 +155,7 @@ LINKS = {
 st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_html=True)
 st.markdown('<div class="capsule-line-container"><div class="capsule-line"></div></div>', unsafe_allow_html=True)
 
+# --- 首页 (L1) ---
 if st.session_state.step == 'L1':
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
     c1, mid, c3 = st.columns([1, 2, 1])
@@ -147,6 +164,7 @@ if st.session_state.step == 'L1':
         st.markdown("<div style='height:25px;'></div>", unsafe_allow_html=True)
         st.button("地方性政策", key="loc_btn", use_container_width=True, on_click=nav_to, args=('L2', "地方"))
 
+# --- 内容页 (L2) ---
 elif st.session_state.step == 'L2':
     st.button("⬅️ 返回主页", key="back_btn", on_click=nav_to, args=('L1',))
     
@@ -176,7 +194,7 @@ elif st.session_state.step == 'L2':
                         url = LINKS.get(f, "#")
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
-    else:
+    else: # --- 地方性政策 ---
         biz_opts = ["国谈落地", "VBP", "集采", "DRG/DIP", "超品规备案", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
@@ -223,7 +241,7 @@ elif st.session_state.step == 'L2':
                 st.markdown(html_v + '</div>', unsafe_allow_html=True)
                 
                 st.markdown("---")
-                # 底部直连：去掉蓝色 info 框，直接放两个重要跳转
+                # 底部直连（去掉了蓝色框）
                 c1, c2 = st.columns(2)
                 with c1: st.markdown(f"📄 [接续政策详表(详细版)]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
                 with c2: st.markdown(f"📄 [接续政策详表(招标版)]({LINKS['国采1-8批接续采购政策要点详表(招标版)']})")
