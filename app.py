@@ -281,8 +281,8 @@ elif st.session_state.step == 'L2':
                     rc = df_cp[df_cp['省份'] == prov_sel].iloc[0]
                     for lab, k in [("🔹 是否提及", "是否提及"), ("📝 明确流程", "是否有明确流程")]:
                         v = str(rc[k]) if pd.notna(rc[k]) else "未提及"
-                        clr = "#28a745" if v == "是" else "#dc3545" if v == "否" else "#666"
-                        b_clr = "#e6fffa" if v == "是" else "#ffe6e6" if v == "否" else "#f8f9fa"
+                        clr = "#28a745" if v == "是" else "#f0ad4e" if v == "否" else "#666"
+                        b_clr = "#e6fffa" if v == "是" else "#fff9e6" if v == "否" else "#f8f9fa"
                         st.markdown(f'<div class="metric-card" style="border-left-color:{clr}; background-color:{b_clr}; margin-bottom:5px;"><div style="font-size:11px; color:#666;">{lab}</div><div style="font-size:14px; font-weight:700; color:{clr};">{v}</div></div>', unsafe_allow_html=True)
 
             with col_b:
@@ -291,8 +291,8 @@ elif st.session_state.step == 'L2':
                     rf = df_cf[df_cf['省份'] == prov_sel].iloc[0]
                     for lab, k in [("🔹 是否提及", "是否提及"), ("📝 明确流程", "是否有明确流程")]:
                         v = str(rf[k]) if pd.notna(rf[k]) else "未提及"
-                        clr = "#28a745" if v == "是" else "#dc3545" if v == "否" else "#666"
-                        b_clr = "#e6fffa" if v == "是" else "#ffe6e6" if v == "否" else "#f8f9fa"
+                        clr = "#28a745" if v == "是" else "#f0ad4e" if v == "否" else "#666"
+                        b_clr = "#e6fffa" if v == "是" else "#fff9e6" if v == "否" else "#f8f9fa"
                         st.markdown(f'<div class="metric-card" style="border-left-color:{clr}; background-color:{b_clr}; margin-bottom:5px;"><div style="font-size:11px; color:#666;">{lab}</div><div style="font-size:14px; font-weight:700; color:{clr};">{v}</div></div>', unsafe_allow_html=True)
 
             st.markdown("---")
