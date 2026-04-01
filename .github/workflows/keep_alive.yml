@@ -1,17 +1,32 @@
-name: 24h全天候保活服务
+name: 24h全天候硬核保活
 
 on:
   schedule:
-    # 每 30 分钟敲一次门
-    - cron: '*/30 * * * *'
+    - cron: '0 */4 * * *' # 每 4 小时唤醒一次，不需要太频繁
   workflow_dispatch:
 
 jobs:
-  wake_up:
+  ping_app:
     runs-on: ubuntu-latest
     steps:
-      - name: 模拟真人访问
-        #末尾的 || exit 0 是关键，它会强制让任务显示为绿色成功，停止发送报错邮件
+      - name: 运行自动化唤醒脚本
         run: |
-          curl -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" \
-               -L https://policy-search-vk.streamlit.app/ || exit 0
+          # 安装 Playwright 自动化浏览器
+          pip install playwright
+          playwright install chromium
+          
+          # 执行 Python 脚本模拟真人访问
+          python -c "
+          from playwright.sync_api import sync_playwright
+          import time
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page()
+              print('正在尝试唤醒应用...')
+              # 替换成你的应用链接
+              page.goto('https://policy-vk.streamlit.app/') 
+              time.sleep(15) # 等待 15 秒确保 JS 加载完成
+              print('访问成功，页面标题为:', page.title())
+              browser.close()
+          " || exit 0 # 即使失败也不发邮件报警
