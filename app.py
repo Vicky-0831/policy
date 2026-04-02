@@ -25,6 +25,19 @@ if "keep_alive_started" not in st.session_state:
 # ==========================================
 st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_state="collapsed")
 
+@st.dialog("📢 政策更新动态")
+def show_update_announcement():
+    st.markdown("""
+    **最新进度说明：**
+    * 📅 **截止日期**：数据已实时同步至 **2026.04.01**。
+    * ✅ **覆盖范围**：全国范围内，除天津外，所有已发文省份的执行政策均已更新入库。
+    * ⏳ **特别提醒**：**天津市** 相关政策文件目前尚未发布，一经发文将立即上线。
+    """)
+
+if "announcement_read" not in st.session_state:
+    st.session_state.announcement_read = True
+    show_update_announcement()
+
 # ==========================================
 # --- 2. 界面装修 (CSS 样式) ---
 # ==========================================
