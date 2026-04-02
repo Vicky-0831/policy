@@ -330,7 +330,7 @@ elif st.session_state.step == 'L2':
 
 st.markdown("""
     <div class="footer-note">
-        <b>备注：</b>文件中<span class="text-green">绿色标识</span>为机会点，
+        <b>备注：</b>引用链接文件中<span class="text-green">绿色标识</span>为机会点，
         <span class="text-yellow">黄色标识</span>为风险点。<br>
         © 2026 政策直通车 | 数据来源：国家卫健委、国家医保局及各地医保局官网
     </div>
