@@ -226,8 +226,22 @@ elif st.session_state.step == 'L2':
                 html_m = '<div class="metric-grid">'
                 for label, key in metrics:
                     val = str(row[key]) if pd.notna(row[key]) else ""
-                    color = "#28a745" if "是" in val else "#f0ad4e" if "否" in val else "#007bff"
-                    bg = "#e6fffa" if "是" in val else "#fff9e6" if "否" in val else "#e6f2ff"
+                    # --- 💡 核心逻辑更新处 ---
+                    color, bg = "#007bff", "#e6f2ff"
+                    if label == "📅 药事会时限":
+                        if "1个月" in val or "2个月" in val: color, bg = "#28a745", "#e6fffa" # 绿
+                    elif label in ["💊 思福诺双通道", "💊 康新博双通道", "💰 康新博单独支付"]:
+                        if "是" in val: color, bg = "#28a745", "#e6fffa" # 绿
+                        elif "否" in val: color, bg = "#007bff", "#e6f2ff" # 蓝
+                    elif label == "📊 总额单列/调整":
+                        if "单列" in val: color, bg = "#28a745", "#e6fffa" # 绿
+                        elif "合理调整" in val: color, bg = "#007bff", "#e6f2ff" # 蓝
+                    elif label == "🚫 DRG/DIP除外":
+                        if "首年" in val: color, bg = "#28a745", "#e6fffa" # 绿
+                        elif "超支补偿" in val: color, bg = "#007bff", "#e6f2ff" # 蓝
+                    else: # 其他兜底逻辑
+                        if "是" in val: color, bg = "#28a745", "#e6fffa"
+                        elif "否" in val: color, bg = "#f0ad4e", "#fff9e6"
                     html_m += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_m + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
