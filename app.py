@@ -250,7 +250,7 @@ elif st.session_state.step == 'L2':
                         if "单列" in val: color, bg = "#28a745", "#e6fffa" # 绿
                         elif "合理调整" in val: color, bg = "#007bff", "#e6f2ff" # 蓝
                     elif label == "🚫 DRG/DIP除外":
-                        if "首年" in val: color, bg = "#28a745", "#e6fffa" # 绿
+                        if "首年" in val or "除外" in val: color, bg = "#28a745", "#e6fffa" # 绿
                         elif "超支补偿" in val: color, bg = "#007bff", "#e6f2ff" # 蓝
                     else: # 其他兜底逻辑
                         if "是" in val: color, bg = "#28a745", "#e6fffa"
