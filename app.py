@@ -24,7 +24,7 @@ if "keep_alive_started" not in st.session_state:
 # ==========================================
 # --- 1. 网页基础配置 ---
 # ==========================================
-st.set_page_config(page_title="政策直通车 3.0 旗舰美化版", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_state="collapsed")
 
 @st.dialog("📢 政策更新动态")
 def show_update_announcement():
@@ -604,7 +604,7 @@ if st.session_state.step == 'L0':
 
 # ----------------- 原小程序第一页 (L1) -----------------
 elif st.session_state.step == 'L1':
-    st.button("⬅️ 返回看板大盘", key="back_to_dash_btn", on_click=nav_to, args=('L0',))
+    st.button("⬅️ 返回Dashboard", key="back_to_dash_btn", on_click=nav_to, args=('L0',))
     
     st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_html=True)
     st.markdown('<div class="capsule-line-container"><div class="capsule-line"></div></div>', unsafe_allow_html=True)
