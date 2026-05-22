@@ -190,6 +190,31 @@ st.markdown("""
     .file-card { background-color: #fcfdfe; padding: 15px; border: 1px solid #eef2f6; border-top: 3px solid #0056b3; border-radius: 8px; margin-bottom: 12px; }
     .metric-card { padding: 10px; border-radius: 6px; border-left: 4px solid; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+
+    /* ========== 移动端自适应 (Mobile Responsiveness) ========== */
+    @media (max-width: 768px) {
+        .dash-title { font-size: 24px !important; margin-bottom: 20px !important; text-align: center !important;}
+        .row-container { flex-direction: column !important; }
+        .left-title-box { 
+            width: 100% !important; 
+            min-width: 100% !important; 
+            border-right: none !important; 
+            border-bottom: 1px solid #CBD5E1 !important;
+            padding: 12px !important; 
+        }
+        .right-content-box {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important; /* 丝滑滚动 */
+        }
+        .inner-cell {
+            min-width: 130px !important; 
+        }
+        .board-legend {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -320,6 +345,7 @@ if st.session_state.step == 'L0':
         st.markdown('<div class="dash-title">政策执行智能化透视看板</div>', unsafe_allow_html=True)
     with col_btn:
         st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+        # 去掉 type="primary"，使其变为灰色默认按钮
         st.button("进入政策查询系统 ➡️", on_click=nav_to, args=('L1',), use_container_width=True)
 
     df_raw = load_app_data()
