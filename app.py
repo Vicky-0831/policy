@@ -24,7 +24,7 @@ if "keep_alive_started" not in st.session_state:
 # ==========================================
 # --- 1. 网页基础配置 ---
 # ==========================================
-st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="政策直通车 3.0 旗舰美化版", layout="wide", initial_sidebar_state="collapsed")
 
 @st.dialog("📢 政策更新动态")
 def show_update_announcement():
@@ -119,8 +119,9 @@ st.markdown("""
     .content-sub-row:last-child { border-bottom: none; }
     .grid-cells-wrapper { flex: 1; display: flex; align-items: stretch; }
     
+    /* --- 修复点 1: 强制忽略内容宽度，均等分配 --- */
     .inner-cell { 
-        flex: 1; 
+        flex: 1 1 0%; /* 关键修复：让电脑端也无视文字长度完美均分 */
         padding: 24px 16px; 
         text-align: center !important; 
         display: flex; 
@@ -128,6 +129,7 @@ st.markdown("""
         justify-content: center; 
         align-items: center; 
         border-right: 1px solid #CBD5E1; 
+        word-break: break-word; /* 防止长串文字撑破格子 */
     }
     .inner-cell:last-child { border-right: none; }
     
@@ -191,7 +193,7 @@ st.markdown("""
     .metric-card { padding: 10px; border-radius: 6px; border-left: 4px solid; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
 
-   /* ========== 移动端自适应 (Mobile Responsiveness) ========== */
+    /* ========== 移动端自适应 (Mobile Responsiveness) ========== */
     @media (max-width: 768px) {
         .dash-title { font-size: 24px !important; margin-bottom: 20px !important; text-align: center !important;}
         .row-container { flex-direction: column !important; }
@@ -207,14 +209,17 @@ st.markdown("""
             -webkit-overflow-scrolling: touch !important; /* 丝滑滚动 */
         }
         
-        /* 👇👇👇 新增这一段：强制行容器跟随内容撑开，解决右划背景和边框丢失的问题 👇👇👇 */
+        /* --- 修复点 2: 解决手机端上下边框错位 --- */
         .content-sub-row, .grid-cells-wrapper {
             min-width: max-content !important; 
+            display: flex !important; 
+        }
+        .inner-cell {
+            flex: 1 0 140px !important; /* 每个格子最低140px，如有空间等比放大 */
+            width: 0 !important; /* 关键修复：完全无视文字长度，强行对齐所有格子的线 */
+            padding: 16px 8px !important;
         }
 
-        .inner-cell {
-            min-width: 130px !important; 
-        }
         .board-legend {
             flex-direction: column;
             align-items: flex-start;
@@ -351,7 +356,6 @@ if st.session_state.step == 'L0':
         st.markdown('<div class="dash-title">政策执行智能化透视看板</div>', unsafe_allow_html=True)
     with col_btn:
         st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
-        # 去掉 type="primary"，使其变为灰色默认按钮
         st.button("进入政策查询系统 ➡️", on_click=nav_to, args=('L1',), use_container_width=True)
 
     df_raw = load_app_data()
@@ -600,7 +604,7 @@ if st.session_state.step == 'L0':
 
 # ----------------- 原小程序第一页 (L1) -----------------
 elif st.session_state.step == 'L1':
-    st.button("⬅️ 返回Dashboard", key="back_to_dash_btn", on_click=nav_to, args=('L0',))
+    st.button("⬅️ 返回看板大盘", key="back_to_dash_btn", on_click=nav_to, args=('L0',))
     
     st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_html=True)
     st.markdown('<div class="capsule-line-container"><div class="capsule-line"></div></div>', unsafe_allow_html=True)
