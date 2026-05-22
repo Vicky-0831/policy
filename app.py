@@ -24,7 +24,7 @@ if "keep_alive_started" not in st.session_state:
 # ==========================================
 # --- 1. 网页基础配置 ---
 # ==========================================
-st.set_page_config(page_title="政策直通车 3.0 旗舰美化版", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_state="collapsed")
 
 @st.dialog("📢 政策更新动态")
 def show_update_announcement():
