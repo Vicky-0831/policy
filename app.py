@@ -193,7 +193,7 @@ st.markdown("""
     .metric-card { padding: 10px; border-radius: 6px; border-left: 4px solid; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
 
-    /* ========== 移动端自适应 (Mobile Responsiveness) ========== */
+    /* ========== 移动端自适应 (修复背景截断问题) ========== */
     @media (max-width: 768px) {
         .dash-title { font-size: 24px !important; margin-bottom: 20px !important; text-align: center !important;}
         .row-container { flex-direction: column !important; }
@@ -206,20 +206,21 @@ st.markdown("""
         }
         .right-content-box {
             overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important; /* 丝滑滚动 */
+            background-color: #FFFFFF !important; /* 确保背景色随容器延伸 */
         }
-        
-        /* --- 修复点 2: 解决手机端上下边框错位 --- */
-        .content-sub-row, .grid-cells-wrapper {
-            min-width: max-content !important; 
-            display: flex !important; 
+        /* 核心修复：强制行容器宽度等于内容宽度，不被屏幕压缩 */
+        .content-sub-row {
+            min-width: 100% !important;
+            width: max-content !important; 
+        }
+        .grid-cells-wrapper {
+            width: max-content !important;
         }
         .inner-cell {
-            flex: 1 0 140px !important; /* 每个格子最低140px，如有空间等比放大 */
-            width: 0 !important; /* 关键修复：完全无视文字长度，强行对齐所有格子的线 */
+            flex: 1 0 140px !important; 
+            width: 140px !important; /* 给格子一个固定基础宽度 */
             padding: 16px 8px !important;
         }
-
         .board-legend {
             flex-direction: column;
             align-items: flex-start;
@@ -228,7 +229,6 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
 # ==========================================
 # --- 3. 状态管理 ---
 # ==========================================
