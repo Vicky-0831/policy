@@ -317,7 +317,7 @@ if st.session_state.step == 'L0':
     # 顶部标题 & 右上角跳转按钮
     col_title, col_btn = st.columns([8, 2])
     with col_title:
-        st.markdown('<div class="dash-title">🏥 政策执行智能化透视看板</div>', unsafe_allow_html=True)
+        st.markdown('<div class="dash-title">政策执行智能化透视看板</div>', unsafe_allow_html=True)
     with col_btn:
         st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
         st.button("进入政策查询系统 ➡️", on_click=nav_to, args=('L1',), type="primary", use_container_width=True)
