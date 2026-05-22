@@ -594,7 +594,7 @@ if st.session_state.step == 'L0':
 
 # ----------------- 原小程序第一页 (L1) -----------------
 elif st.session_state.step == 'L1':
-    st.button("⬅️ 返回看板大盘", key="back_to_dash_btn", on_click=nav_to, args=('L0',))
+    st.button("⬅️ 返回Dashboard", key="back_to_dash_btn", on_click=nav_to, args=('L0',))
     
     st.markdown('<div class="main-title">🏥 政策直通车</div>', unsafe_allow_html=True)
     st.markdown('<div class="capsule-line-container"><div class="capsule-line"></div></div>', unsafe_allow_html=True)
