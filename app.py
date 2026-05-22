@@ -365,20 +365,13 @@ if st.session_state.step == 'L0':
     st.markdown("""
     <div class="row-container">
         <div class="left-title-box color-guotan">国谈落地</div>
-        <div class="right-content-box">
-            <div class="content-sub-row">
-                <div class="grid-cells-wrapper">
-                    <div class="inner-cell bg-light-green" style="flex: 3;"><div class="cell-t1">Emb纳入双通道</div><div class="cell-t3">·20省</div></div>
-                    <div class="inner-cell bg-light-green" style="flex: 3;"><div class="cell-t1">Cre Oral纳入双通道</div><div class="cell-t3">·29省</div></div>
-                </div>
-            </div>
-            <div class="content-sub-row">
-                <div class="grid-cells-wrapper">
-                    <div class="inner-cell bg-light-green" style="flex: 2;"><div class="cell-t1">Cre Oral</div><div class="cell-t2">双通道单独支付</div><div class="cell-t3">·21省</div></div>
-                    <div class="inner-cell bg-light-green" style="flex: 2;"><div class="cell-t1">Emb/Cre Oral</div><div class="cell-t2">医保总额单列/合理调整</div><div class="cell-t3">·16省医保总额单列<br>·14省医保总额合理调整</div></div>
-                    <div class="inner-cell bg-light-green" style="flex: 2;"><div class="cell-t1">Emb/Cre Oral</div><div class="cell-t2">DRG、DIP除外支付/超支补偿</div><div class="cell-t3">·2省3年除外<br>·10省2年除外<br>·2省1年除外<br>·14省超支补偿</div></div>
-                </div>
-            </div>
+        <div class="right-content-box" style="display: grid; grid-template-columns: repeat(6, 1fr);">
+            <div class="inner-cell bg-light-green" style="grid-column: span 3; border-bottom: 1px solid #CBD5E1; border-right: 1px solid #CBD5E1;"><div class="cell-t1">Emb纳入双通道</div><div class="cell-t3">·20省</div></div>
+            <div class="inner-cell bg-light-green" style="grid-column: span 3; border-bottom: 1px solid #CBD5E1;"><div class="cell-t1">Cre Oral纳入双通道</div><div class="cell-t3">·29省</div></div>
+            
+            <div class="inner-cell bg-light-green" style="grid-column: span 2; border-right: 1px solid #CBD5E1;"><div class="cell-t1">Cre Oral</div><div class="cell-t2">双通道单独支付</div><div class="cell-t3">·21省</div></div>
+            <div class="inner-cell bg-light-green" style="grid-column: span 2; border-right: 1px solid #CBD5E1;"><div class="cell-t1">Emb/Cre Oral</div><div class="cell-t2">医保总额单列/合理调整</div><div class="cell-t3">·16省医保总额单列<br>·14省医保总额合理调整</div></div>
+            <div class="inner-cell bg-light-green" style="grid-column: span 2;"><div class="cell-t1">Emb/Cre Oral</div><div class="cell-t2">DRG、DIP除外支付/超支补偿</div><div class="cell-t3">·2省3年除外<br>·10省2年除外<br>·2省1年除外<br>·14省超支补偿</div></div>
         </div>
     </div>
 
