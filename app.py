@@ -191,7 +191,7 @@ st.markdown("""
     .metric-card { padding: 10px; border-radius: 6px; border-left: 4px solid; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
 
-    /* ========== 移动端自适应 (Mobile Responsiveness) ========== */
+   /* ========== 移动端自适应 (Mobile Responsiveness) ========== */
     @media (max-width: 768px) {
         .dash-title { font-size: 24px !important; margin-bottom: 20px !important; text-align: center !important;}
         .row-container { flex-direction: column !important; }
@@ -206,6 +206,12 @@ st.markdown("""
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch !important; /* 丝滑滚动 */
         }
+        
+        /* 👇👇👇 新增这一段：强制行容器跟随内容撑开，解决右划背景和边框丢失的问题 👇👇👇 */
+        .content-sub-row, .grid-cells-wrapper {
+            min-width: max-content !important; 
+        }
+
         .inner-cell {
             min-width: 130px !important; 
         }
