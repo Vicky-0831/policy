@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.04.01**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.05.31**。
     * ✅ **覆盖范围**：1-8批集采接续文件，除天津外，所有已发文省份的执行政策均已更新入库。
     * ⏳ **特别提醒**：**天津市** 相关政策文件目前尚未发布，一经发文将立即上线。
     """)
@@ -314,7 +314,7 @@ LEVEL_CATALOG_PDFS = {
     "辽宁": BASE_URL + "liaoning2012.pdf",
     "内蒙古": BASE_URL + "nmg2012.pdf",
     "青海": BASE_URL + "qh2025.pdf",
-    "浙江": BASE_URL + "zj2021.pdf"
+    "浙江": BASE_URL + "zj2021.pdf",
 }
 
 LINKS = {
@@ -340,7 +340,10 @@ LINKS = {
     "【广东】集采药品接续采购公告(第4号)": BASE_URL + "gd_vbp_4.pdf",
     "【浙江】第一批创新医药技术医保支付激励名单": BASE_URL + "zj_incentive.pdf",
     "国采1-8批接续采购政策要点详表(详细版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_detail.xlsx",
-    "国采1-8批接续采购政策要点详表(招标版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_bid.xlsx"
+    "国采1-8批接续采购政策要点详表(招标版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_bid.xlsx",
+    "河北红黄标政策": BASE_URL + "hb.pdf",
+    "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/gjyp.xlsx",
+    "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知": BASE_URL + "sh.pdf"
 }
 
 # ==========================================
