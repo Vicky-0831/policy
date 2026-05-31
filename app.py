@@ -766,7 +766,18 @@ elif st.session_state.step == 'L2':
             f_n = "【北京】DRG付费新药新技术除外支付通知"
             url = LINKS.get(f_n, "#")
             st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
-
+        # ---------- 新增模块：地方政策 - 其他 ----------
+        elif biz == "其他":
+            st.markdown("##### 📁 其他政策文件")
+            other_files = [
+                "河北红黄标政策",
+                "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准",
+                "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知"
+            ]
+            for f in other_files:
+                url = LINKS.get(f, "#")
+                st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+        # ---------- 新增模块结束 ----------
 # 共用页脚
 if st.session_state.step != 'L0':
     st.markdown("""
