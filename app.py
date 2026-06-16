@@ -756,7 +756,7 @@ elif st.session_state.step == 'L2':
             else:
                 st.caption("ℹ️ 该省份分级目录文件非公开")
 
-                elif biz == "红黄标":
+        elif biz == "红黄标":
             st.markdown("##### 📁 红黄标相关政策")
             red_yellow_files = [
                 "河北红黄标政策"
