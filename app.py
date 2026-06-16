@@ -755,15 +755,38 @@ elif st.session_state.step == 'L2':
                 st.markdown(f'<div class="file-card"><b>📄 {prov_sel}抗菌药物分级管理目录原文</b><br><a href="{pdf_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 立即查看原文</a></div>', unsafe_allow_html=True)
             else:
                 st.caption("ℹ️ 该省份分级目录文件非公开")
-
         elif biz == "红黄标":
             st.markdown("##### 📁 红黄标相关政策")
-            red_yellow_files = [
-                "河北红黄标政策"
-            ]
-            for f in red_yellow_files:
-                url = LINKS.get(f, "#")
-                st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            # 河北省政策要点展示
+            st.markdown("### 河北省 - 红黄标政策要点")
+            metrics_html = '''
+            <div class="metric-grid">
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">是否明确比例</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                    <div style="font-size:11px; color:#666;">明确计算公式分母为按药品总金额</div>
+                    <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">是否排除重点监控药品</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">是否明确杜绝一刀切管理</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">是否提及常态化监测</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+            </div>
+            '''
+            st.markdown(metrics_html, unsafe_allow_html=True)
+            # 原文链接
+            url = LINKS.get("河北红黄标政策", "#")
+            st.markdown(f'<div class="file-card"><b>河北红黄标政策原文</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购政策公告 (广东)")
             for f in ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]:
@@ -775,13 +798,42 @@ elif st.session_state.step == 'L2':
             f_n = "【北京】DRG付费新药新技术除外支付通知"
             url = LINKS.get(f_n, "#")
             st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
-        # ---------- 新增模块：地方政策 - 其他 ----------
         elif biz == "其他":
             st.markdown("##### 📁 其他政策文件")
+            
+            # ---------- 湖南红黄标政策要点展示 ----------
+            st.markdown("### 湖南省 - 挂网药品价格风险预警政策要点")
+            hunan_metrics_html = '''
+            <div class="metric-grid">
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">是否明确比例</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">明确计算公式分母为按药品总金额</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                    <div style="font-size:11px; color:#666;">是否排除重点监控药品</div>
+                    <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">是否明确杜绝一刀切管理</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                    <div style="font-size:11px; color:#666;">是否提及常态化监测</div>
+                    <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                </div>
+            </div>
+            '''
+            st.markdown(hunan_metrics_html, unsafe_allow_html=True)
+            # ---------- 湖南要点展示结束 ----------
+            
             other_files = [
                 "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准",
                 "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知",
-                "湖南省医保局挂网药品价格风险预警通知" 
+                "湖南省医保局挂网药品价格风险预警通知"
             ]
             for f in other_files:
                 url = LINKS.get(f, "#")
