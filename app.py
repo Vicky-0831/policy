@@ -651,7 +651,7 @@ elif st.session_state.step == 'L2':
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     else:
-        biz_opts = ["国谈落地", "1-8批集采续约", "PVBP", "DRG/DIP", "分级管理目录", "其他"]
+        biz_opts = ["国谈落地", "1-8批集采续约", "PVBP", "DRG/DIP", "分级管理目录", "红黄标", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
         if biz == "国谈落地":
@@ -756,6 +756,14 @@ elif st.session_state.step == 'L2':
             else:
                 st.caption("ℹ️ 该省份分级目录文件非公开")
 
+                elif biz == "红黄标":
+            st.markdown("##### 📁 红黄标相关政策")
+            red_yellow_files = [
+                "河北红黄标政策"
+            ]
+            for f in red_yellow_files:
+                url = LINKS.get(f, "#")
+                st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购政策公告 (广东)")
             for f in ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]:
@@ -771,7 +779,6 @@ elif st.session_state.step == 'L2':
         elif biz == "其他":
             st.markdown("##### 📁 其他政策文件")
             other_files = [
-                "河北红黄标政策",
                 "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准",
                 "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知",
                 "湖南省医保局挂网药品价格风险预警通知" 
