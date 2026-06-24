@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.06.16**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.06.24**。
     * ✅ **覆盖范围**：1-8批集采接续文件，除天津外，所有已发文省份的执行政策均已更新入库。
     * ⏳ **特别提醒**：**天津市** 相关政策文件目前尚未发布，一经发文将立即上线。
     """)
@@ -344,7 +344,9 @@ LINKS = {
     "河北红黄标政策": BASE_URL + "hb.pdf",
     "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/gjyp.xlsx",
     "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知": BASE_URL + "sh.pdf",
-    "湖南省医保局挂网药品价格风险预警通知":BASE_URL + "hn.pdf"
+    "湖南省医保局挂网药品价格风险预警通知":BASE_URL + "hn.pdf",
+    "集中采购有关事项":BASE_URL + "shanxi.pdf"
+     
 }
 
 # ==========================================
@@ -760,7 +762,8 @@ elif st.session_state.step == 'L2':
             # 省份 - 文件映射
             red_yellow_map = {
                 "河北": "河北红黄标政策",
-                "湖南": "湖南省医保局挂网药品价格风险预警通知"
+                "湖南": "湖南省医保局挂网药品价格风险预警通知",
+                "陕西": "陕西红黄标政策"
             }
             selected_prov = st.selectbox("请选择省份", list(red_yellow_map.keys()))
             if selected_prov:
@@ -793,7 +796,7 @@ elif st.session_state.step == 'L2':
                         </div>
                     </div>
                     '''
-                elif selected_prov == "湖南":
+        elif selected_prov == "湖南":
                     st.markdown("### 湖南省 - 挂网药品价格风险预警政策要点")
                     metrics_html = '''
                     <div class="metric-grid">
@@ -804,6 +807,32 @@ elif st.session_state.step == 'L2':
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
                             <div style="font-size:11px; color:#666;">明确计算公式分母为按药品总金额</div>
                             <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                            <div style="font-size:11px; color:#666;">是否排除重点监控药品</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确杜绝一刀切管理</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否提及常态化监测</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                    </div>
+                    '''
+        elif selected_prov == "陕西":
+                    st.markdown("### 陕西省 - 红黄标政策要点")
+                    metrics_html = '''
+                    <div class="metric-grid">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确比例</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                            <div style="font-size:11px; color:#666;">明确计算公式分母为按药品总金额</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
                         </div>
                         <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
                             <div style="font-size:11px; color:#666;">是否排除重点监控药品</div>
