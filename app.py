@@ -796,7 +796,7 @@ elif st.session_state.step == 'L2':
                         </div>
                     </div>
                     '''
-        elif selected_prov == "湖南":
+                elif selected_prov == "湖南":
                     st.markdown("### 湖南省 - 挂网药品价格风险预警政策要点")
                     metrics_html = '''
                     <div class="metric-grid">
@@ -822,7 +822,7 @@ elif st.session_state.step == 'L2':
                         </div>
                     </div>
                     '''
-        elif selected_prov == "陕西":
+                elif selected_prov == "陕西":
                     st.markdown("### 陕西省 - 红黄标政策要点")
                     metrics_html = '''
                     <div class="metric-grid">
