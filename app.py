@@ -852,8 +852,8 @@ elif st.session_state.step == 'L2':
                 st.markdown(metrics_html, unsafe_allow_html=True)
                                 # 陕西相关文件列表
                 shaanxi_files = [
-                    "陕西红黄标政策",
-                    "陕西红黄标政策补充文件"   # 新增的文件键名
+                    "陕西省集中采购有关事项",
+                    "陕西省药品和医用耗材集中采购监测指标表"   # 新增的文件键名
                 ]
                 for f in shaanxi_files:
                     url = LINKS.get(f, "#")
