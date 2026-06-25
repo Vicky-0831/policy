@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.06.24**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.06.25**。
     * ✅ **覆盖范围**：1-8批集采接续文件，除天津外，所有已发文省份的执行政策均已更新入库。
     * ⏳ **特别提醒**：**天津市** 相关政策文件目前尚未发布，一经发文将立即上线。
     """)
@@ -345,7 +345,8 @@ LINKS = {
     "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/gjyp.xlsx",
     "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知": BASE_URL + "sh.pdf",
     "湖南省医保局挂网药品价格风险预警通知":BASE_URL + "hn.pdf",
-    "集中采购有关事项":BASE_URL + "shanxi.pdf"
+    "集中采购有关事项":BASE_URL + "shanxi.pdf",
+    "陕西省药品和医用耗材集中采购监测指标表":BASE_URL + "shanxiJC.pdf"
      
 }
 
@@ -849,8 +850,14 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                 st.markdown(metrics_html, unsafe_allow_html=True)
-                # 原文链接
-                st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+                                # 陕西相关文件列表
+                shaanxi_files = [
+                    "陕西红黄标政策",
+                    "陕西红黄标政策补充文件"   # 新增的文件键名
+                ]
+                for f in shaanxi_files:
+                    url = LINKS.get(f, "#")
+                    st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购政策公告 (广东)")
             for f in ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]:
