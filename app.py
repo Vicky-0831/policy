@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.06.25**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.06.26**。
     * ✅ **覆盖范围**：1-8批集采接续文件，除天津外，所有已发文省份的执行政策均已更新入库。
     * ⏳ **特别提醒**：**天津市** 相关政策文件目前尚未发布，一经发文将立即上线。
     """)
@@ -346,7 +346,8 @@ LINKS = {
     "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知": BASE_URL + "sh.pdf",
     "湖南省医保局挂网药品价格风险预警通知":BASE_URL + "hn.pdf",
     "集中采购有关事项":BASE_URL + "shanxi.pdf",
-    "陕西省药品和医用耗材集中采购监测指标表":BASE_URL + "shanxiJC.pdf"
+    "陕西省药品和医用耗材集中采购监测指标表":BASE_URL + "shanxiJC.pdf",
+    "陕西省药品和医用耗材集中采购监测指标征求意见稿":BASE_URL + "shanxiJCyijian.docx"
      
 }
 
@@ -853,7 +854,8 @@ elif st.session_state.step == 'L2':
                                 # 陕西相关文件列表
                 shaanxi_files = [
                     "关于进一步规范药品耗材集中采购有关事项的通知",
-                    "陕西省药品和医用耗材集中采购监测指标表"   # 新增的文件键名
+                    "陕西省药品和医用耗材集中采购监测指标表",
+                    "陕西省药品和医用耗材集中采购监测指标征求意见稿"# 新增的文件键名
                 ]
                 for f in shaanxi_files:
                     url = LINKS.get(f, "#")
