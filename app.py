@@ -862,10 +862,32 @@ elif st.session_state.step == 'L2':
                     url = LINKS.get(f, "#")
                     st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif biz == "PVBP":
-            st.markdown("##### 📁 集中带量采购政策公告 (广东)")
-            for f in ["【广东】集采药品接续采购公告(第1号)", "【广东】集采药品接续采购公告(第2号)", "【广东】集采药品接续采购公告(第3号)", "【广东】集采药品接续采购公告(第4号)"]:
-                url = LINKS.get(f, "#")
-                st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            st.markdown("##### 📁 集中带量采购（VBP）相关政策")
+            # 省份选择
+            vbp_provinces = ["广东", "上海"]
+            selected_vbp_prov = st.selectbox("请选择省份", vbp_provinces)
+            
+            if selected_vbp_prov == "广东":
+                st.markdown("### 广东省 - 集采接续采购公告")
+                gd_files = [
+                    "【广东】集采药品接续采购公告(第1号)",
+                    "【广东】集采药品接续采购公告(第2号)",
+                    "【广东】集采药品接续采购公告(第3号)",
+                    "【广东】集采药品接续采购公告(第4号)"
+                ]
+                for f in gd_files:
+                    url = LINKS.get(f, "#")
+                    st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            
+            elif selected_vbp_prov == "上海":
+                st.markdown("### 上海市 - 集采医保支付协同相关政策")
+                sh_files = [
+                    "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知"  # 已有文件
+                    # "上海阳光医药采购网_9595"   # 若需要新增文件，取消注释并确保 LINKS 中有对应键
+                ]
+                for f in sh_files:
+                    url = LINKS.get(f, "#")
+                    st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
         elif biz == "DRG/DIP":
             st.markdown("##### 📁 支付改革文件 (北京)")
