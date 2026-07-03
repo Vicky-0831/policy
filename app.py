@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.07.02**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.07.03**。
     * ✅ **覆盖范围**：1-8批集采接续文件，除天津外，所有已发文省份的执行政策均已更新入库。
     * ⏳ **特别提醒**：**天津市** 相关政策文件目前尚未发布，一经发文将立即上线。
     """)
@@ -348,7 +348,9 @@ LINKS = {
     "集中采购有关事项":BASE_URL + "shanxi.pdf",
     "陕西省药品和医用耗材集中采购监测指标表":BASE_URL + "shanxiJC.pdf",
     "陕西省药品和医用耗材集中采购监测指标征求意见稿":BASE_URL + "shanxiJCyijian.docx",
-    "上海阳光医药采购网_9595":BASE_URL + "shanghaiyiyao.pdf"
+    "上海阳光医药采购网_9595":BASE_URL + "shanghaiyiyao.pdf",
+    "浙江省医疗保障局关于支持创新医药高质量发展的若干措施":BASE_URL + "zhejiangYIBAO.pdf",
+    "关于组织医药机构报送第12批国家组织药品集中带量采购品种需求量的通知":BASE_URL + "guojiaJICAI.pdf"
      
 }
 
@@ -898,7 +900,8 @@ elif st.session_state.step == 'L2':
             st.markdown("##### 📁 其他政策文件")
             province_file_map = {
                 "江西": "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准",
-                "上海": "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知"
+                "上海": "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知",
+                "浙江": "浙江省医疗保障局关于支持创新医药高质量发展的若干措施"
             }
             selected_prov = st.selectbox("请选择省份", list(province_file_map.keys()))
             if selected_prov:
