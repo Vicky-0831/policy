@@ -857,7 +857,7 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                 elif selected_prov == "湖北":
-                    st.markdown("### 湖北省 - 红黄标政策要点")
+                    st.markdown("### 湖北省 - 湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知")
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -883,14 +883,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                 st.markdown(metrics_html, unsafe_allow_html=True)
-                                # 陕西相关文件列表
-                shaanxi_files = [
-                    "关于进一步规范药品耗材集中采购有关事项的通知",
-                    "陕西省药品和医用耗材集中采购监测指标表",
-                    "陕西省药品和医用耗材集中采购监测指标征求意见稿"# 新增的文件键名
-                ]
-                for f in shaanxi_files:
-                    url = LINKS.get(f, "#")
                     st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购（VBP）相关政策")
