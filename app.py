@@ -755,8 +755,6 @@ elif st.session_state.step == 'L2':
                             <div style="font-size:15px; font-weight:700; color:{supp_color};">{pay_val}</div>
                         </div>
                     ''', unsafe_allow_html=True)
-                    tj_url = LINKS.get("天津1-8批集采续约政策原文", "#")
-                    st.markdown(f'<div class="file-card"><b>📄 天津市1-8批集采续约政策原文</b><br><a href="{tj_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 # ----- 其他省份原文链接 -----
                 if pd.notna(row_v.get('原文链接', np.nan)):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
