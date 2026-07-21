@@ -30,9 +30,8 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.07.09**。
-    * ✅ **覆盖范围**：1-8批集采接续文件，除天津外，所有已发文省份的执行政策均已更新入库。
-    * ⏳ **特别提醒**：**天津市** 相关政策文件目前尚未发布，一经发文将立即上线。
+    * 📅 **截止日期**：数据已实时同步至 **2026.07.21**。
+    * ✅ **覆盖范围**：1-8批集采接续文件，所有已发文省份的执行政策均已更新入库。
     """)
 
 if "announcement_read" not in st.session_state:
@@ -353,7 +352,8 @@ LINKS = {
     "关于组织医药机构报送第12批国家组织药品集中带量采购品种需求量的通知":BASE_URL + "guojiaJICAI.pdf",
     "湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "hubeiYIBAO.pdf",
     "国家基本药物目录2026年版":BASE_URL + "guojiaYAOPIN.pdf",
-    "关于印发国家基本药物目录2026年版本的通知": "https://www.nhc.gov.cn/yaozs/c100098/202607/0f4f2bdcfead449f8412453373522470.shtml"
+    "关于印发国家基本药物目录2026年版本的通知": "https://www.nhc.gov.cn/yaozs/c100098/202607/0f4f2bdcfead449f8412453373522470.shtml",
+    "天津市医保局市卫生健康委市药监局关于做好国家组织药品集采协议期满接续采购结果执行工作的通知":"https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202605/t20260511_7296817.html"
      
 }
 
@@ -729,6 +729,22 @@ elif st.session_state.step == 'L2':
                 st.markdown("---")
                 c1, c2 = st.columns(2)
                 with c1: st.markdown(f"📄 [接续政策详表]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
+                                # 天津特殊：显示补充要点 + 原文链接
+                if prov_v == "天津":
+                    st.markdown("##### 🔍 天津市 - 补充政策要点")
+                    # 显示“是否提及按医保支付价支付”指标
+                    pay_val = "是"   # 按你的要求固定为“是”
+                    supp_color = "#28a745"
+                    supp_bg = "#e6fffa"
+                    st.markdown(f'''
+                        <div class="metric-card" style="border-left-color:{supp_color}; background-color:{supp_bg}; margin-top:8px;">
+                            <div style="font-size:11px; color:#666;">💰 是否提及“按医保支付价支付”</div>
+                            <div style="font-size:15px; font-weight:700; color:{supp_color};">{pay_val}</div>
+                        </div>
+                    ''', unsafe_allow_html=True)
+                    # 显示天津原文链接
+                    tj_url = LINKS.get("天津市医保局市卫生健康委市药监局关于做好国家组织药品集采协议期满接续采购结果执行工作的通知", "https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202605/t20260511_7296817.html")
+                    st.markdown(f'<div class="file-card"><b>📄 天津市1-8批集采续约政策原文</b><br><a href="{tj_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 if pd.notna(row_v['原文链接']):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
 
