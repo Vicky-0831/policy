@@ -701,51 +701,65 @@ elif st.session_state.step == 'L2':
 
         elif biz == "1-8批集采续约":
             df_vbp = load_vbp_data()
-            if df_vbp is None: st.warning("⚠️ 没找到 'VBP.xlsx'！")
+            if df_vbp is None:
+                st.warning("⚠️ 没找到 'VBP.xlsx'！")
             else:
                 prov_v = st.selectbox("查询省份", df_vbp['省份'].unique().tolist())
                 row_v = df_vbp[df_vbp['省份'] == prov_v].iloc[0]
                 st.markdown(f"##### 📌 {prov_v} - 1-8批集采续约政策要点")
                 v_metrics = [
-                    ("⚖️ 中选:非中选比例", '中选:非中选比例'), ("📊 提及合并考核", '提及合并考核'),
-                    ("🚦 提及红黄标色", '提及红黄标色'), ("🛡️ 提及不一刀切", '提及不一刀切'),
+                    ("⚖️ 中选:非中选比例", '中选:非中选比例'),
+                    ("📊 提及合并考核", '提及合并考核'),
+                    ("🚦 提及红黄标色", '提及红黄标色'),
+                    ("🛡️ 提及不一刀切", '提及不一刀切'),
                     ("👁️ 提及高价非中选异常使用", '提及高价非中选异常使用')
                 ]
                 html_v = '<div class="metric-grid">'
                 for label, key in v_metrics:
                     val = str(row_v[key]) if pd.notna(row_v[key]) else ""
-                if key in ['提及合并考核', '提及不一刀切']:
+                    # ----- 颜色判断（在循环内部）-----
+                    if prov_v == "天津":
+                        if val == "是" or val == "5:5":
+                            color, bg = "#28a745", "#e6fffa"
+                        elif val == "否":
+                            color, bg = "#f0ad4e", "#fff9e6"
+                        else:
+                            color, bg = "#007bff", "#e6f2ff"
+                    elif key in ['提及合并考核', '提及不一刀切']:
                         color = "#28a745" if val == "是" else "#f0ad4e" if val == "否" else "#007bff"
                         bg = "#e6fffa" if val == "是" else "#fff9e6" if val == "否" else "#e6f2ff"
-                else:
+                    else:
                         if val in ["否", "5:5"]:
                             color, bg = "#28a745", "#e6fffa"
                         elif val in ["是", "中选品完成任务量"]:
                             color, bg = "#f0ad4e", "#fff9e6"
                         else:
                             color, bg = "#007bff", "#e6f2ff"
-                html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
+                    # ----- 拼接 HTML（在循环内部）-----
+                    html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
+                # ← 循环结束
                 st.markdown(html_v + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
                 c1, c2 = st.columns(2)
-                with c1: st.markdown(f"📄 [接续政策详表]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
-                                # 天津特殊：显示补充要点 + 原文链接
+                with c1:
+                    st.markdown(f"📄 [接续政策详表]({LINKS['国采1-8批接续采购政策要点详表(详细版)']})")
+                # ----- 天津特殊处理 -----
                 if prov_v == "天津":
                     st.markdown("##### 🔍 天津市 - 补充政策要点")
-                    # 显示“是否提及按医保支付价支付”指标
-                    pay_val = "是"   # 按你的要求固定为“是”
+                    pay_val = "是"
                     supp_color = "#28a745"
                     supp_bg = "#e6fffa"
                     st.markdown(f'''
                         <div class="metric-card" style="border-left-color:{supp_color}; background-color:{supp_bg}; margin-top:8px;">
-                            <div style="font-size:11px; color:#666;">💰 是否提及“按医保支付价支付”</div>
+                            <div style="font-size:11px; color:#666;">💰 是否提及"按医保支付价支付"</div>
                             <div style="font-size:15px; font-weight:700; color:{supp_color};">{pay_val}</div>
                         </div>
                     ''', unsafe_allow_html=True)
-                    # 显示天津原文链接
-                if pd.notna(row_v['原文链接']):
+                    tj_url = LINKS.get("天津1-8批集采续约政策原文", "#")
+                    st.markdown(f'<div class="file-card"><b>📄 天津市1-8批集采续约政策原文</b><br><a href="{tj_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+                # ----- 其他省份原文链接 -----
+                if pd.notna(row_v.get('原文链接', np.nan)):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
-
         elif biz == "分级管理目录":
             df_cp = load_cpzba_data()
             df_cf = load_cfjmlpzba_data()
