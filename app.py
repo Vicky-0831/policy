@@ -743,8 +743,6 @@ elif st.session_state.step == 'L2':
                         </div>
                     ''', unsafe_allow_html=True)
                     # 显示天津原文链接
-                    tj_url = LINKS.get("天津市医保局市卫生健康委市药监局关于做好国家组织药品集采协议期满接续采购结果执行工作的通知", "https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202605/t20260511_7296817.html")
-                    st.markdown(f'<div class="file-card"><b>📄 天津市1-8批集采续约政策原文</b><br><a href="{tj_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 if pd.notna(row_v['原文链接']):
                     st.markdown(f'🔗 <a href="{row_v["原文链接"]}" target="_blank" style="color:#0066cc; font-size:14px;">查看该省份执行文件原文</a>', unsafe_allow_html=True)
 
