@@ -722,10 +722,10 @@ elif st.session_state.step == 'L2':
                             color, bg = "#f0ad4e", "#fff9e6"
                         else:
                             color, bg = "#007bff", "#e6f2ff"
-                        elif key in ['提及合并考核', '提及不一刀切']:
+                elif key in ['提及合并考核', '提及不一刀切']:
                         color = "#28a745" if val == "是" else "#f0ad4e" if val == "否" else "#007bff"
                         bg = "#e6fffa" if val == "是" else "#fff9e6" if val == "否" else "#e6f2ff"
-                    else:
+                else:
                         if val in ["否", "5:5"]:
                             color, bg = "#28a745", "#e6fffa"
                         elif val in ["是", "中选品完成任务量"]:
