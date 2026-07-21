@@ -866,9 +866,9 @@ elif st.session_state.step == 'L2':
                             <div style="font-size:11px; color:#666;">是否明确比例</div>
                             <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
                         </div>
-                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
                             <div style="font-size:11px; color:#666;">明确计算公式分母为按药品总金额</div>
-                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">是</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
                         </div>
                         <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
                             <div style="font-size:11px; color:#666;">是否排除重点监控药品</div>
