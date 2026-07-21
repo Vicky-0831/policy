@@ -732,7 +732,7 @@ elif st.session_state.step == 'L2':
                             color, bg = "#f0ad4e", "#fff9e6"
                         else:
                             color, bg = "#007bff", "#e6f2ff"
-                    html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
+                html_v += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_v + '</div>', unsafe_allow_html=True)
                 st.markdown("---")
                 c1, c2 = st.columns(2)
