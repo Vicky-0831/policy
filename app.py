@@ -856,7 +856,7 @@ elif st.session_state.step == 'L2':
                         </div>
                         <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
                             <div style="font-size:11px; color:#666;">明确计算公式分母为按药品总金额</div>
-                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">是</div>
                         </div>
                         <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
                             <div style="font-size:11px; color:#666;">是否排除重点监控药品</div>
