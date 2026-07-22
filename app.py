@@ -798,7 +798,7 @@ elif st.session_state.step == 'L2':
             red_yellow_map = {
                 "河北": "河北红黄标政策",
                 "湖南": "湖南省医保局挂网药品价格风险预警通知",
-                "陕西": "陕西红黄标政策",
+                "陕西": "陕西多文件",
                 "湖北":"湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知"
             }
             selected_prov = st.selectbox("请选择省份", list(red_yellow_map.keys()))
