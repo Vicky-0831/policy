@@ -665,7 +665,7 @@ elif st.session_state.step == 'L2':
                         url = LINKS.get(f, "#")
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
-    else:
+    elif st.session_state.l1 == "地方":
         biz_opts = ["国谈落地", "1-8批集采续约", "PVBP", "DRG/DIP", "分级管理目录", "红黄标", "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
@@ -979,6 +979,21 @@ elif st.session_state.step == 'L2':
                 url = LINKS.get(file_name, "#")
                 st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         # ---------- 新增模块结束 --------
+
+    elif st.session_state.l1 == "应对话术":
+        st.markdown("## 💬 应对话术")
+        talk_topic = st.selectbox("选择话术场景", ["应对红黄标的话术", "DRG/DIP", "舒普深有关话术"])
+        if talk_topic == "应对红黄标的话术":
+            st.info("此处展示应对红黄标的标准话术模板（内容待补充）")
+        elif talk_topic == "DRG/DIP":
+            st.info("此处展示 DRG/DIP 相关沟通话术（内容待补充）")
+        elif talk_topic == "舒普深有关话术":
+            st.info("此处展示舒普深产品相关话术（内容待补充）")
+
+    elif st.session_state.l1 == "标杆案例":
+        st.markdown("## 🏆 标杆案例")
+        st.info("此板块用于展示各省市政策落地的优秀实践案例，内容持续更新中。")
+
 # 共用页脚
 if st.session_state.step != 'L0':
     st.markdown("""
