@@ -625,7 +625,7 @@ elif st.session_state.step == 'L1':
     
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
     c1, mid, c3 = st.columns([1, 2, 1])
-with mid:
+    with mid:
         st.button("国家政策", key="nat_btn", use_container_width=True, on_click=nav_to, args=('L2', "国家"))
         st.markdown("<div style='height:15px;'></div>", unsafe_allow_html=True)
         st.button("地方政策", key="loc_btn", use_container_width=True, on_click=nav_to, args=('L2', "地方"))
