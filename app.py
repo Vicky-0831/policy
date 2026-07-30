@@ -979,13 +979,6 @@ elif st.session_state.step == 'L2':
                 url = LINKS.get(file_name, "#")
                 st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         # ---------- 新增模块结束 --------
-       elif st.session_state.l1 == "应对话术":
-        st.markdown("## 💬 应对话术")
-        st.info("此板块用于管理各类政策场景下的标准应答话术，内容持续更新中。")
-        # 未来可在此处添加具体的分类和话术列表
-      elif st.session_state.l1 == "标杆案例":
-        st.markdown("## 🏆 标杆案例")
-        st.info("此板块用于展示各省市政策落地的优秀实践案例，内容持续更新中。")
 # 共用页脚
 if st.session_state.step != 'L0':
     st.markdown("""
