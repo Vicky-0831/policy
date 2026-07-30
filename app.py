@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.07.21**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.07.30**。
     * ✅ **覆盖范围**：1-8批集采接续文件，所有已发文省份的执行政策均已更新入库。
     """)
 
@@ -184,6 +184,19 @@ st.markdown("""
         padding: 0 10px !important; background-color: #f8f9fa !important;
         border: 1px solid #dee2e6 !important; border-radius: 4px !important;
     }
+    .st-key-dialogue_btn button {
+        background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%) !important;
+        height: 85px !important; border-radius: 15px !important; border: none !important;
+        box-shadow: 0 4px 15px rgba(217,119,6,0.2) !important;
+    }
+    .st-key-dialogue_btn button p { color: #92400e !important; font-size: 20px !important; font-weight: 700 !important; }
+
+    .st-key-case_btn button {
+        background: linear-gradient(135deg, #ede9fe 0%, #a78bfa 100%) !important;
+        height: 85px !important; border-radius: 15px !important; border: none !important;
+        box-shadow: 0 4px 15px rgba(124,58,237,0.2) !important;
+    }
+    .st-key-case_btn button p { color: #5b21b6 !important; font-size: 20px !important; font-weight: 700 !important; }
     .st-key-back_btn button p, .st-key-back_to_dash_btn button p { font-size: 10px !important; color: #888 !important; }
     .footer-note { text-align: center; padding: 30px; color: #666; font-size: 14px !important; border-top: 1px solid #eee; margin-top: 60px; }
     .text-green { color: #2d9d78; font-weight: bold; }
