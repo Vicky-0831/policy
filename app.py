@@ -1008,7 +1008,7 @@ elif st.session_state.step == 'L2':
         elif talk_topic == "DRG/DIP":
             st.markdown("### DRG/DIP有关话术")
             url = LINKS.get("DRG/DIP3.0政策倡导建议沟通要点", "#")
-            st.markdown(f'<div class="file-card"><b>DRG/DIP话术文件</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="file-card"><b>DRG/DIP3.0政策倡导建议沟通要点</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif talk_topic == "舒普深有关话术":
             st.markdown("### 舒普深有关话术文件")
             shupu_files = [
