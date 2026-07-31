@@ -438,16 +438,16 @@ if st.session_state.step == 'L0':
         <div class="right-content-box">
             <div class="content-sub-row">
                 <div class="grid-cells-wrapper">
-                    <div class="inner-cell bg-light-green"><div class="cell-t1">中选:非中选比例</div><div class="cell-t3">·3省未明确<br>·3省5：5<br>·25省中选品完成任务量</div></div>
-                    <div class="inner-cell bg-light-green"><div class="cell-t1">提及合并考核</div><div class="cell-t3">·6省</div></div>
+                    <div class="inner-cell bg-light-green"><div class="cell-t1">中选:非中选比例</div><div class="cell-t3">·2省未明确<br>·8省5：5<br>·21省中选品完成任务量</div></div>
+                    <div class="inner-cell bg-light-green"><div class="cell-t1">提及合并考核</div><div class="cell-t3">·7省</div></div>
                     <div class="inner-cell bg-light-green"><div class="cell-t1">提及不一刀切</div><div class="cell-t3">·25省</div></div>
                 </div>
             </div>
             <div class="content-sub-row">
                 <div class="grid-cells-wrapper">
-                    <div class="inner-cell bg-light-orange"><div class="cell-t1">提及红黄标色</div><div class="cell-t3">·13省</div></div>
-                    <div class="inner-cell bg-light-orange"><div class="cell-t1">提及关注高价非中选产品异常使用等现象</div><div class="cell-t3">·18省</div></div>
-                    <div class="inner-cell bg-light-orange"><div class="cell-t1">提及“按医保支付价支付”</div><div class="cell-t3">·10省</div></div>
+                    <div class="inner-cell bg-light-orange"><div class="cell-t1">提及红黄标色</div><div class="cell-t3">·14省</div></div>
+                    <div class="inner-cell bg-light-orange"><div class="cell-t1">提及关注高价非中选产品异常使用等现象</div><div class="cell-t3">·19省</div></div>
+                    <div class="inner-cell bg-light-orange"><div class="cell-t1">提及“按医保支付价支付”</div><div class="cell-t3">·11省</div></div>
                 </div>
             </div>
         </div>
