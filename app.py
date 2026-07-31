@@ -1000,10 +1000,10 @@ elif st.session_state.step == 'L2':
     elif st.session_state.l1 == "应对话术":
         st.markdown("## 💬 应对话术")
         talk_topic = st.selectbox("选择话术场景", ["应对红黄标的话术", "DRG/DIP", "舒普深有关话术"])
-        elif talk_topic == "应对红黄标的话术":
-            st.markdown("### 应对红黄标的话术文件")
-            url = LINKS.get("面向医疗机构-建议兼顾药品价格和临床诊疗需求，制定科学合理的红黄标分类监测要求", "#")
-            st.markdown(f'<div class="file-card"><b>应对红黄标的话术文件</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+        if talk_topic == "应对红黄标的话术":
+        st.markdown("### 应对红黄标的话术文件")
+        url = LINKS.get("面向医疗机构-建议兼顾药品价格和临床诊疗需求，制定科学合理的红黄标分类监测要求", "#")
+        st.markdown(f'<div class="file-card"><b>应对红黄标的话术文件</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif talk_topic == "DRG/DIP":
             st.info("此处展示 DRG/DIP 相关沟通话术（内容待补充）")
         elif talk_topic == "舒普深有关话术":
