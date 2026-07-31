@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.07.30**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.07.31**。
     * ✅ **覆盖范围**：1-8批集采接续文件，所有已发文省份的执行政策均已更新入库。
     """)
 
@@ -366,7 +366,10 @@ LINKS = {
     "湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "hubeiYIBAO.pdf",
     "国家基本药物目录2026年版":BASE_URL + "guojiaYAOPIN.pdf",
     "关于印发国家基本药物目录2026年版本的通知": "https://www.nhc.gov.cn/yaozs/c100098/202607/0f4f2bdcfead449f8412453373522470.shtml",
-    "天津市医保局市卫生健康委市药监局关于做好国家组织药品集采协议期满接续采购结果执行工作的通知":"https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202605/t20260511_7296817.html"
+    "天津市医保局市卫生健康委市药监局关于做好国家组织药品集采协议期满接续采购结果执行工作的通知":"https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202605/t20260511_7296817.html",
+    "舒普深roleplay案例-红黄标":BASE_URL + "SPS-honghuangbiao.docx",
+    "舒普深roleplay案例-医保基金":BASE_URL + "SPS-YIBAOjijin.docx",
+    "舒普深roleplay案例-药占比":BASE_URL + "SPS-YAOzhanbi.docx"
      
 }
 
@@ -1001,7 +1004,15 @@ elif st.session_state.step == 'L2':
         elif talk_topic == "DRG/DIP":
             st.info("此处展示 DRG/DIP 相关沟通话术（内容待补充）")
         elif talk_topic == "舒普深有关话术":
-            st.info("此处展示舒普深产品相关话术（内容待补充）")
+            st.markdown("### 舒普深有关话术文件")
+            shupu_files = [
+                "舒普深roleplay案例-红黄标",
+                "舒普深roleplay案例-医保基金",
+                "舒普深roleplay案例-药占比"
+            ]
+            for f in shupu_files:
+                url = LINKS.get(f, "#")
+                st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     elif st.session_state.l1 == "标杆案例":
         st.markdown("## 🏆 标杆案例")
