@@ -371,7 +371,8 @@ LINKS = {
     "舒普深roleplay案例-医保基金":BASE_URL + "SPS-YIBAOjijin.docx",
     "舒普深roleplay案例-药占比":BASE_URL + "SPS-YAOzhanbi.docx",
     "面向医疗机构-建议兼顾药品价格和临床诊疗需求，制定科学合理的红黄标分类监测要求":BASE_URL +"honghuangbiao.docx",
-    "DRG/DIP3.0政策倡导建议沟通要点":BASE_URL +"DRG.DIP .docx"
+    "DRG/DIP3.0政策倡导建议沟通要点":BASE_URL +"DRG.DIP .docx",
+    "关于浙江省第二批创新医药技术医保支付激励名单公示":"https://ybj.zj.gov.cn/col/col1229225636/art/2026/art_daf9d1bf58234cab97f883400e973509.html"
      
 }
 
@@ -983,10 +984,17 @@ elif st.session_state.step == 'L2':
                     st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
         elif biz == "DRG/DIP":
-            st.markdown("##### 📁 支付改革文件 (北京)")
-            f_n = "【北京】DRG付费新药新技术除外支付通知"
-            url = LINKS.get(f_n, "#")
-            st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#c62828;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            st.markdown("##### 📁 支付改革文件")
+            drg_provinces = ["北京", "浙江"]
+            selected_drg_prov = st.selectbox("请选择省份", drg_provinces)
+            if selected_drg_prov == "北京":
+                f_n = "【北京】DRG付费新药新技术除外支付通知"
+                url = LINKS.get(f_n, "#")
+                st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+            elif selected_drg_prov == "浙江":
+                f_n = "关于浙江省第二批创新医药技术医保支付激励名单公示"
+                url = LINKS.get(f_n, "#")
+                st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif biz == "其他":
             st.markdown("##### 📁 其他政策文件")
             province_file_map = {
