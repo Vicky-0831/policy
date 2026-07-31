@@ -420,10 +420,13 @@ if st.session_state.step == 'L0':
             <div class="content-sub-row">
                 <div class="grid-cells-wrapper">
                     <div class="inner-cell bg-light-green">
-                        <div class="cell-t1" style="margin-bottom: 0;">Zavi：<span class="cell-t3" style="display: inline; width: auto;">1省除外支付</span></div>
+                        <div class="cell-t1" style="margin-bottom: 0;">Zavi：<span class="cell-t3" style="display: inline; width: auto;">1省除外/1省激励支付</span></div>
                     </div>
                     <div class="inner-cell bg-light-green">
                         <div class="cell-t1" style="margin-bottom: 0;">Cre IV：<span class="cell-t3" style="display: inline; width: auto;">1省激励支付</span></div>
+                    </div>
+                    <div class="inner-cell bg-light-green">
+                        <div class="cell-t1" style="margin-bottom: 0;">Cre Oral：<span class="cell-t3" style="display: inline; width: auto;">1省激励支付</span></div>
                     </div>
                 </div>
             </div>
