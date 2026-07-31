@@ -439,7 +439,7 @@ if st.session_state.step == 'L0':
         <div class="right-content-box">
             <div class="content-sub-row">
                 <div class="grid-cells-wrapper">
-                    <div class="inner-cell bg-light-green"><div class="cell-t1">中选:非中选比例</div><div class="cell-t3">·2省未明确<br>·8省5：5<br>·21省中选品完成任务量</div></div>
+                    <div class="inner-cell bg-light-green"><div class="cell-t1">中选:非中选比例</div><div class="cell-t3">·8省明确5:5<br>·23省未提及中选/非中选使用数量比例要求</div></div>
                     <div class="inner-cell bg-light-green"><div class="cell-t1">提及合并考核</div><div class="cell-t3">·7省</div></div>
                     <div class="inner-cell bg-light-green"><div class="cell-t1">提及不一刀切</div><div class="cell-t3">·25省</div></div>
                 </div>
@@ -453,7 +453,6 @@ if st.session_state.step == 'L0':
             </div>
         </div>
     </div>
-
     <div class="row-container">
         <div class="left-title-box color-fenji">分级目录管理</div>
         <div class="right-content-box">
