@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.07.31**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.08.05**。
     * ✅ **覆盖范围**：1-8批集采接续文件，所有已发文省份的执行政策均已更新入库。
     """)
 
@@ -372,7 +372,7 @@ LINKS = {
     "舒普深roleplay案例-药占比":BASE_URL + "SPS-YAOzhanbi.docx",
     "面向医疗机构-建议兼顾药品价格和临床诊疗需求，制定科学合理的红黄标分类监测要求":BASE_URL +"honghuangbiao.docx",
     "DRG/DIP3.0政策倡导建议沟通要点":BASE_URL +"DRG.DIP .docx",
-    "关于浙江省第二批创新医药技术医保支付激励名单公示":"https://ybj.zj.gov.cn/col/col1229225636/art/2026/art_daf9d1bf58234cab97f883400e973509.html"
+    "浙江省医疗保障局关于公布第二批创新医药技术医保支付激励目录的通知":"https://ybj.zj.gov.cn/col/col1229225623/art/2026/art_875a6f6cffea45c3b0182820d28d0ba8.html"
      
 }
 
@@ -991,7 +991,7 @@ elif st.session_state.step == 'L2':
                 url = LINKS.get(f_n, "#")
                 st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
             elif selected_drg_prov == "浙江":
-                f_n = "关于浙江省第二批创新医药技术医保支付激励名单公示"
+                f_n = "浙江省医疗保障局关于公布第二批创新医药技术医保支付激励目录的通知"
                 url = LINKS.get(f_n, "#")
                 st.markdown(f'<div class="file-card"><b>{f_n}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
         elif biz == "其他":
