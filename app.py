@@ -983,8 +983,16 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 单个文件链接
-                    st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+                    # 江西政策原文
+                    st.markdown(f'''
+                        <div class="file-card">
+                            <b>📄 {file_name}</b><br>
+                            <a href="{url}"target="_blank"
+                               style="font-size:12px; color:#0066cc;">
+                                🔗 查看江西省政策原文
+                            </a>
+                        </div>
+                    ''', unsafe_allow_html=True)
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购（VBP）相关政策")
             # 省份选择
