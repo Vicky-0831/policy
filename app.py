@@ -30,7 +30,7 @@ st.set_page_config(page_title="政策直通车", layout="wide", initial_sidebar_
 def show_update_announcement():
     st.markdown("""
     **最新进度说明：**
-    * 📅 **截止日期**：数据已实时同步至 **2026.08.07**。
+    * 📅 **截止日期**：数据已实时同步至 **2026.08.28**。
     * ✅ **覆盖范围**：1-8批集采接续文件，所有已发文省份的执行政策均已更新入库。
     """)
 
@@ -373,7 +373,8 @@ LINKS = {
     "面向医疗机构-建议兼顾药品价格和临床诊疗需求，制定科学合理的红黄标分类监测要求":BASE_URL +"honghuangbiao.docx",
     "DRG/DIP3.0政策倡导建议沟通要点":BASE_URL +"DRG.DIP .docx",
     "浙江省医疗保障局关于公布第二批创新医药技术医保支付激励目录的通知":"https://ybj.zj.gov.cn/col/col1229225623/art/2026/art_875a6f6cffea45c3b0182820d28d0ba8.html",
-    "关于公布第12批国家组织药品集中带量采购中选结果的通知":"https://www.smpaa.cn/gjsdcg/2026/08/06/23603.shtml"     
+    "关于公布第12批国家组织药品集中带量采购中选结果的通知":"https://www.smpaa.cn/gjsdcg/2026/08/06/23603.shtml",
+    "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "ZTCJX.pdf"
 }
 
 # ==========================================
@@ -824,7 +825,8 @@ elif st.session_state.step == 'L2':
                 "河北": "河北红黄标政策",
                 "湖南": "湖南省医保局挂网药品价格风险预警通知",
                 "陕西": "陕西多文件",
-                "湖北": "湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知"
+                "湖北": "湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知",
+                "江西": "江西省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知"
             }
             selected_prov = st.selectbox("请选择省份", list(red_yellow_map.keys()))
             if selected_prov:
@@ -954,6 +956,35 @@ elif st.session_state.step == 'L2':
                     st.markdown(metrics_html, unsafe_allow_html=True)
                     # 单个文件链接
                     st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
+                elif selected_prov == "江西":
+                    st.markdown("### 江西省 - 红黄标政策要点")
+                    metrics_html = '''
+                    <div class="metric-grid">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确比例</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确计算公式分母为按药品总金额</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                            <div style="font-size:11px; color:#666;">是否排除重点监护药品</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                    </div>
+                    '''
+                    st.markdown(metrics_html, unsafe_allow_html=True)
+                    # 江西政策文件
+                    st.markdown(f'<div class="file-card"><b>{file_name}</b><br>'f'<a href="{url}" target="_blank" 'f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',unsafe_allow_html=True)
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购（VBP）相关政策")
             # 省份选择
