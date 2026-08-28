@@ -374,7 +374,7 @@ LINKS = {
     "DRG/DIP3.0政策倡导建议沟通要点":BASE_URL +"DRG.DIP .docx",
     "浙江省医疗保障局关于公布第二批创新医药技术医保支付激励目录的通知":"https://ybj.zj.gov.cn/col/col1229225623/art/2026/art_875a6f6cffea45c3b0182820d28d0ba8.html",
     "关于公布第12批国家组织药品集中带量采购中选结果的通知":"https://www.smpaa.cn/gjsdcg/2026/08/06/23603.shtml",
-    "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知": "https://raw.githubusercontent.com/Vicky-0831/policy/main/pdfs/ZTCJX.pdf"
+    "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "ztcjx.pdf"
 }
 
 # ==========================================
