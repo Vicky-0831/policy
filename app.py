@@ -374,7 +374,8 @@ LINKS = {
     "DRG/DIP3.0政策倡导建议沟通要点":BASE_URL +"DRG.DIP .docx",
     "浙江省医疗保障局关于公布第二批创新医药技术医保支付激励目录的通知":"https://ybj.zj.gov.cn/col/col1229225623/art/2026/art_875a6f6cffea45c3b0182820d28d0ba8.html",
     "关于公布第12批国家组织药品集中带量采购中选结果的通知":"https://www.smpaa.cn/gjsdcg/2026/08/06/23603.shtml",
-    "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "ztcjx.pdf"
+    "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "ztcjx.pdf",
+    "自治区医保局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "GXztc.pdf"
 }
 
 # ==========================================
@@ -826,7 +827,8 @@ elif st.session_state.step == 'L2':
                 "湖南": "湖南省医保局挂网药品价格风险预警通知",
                 "陕西": "陕西多文件",
                 "湖北": "湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知",
-                "江西": "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知"
+                "江西": "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知",
+                "广西": "自治区医保局关于做好挂网药品价格风险预警标识管理工作的通知"
             }
             selected_prov = st.selectbox("请选择省份", list(red_yellow_map.keys()))
             if selected_prov:
@@ -993,6 +995,39 @@ elif st.session_state.step == 'L2':
                             </a>
                         </div>
                     ''', unsafe_allow_html=True)
+                elif selected_prov == "广西":
+                    st.markdown("### 广西壮族自治区 - 红黄标政策要点")
+                    metrics_html = '''
+                    <div class="metric-grid">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确比例</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确计算公式分母为按药品总金额</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否排除重点监护药品</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                    </div>
+                    '''
+                    st.markdown(metrics_html, unsafe_allow_html=True)
+                    # 广西政策文件
+                    st.markdown(
+                        f'<div class="file-card"><b>{file_name}</b><br>'
+                        f'<a href="{url}" target="_blank" '
+                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
+                        unsafe_allow_html=True)        
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购（VBP）相关政策")
             # 省份选择
