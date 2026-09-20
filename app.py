@@ -378,7 +378,8 @@ LINKS = {
     "自治区医保局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "GXztc.pdf",
     "天津市医保局关于完善我市药品价格监测处置工作的通知":BASE_URL + "TJztc.pdf",
     "山西省医疗保障局关于做好挂网药品价格风险预警管理工作的通知":BASE_URL + "SXztc.pdf",
-    "山东省关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "SDztc.pdf"
+    "山东省关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "SDztc.pdf",
+    "福建省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "FJztc.pdf"
 }
 
 # ==========================================
@@ -834,7 +835,8 @@ elif st.session_state.step == 'L2':
                 "广西": "自治区医保局关于做好挂网药品价格风险预警标识管理工作的通知",
                 "天津": "天津市医保局关于完善我市药品价格监测处置工作的通知",
                 "山西": "山西省医疗保障局关于做好挂网药品价格风险预警管理工作的通知",
-                "山东": "山东省关于做好挂网药品价格风险预警标识管理工作的通知"
+                "山东": "山东省关于做好挂网药品价格风险预警标识管理工作的通知",
+                "福建": "福建省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知"
             }
             selected_prov = st.selectbox("请选择省份", list(red_yellow_map.keys()))
             if selected_prov:
@@ -1128,6 +1130,39 @@ elif st.session_state.step == 'L2':
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
                     # 山东政策文件链接
+                    st.markdown(
+                        f'<div class="file-card"><b>{file_name}</b><br>'
+                        f'<a href="{url}" target="_blank" '
+                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
+                        unsafe_allow_html=True)
+                elif selected_prov == "福建":
+                    st.markdown("### 福建省 - 红黄标政策要点")
+                    metrics_html = '''
+                    <div class="metric-grid">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确比例</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确计算公式分母为按药品总金额</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                            <div style="font-size:11px; color:#666;">是否排除重点监护药品</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                    </div>
+                    '''
+                    st.markdown(metrics_html, unsafe_allow_html=True)
+                    # 福建政策文件链接
                     st.markdown(
                         f'<div class="file-card"><b>{file_name}</b><br>'
                         f'<a href="{url}" target="_blank" '
