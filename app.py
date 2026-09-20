@@ -1100,7 +1100,7 @@ elif st.session_state.step == 'L2':
                         f'<a href="{url}" target="_blank" '
                         f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
                         unsafe_allow_html=True)
-                    elif selected_prov == "山东":
+                elif selected_prov == "山东":
                     st.markdown("### 山东省 - 红黄标政策要点")
                     metrics_html = '''
                     <div class="metric-grid">
