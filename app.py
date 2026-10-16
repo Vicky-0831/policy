@@ -866,8 +866,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 单个文件链接
-                    st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "湖南":
                     st.markdown(
     '### 湖南省 - 挂网药品价格风险预警政策要点 '
@@ -899,8 +897,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 单个文件链接
-                    st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "陕西":
                     st.markdown(
     '### 陕西省 - 红黄标政策要点 '
@@ -932,15 +928,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 陕西多个文件链接
-                    shaanxi_files = [
-                        "关于进一步规范药品耗材集中采购有关事项的通知",
-                        "陕西省药品和医用耗材集中采购监测指标表",
-                        "陕西省药品和医用耗材集中采购监测指标征求意见稿"
-                    ]
-                    for f in shaanxi_files:
-                        file_url = LINKS.get(f, "#")
-                        st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{file_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "湖北":
                     st.markdown(
     '### 湖北省 - 红黄标政策要点 '
@@ -972,8 +959,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 单个文件链接
-                    st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "江西":
                     st.markdown(
     '### 江西省 - 红黄标政策要点 '
@@ -1005,16 +990,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 江西政策原文
-                    st.markdown(f'''
-                        <div class="file-card">
-                            <b>📄 {file_name}</b><br>
-                            <a href="{url}"target="_blank"
-                               style="font-size:12px; color:#0066cc;">
-                                🔗 查看江西省政策原文
-                            </a>
-                        </div>
-                    ''', unsafe_allow_html=True)
                 elif selected_prov == "广西":
                     st.markdown(
     '### 广西壮族自治区 - 红黄标政策要点 '
@@ -1046,12 +1021,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 广西政策文件
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
-                        unsafe_allow_html=True) 
                 elif selected_prov == "天津":
                     st.markdown(
     '### 天津市 - 红黄标政策要点 '
@@ -1083,12 +1052,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 天津政策文件链接
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
-                        unsafe_allow_html=True)
                 elif selected_prov == "山西":
                     st.markdown(
     '### 山西省 - 红黄标政策要点 '
@@ -1120,12 +1083,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 山西政策文件链接
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
-                        unsafe_allow_html=True)
                 elif selected_prov == "山东":
                     st.markdown(
     '### 山东省 - 红黄标政策要点 '
@@ -1157,12 +1114,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 山东政策文件链接
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
-                        unsafe_allow_html=True)
                 elif selected_prov == "福建":
                     st.markdown(
     '### 福建省 - 红黄标政策要点 '
@@ -1194,12 +1145,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 福建政策文件链接
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
-                        unsafe_allow_html=True)
                 elif selected_prov == "河南":
                     st.markdown(
     '### 河南省 - 红黄标政策要点 '
@@ -1231,12 +1176,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 河南政策文件链接
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
-                        unsafe_allow_html=True)
                 elif selected_prov == "安徽":
                     st.markdown(
     '### 安徽省 - 红黄标政策要点 '
@@ -1268,13 +1207,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 安徽政策文件链接
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">'
-                        f'🔗 查看原文</a></div>',
-                        unsafe_allow_html=True)
                 elif selected_prov == "重庆":
                     st.markdown(
     '### 重庆市 - 红黄标政策要点 '
@@ -1306,13 +1238,6 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True)
-                    # 重庆政策文件链接
-                    st.markdown(
-                        f'<div class="file-card"><b>{file_name}</b><br>'
-                        f'<a href="{url}" target="_blank" '
-                        f'style="font-size:12px; color:#0066cc;">'
-                        f'🔗 查看原文</a></div>',
-                        unsafe_allow_html=True)
         elif biz == "PVBP":
             st.markdown("##### 📁 集中带量采购（VBP）相关政策")
             # 省份选择
