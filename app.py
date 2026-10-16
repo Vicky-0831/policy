@@ -881,7 +881,11 @@ elif st.session_state.step == 'L2':
                     # 单个文件链接
                     st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "湖南":
-                    st.markdown("### 湖南省 - 挂网药品价格风险预警政策要点")
+                    st.markdown(
+    '### 湖南省 - 挂网药品价格风险预警政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -910,7 +914,11 @@ elif st.session_state.step == 'L2':
                     # 单个文件链接
                     st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "陕西":
-                    st.markdown("### 陕西省 - 红黄标政策要点")
+                    st.markdown(
+    '### 陕西省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -946,7 +954,11 @@ elif st.session_state.step == 'L2':
                         file_url = LINKS.get(f, "#")
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{file_url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "湖北":
-                    st.markdown("### 湖北省 - 红黄标政策要点")
+                    st.markdown(
+    '### 湖北省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -975,7 +987,11 @@ elif st.session_state.step == 'L2':
                     # 单个文件链接
                     st.markdown(f'<div class="file-card"><b>{file_name}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
                 elif selected_prov == "江西":
-                    st.markdown("### 江西省 - 红黄标政策要点")
+                    st.markdown(
+    '### 江西省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -1012,7 +1028,11 @@ elif st.session_state.step == 'L2':
                         </div>
                     ''', unsafe_allow_html=True)
                 elif selected_prov == "广西":
-                    st.markdown("### 广西壮族自治区 - 红黄标政策要点")
+                    st.markdown(
+    '### 广西壮族自治区 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -1045,7 +1065,11 @@ elif st.session_state.step == 'L2':
                         f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
                         unsafe_allow_html=True) 
                 elif selected_prov == "天津":
-                    st.markdown("### 天津市 - 红黄标政策要点")
+                    st.markdown(
+    '### 天津市 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
@@ -1078,7 +1102,11 @@ elif st.session_state.step == 'L2':
                         f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
                         unsafe_allow_html=True)
                 elif selected_prov == "山西":
-                    st.markdown("### 山西省 - 红黄标政策要点")
+                    st.markdown(
+    '### 山西省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -1111,7 +1139,11 @@ elif st.session_state.step == 'L2':
                         f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
                         unsafe_allow_html=True)
                 elif selected_prov == "山东":
-                    st.markdown("### 山东省 - 红黄标政策要点")
+                    st.markdown(
+    '### 山东省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -1144,7 +1176,11 @@ elif st.session_state.step == 'L2':
                         f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
                         unsafe_allow_html=True)
                 elif selected_prov == "福建":
-                    st.markdown("### 福建省 - 红黄标政策要点")
+                    st.markdown(
+    '### 福建省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -1177,7 +1213,11 @@ elif st.session_state.step == 'L2':
                         f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
                         unsafe_allow_html=True)
                 elif selected_prov == "河南":
-                    st.markdown("### 河南省 - 红黄标政策要点")
+                    st.markdown(
+    '### 河南省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -1210,7 +1250,11 @@ elif st.session_state.step == 'L2':
                         f'style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>',
                         unsafe_allow_html=True)
                 elif selected_prov == "安徽":
-                    st.markdown("### 安徽省 - 红黄标政策要点")
+                    st.markdown(
+    '### 安徽省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
@@ -1244,7 +1288,11 @@ elif st.session_state.step == 'L2':
                         f'🔗 查看原文</a></div>',
                         unsafe_allow_html=True)
                 elif selected_prov == "重庆":
-                    st.markdown("### 重庆市 - 红黄标政策要点")
+                    st.markdown(
+    '### 重庆市 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
