@@ -353,7 +353,6 @@ LINKS = {
     "【浙江】第一批创新医药技术医保支付激励名单": BASE_URL + "zj_incentive.pdf",
     "国采1-8批接续采购政策要点详表(详细版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_detail.xlsx",
     "国采1-8批接续采购政策要点详表(招标版)": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/vbp_policy_bid.xlsx",
-    "河北红黄标政策": BASE_URL + "hb.pdf",
     "第八批国家组织药品集中采购江西省中选企业供应清单及支付标准": "https://view.officeapps.live.com/op/view.aspx?src=https://vicky-0831.github.io/policy/pdfs/gjyp.xlsx",
     "沪医保医管发〔2026〕12号-关于优化第十一批国家组织集采药品医保支付协同的通知": BASE_URL + "sh.pdf",
     "湖南省医保局挂网药品价格风险预警通知":BASE_URL + "hn.pdf",
@@ -363,7 +362,6 @@ LINKS = {
     "上海阳光医药采购网_9595":BASE_URL + "shanghaiyiyao.pdf",
     "浙江省医疗保障局关于支持创新医药高质量发展的若干措施":BASE_URL + "zhejiangYIBAO.pdf",
     "关于组织医药机构报送第12批国家组织药品集中带量采购品种需求量的通知":BASE_URL + "guojiaJICAI.pdf",
-    "湖北省医疗保障局办公室关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "hubeiYIBAO.pdf",
     "国家基本药物目录2026年版":BASE_URL + "guojiaYAOPIN.pdf",
     "关于印发国家基本药物目录2026年版本的通知": "https://www.nhc.gov.cn/yaozs/c100098/202607/0f4f2bdcfead449f8412453373522470.shtml",
     "天津市医保局市卫生健康委市药监局关于做好国家组织药品集采协议期满接续采购结果执行工作的通知":"https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202605/t20260511_7296817.html",
@@ -374,13 +372,6 @@ LINKS = {
     "DRG/DIP3.0政策倡导建议沟通要点":BASE_URL +"DRG.DIP .docx",
     "浙江省医疗保障局关于公布第二批创新医药技术医保支付激励目录的通知":"https://ybj.zj.gov.cn/col/col1229225623/art/2026/art_875a6f6cffea45c3b0182820d28d0ba8.html",
     "关于公布第12批国家组织药品集中带量采购中选结果的通知":"https://www.smpaa.cn/gjsdcg/2026/08/06/23603.shtml",
-    "江西省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "ztcjx.pdf",
-    "自治区医保局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "GXztc.pdf",
-    "天津市医保局关于完善我市药品价格监测处置工作的通知":BASE_URL + "TJztc.pdf",
-    "山西省医疗保障局关于做好挂网药品价格风险预警管理工作的通知":BASE_URL + "SXztc.pdf",
-    "山东省关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "SDztc.pdf",
-    "福建省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "FJztc.pdf",
-    "河南省医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知":BASE_URL + "HNztc.pdf"
 }
 
 # ==========================================
