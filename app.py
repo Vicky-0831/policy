@@ -848,7 +848,11 @@ elif st.session_state.step == 'L2':
                 url = LINKS.get(file_name, "#")
                 # 显示对应省份的政策要点
                 if selected_prov == "河北":
-                    st.markdown("### 河北省 - 红黄标政策要点")
+                    st.markdown(
+    '### 河北省 - 红黄标政策要点 '
+    '<span style="font-size:12px; color:#888; font-weight:normal;">'
+    '（信息来源于公众号整理）</span>',
+    unsafe_allow_html=True)
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
