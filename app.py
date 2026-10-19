@@ -1276,7 +1276,7 @@ elif st.session_state.step == 'L2':
                     st.markdown(metrics_html, unsafe_allow_html=True)
                 elif selected_prov == "上海":
                     st.markdown(
-    '### 上海市 - 红黄标政策要点 '
+    '### 上海 - 红黄标政策要点 '
     '<span style="font-size:12px; color:#888; font-weight:normal;">'
     '（信息来源于公众号整理）</span>',
     unsafe_allow_html=True)
@@ -1305,7 +1305,7 @@ elif st.session_state.step == 'L2':
                     </div>
                     '''
                     st.markdown(metrics_html, unsafe_allow_html=True) 
-                 elif selected_prov == "青海":
+                elif selected_prov == "青海":
                     st.markdown(
     '### 青海 - 红黄标政策要点 '
     '<span style="font-size:12px; color:#888; font-weight:normal;">'
