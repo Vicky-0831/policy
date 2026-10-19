@@ -1245,7 +1245,7 @@ elif st.session_state.step == 'L2':
                     st.markdown(metrics_html, unsafe_allow_html=True)
                 elif selected_prov == "宁夏":
                     st.markdown(
-    '### 宁夏 - 红黄标政策要点 '
+    '### 宁夏回族自治区 - 红黄标政策要点 '
     '<span style="font-size:12px; color:#888; font-weight:normal;">'
     '（信息来源于公众号整理）</span>',
     unsafe_allow_html=True)
@@ -1276,7 +1276,7 @@ elif st.session_state.step == 'L2':
                     st.markdown(metrics_html, unsafe_allow_html=True)
                 elif selected_prov == "上海":
                     st.markdown(
-    '### 上海 - 红黄标政策要点 '
+    '### 上海市 - 红黄标政策要点 '
     '<span style="font-size:12px; color:#888; font-weight:normal;">'
     '（信息来源于公众号整理）</span>',
     unsafe_allow_html=True)
@@ -1307,7 +1307,7 @@ elif st.session_state.step == 'L2':
                     st.markdown(metrics_html, unsafe_allow_html=True) 
                 elif selected_prov == "青海":
                     st.markdown(
-    '### 青海 - 红黄标政策要点 '
+    '### 青海省 - 红黄标政策要点 '
     '<span style="font-size:12px; color:#888; font-weight:normal;">'
     '（信息来源于公众号整理）</span>',
     unsafe_allow_html=True)
@@ -1338,7 +1338,7 @@ elif st.session_state.step == 'L2':
                     st.markdown(metrics_html, unsafe_allow_html=True)
                 elif selected_prov == "甘肃":
                     st.markdown(
-    '### 甘肃 - 红黄标政策要点 '
+    '### 甘肃省 - 红黄标政策要点 '
     '<span style="font-size:12px; color:#888; font-weight:normal;">'
     '（信息来源于公众号整理）</span>',
     unsafe_allow_html=True)
@@ -1369,7 +1369,7 @@ elif st.session_state.step == 'L2':
                     st.markdown(metrics_html, unsafe_allow_html=True)
                 elif selected_prov == "西藏":
                     st.markdown(
-    '### 西藏 - 红黄标政策要点 '
+    '### 西藏自治区 - 红黄标政策要点 '
     '<span style="font-size:12px; color:#888; font-weight:normal;">'
     '（信息来源于公众号整理）</span>',
     unsafe_allow_html=True)
