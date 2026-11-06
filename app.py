@@ -810,48 +810,45 @@ elif st.session_state.step == 'L2':
                 )
 
 
-                # 第12批集采：只显示5个指标
+
+                # 第12批集采：5个指标，按每项政策分别设置绿黄颜色
                 metrics = [
-                    ("⚖️ 中选:非中选比例", "中选:非中选使用比例"),
+                    ("⚖️ 明确中选:非中选使用比例", "中选:非中选使用比例"),
                     ("🚦 提及红黄标色", "提及红黄标色"),
                     ("🛡️ 提及不一刀切", "提及不一刀切"),
-                    ("👁️ 提及高价非中选异常使用", "提及高价非中选异常使用"),
-                    ("📦 提及不得集中扎堆采购", "提及不得集中扎堆采购")
+                    ("👁️ 提及关注高价非中选产品异常使用、采高价不采低价等现象", "提及高价非中选异常使用"),
+                    ("📦 提及不得集中扎堆釆购", "提及不得集中扎堆采购"),
                 ]
 
-                # 一行显示5张卡片
                 cols = st.columns(5, gap="small")
 
-                for i, (label, key) in enumerate(metrics):
+                # 这两个指标：N是绿色，Y是黄色
+                reversed_keys = {"提及红黄标色", "提及高价非中选异常使用"}
 
-                    # 读取Excel单元格
+                for i, (label, key) in enumerate(metrics):
                     raw = row12[key]
                     value = str(raw).strip() if pd.notna(raw) else ""
                     norm = value.upper()
 
-                    # 将Y/N转换为中文
-                    if key == "中选:非中选使用比例":
-                        if norm == "Y":
-                            display = "是"
-                        elif norm in ("", "N", "NAN"):
-                            display = "未提及"
-                        else:
-                            display = value.replace("：", ":")
-                    else:
-                        if norm == "Y":
-                            display = "是"
-                        elif norm == "N":
-                            display = "否"
-                        else:
-                            display = "未提及"
-
-                    # 色块规则：Y绿色，N黄色
+                    # 网页只显示中文，不显示Y或N
                     if norm == "Y":
-                        color, bg = "#28a745", "#e6fffa"
+                        display = "是"
                     elif norm == "N":
-                        color, bg = "#d97706", "#fff9e6"
-                    elif key == "中选:非中选使用比例" and norm not in ("", "NAN"):
-                        # 比例填写5:5等具体内容时显示绿色
+                        display = "否"
+                    elif norm in ("", "NAN"):
+                        display = "未提及"
+                    else:
+                        # 比例列如直接写5:5，保留其原值
+                        display = value.replace("：", ":")
+
+                    if key in reversed_keys:
+                        is_green = (norm == "N")
+                    else:
+                        is_green = (norm == "Y")
+                        if key == "中选:非中选使用比例" and norm not in ("Y", "N", "", "NAN"):
+                            is_green = True
+
+                    if is_green:
                         color, bg = "#28a745", "#e6fffa"
                     else:
                         color, bg = "#d97706", "#fff9e6"
