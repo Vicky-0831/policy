@@ -295,7 +295,9 @@ def load_vbp_data():
 # ==========================================
 @st.cache_data
 def load_vbp12_data():
-    file_path = "1红黄标和1-8批接续各省政策表.xlsx"
+    file_path = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "VBP12.xlsx")
 
     if not os.path.exists(file_path):
         return None
