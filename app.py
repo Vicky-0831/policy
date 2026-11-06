@@ -809,61 +809,53 @@ elif st.session_state.step == 'L2':
                     f"##### 📌 {prov12} - 第12批集采政策要点"
                 )
 
+
+                # 第12批集采：只显示5个指标
                 metrics = [
-                    ("⚖️ 中选:非中选比例",
-                     "中选:非中选使用比例"),
-                    ("📊 提及合并考核",
-                     "提及合并考核"),
-                    ("🚦 提及红黄标色",
-                     "提及红黄标色"),
-                    ("🛡️ 提及不一刀切",
-                     "提及不一刀切"),
-                    ("👁️ 提及高价非中选异常使用",
-                     "提及高价非中选异常使用"),
+                    ("⚖️ 中选:非中选比例", "中选:非中选使用比例"),
+                    ("🚦 提及红黄标色", "提及红黄标色"),
+                    ("🛡️ 提及不一刀切", "提及不一刀切"),
+                    ("👁️ 提及高价非中选异常使用", "提及高价非中选异常使用"),
+                    ("📦 提及不得集中扎堆采购", "提及不得集中扎堆采购")
                 ]
 
+                # 一行显示5张卡片
                 cols = st.columns(5, gap="small")
 
                 for i, (label, key) in enumerate(metrics):
+
+                    # 读取Excel单元格
                     raw = row12[key]
-                    value = (
-                        str(raw).strip()
-                        if pd.notna(raw) else ""
-                    )
+                    value = str(raw).strip() if pd.notna(raw) else ""
                     norm = value.upper()
 
-                    if i == 0:
-                        display = (
-                            value.replace("：", ":")
-                            if norm not in ("", "N", "NAN")
-                            else "未提及"
-                        )
-                        favorable = (
-                            "5:5" in display
-                            or "仅完成任务量" in display
-                        )
-                        concern = False
+                    # 将Y/N转换为中文
+                    if key == "中选:非中选使用比例":
+                        if norm == "Y":
+                            display = "是"
+                        elif norm in ("", "N", "NAN"):
+                            display = "未提及"
+                        else:
+                            display = value.replace("：", ":")
                     else:
-                        display = (
-                            "是" if norm == "Y"
-                            else "否" if norm == "N"
-                            else "未提及"
-                        )
+                        if norm == "Y":
+                            display = "是"
+                        elif norm == "N":
+                            display = "否"
+                        else:
+                            display = "未提及"
 
-                        favorable = (
-                            (i in (1, 3) and norm == "Y")
-                            or (i in (2, 4) and norm == "N")
-                        )
-                        concern = (
-                            i in (2, 4) and norm == "Y"
-                        )
-
-                    if favorable:
+                    # 色块规则：Y绿色，N黄色
+                    if norm == "Y":
                         color, bg = "#28a745", "#e6fffa"
-                    elif concern:
+                    elif norm == "N":
                         color, bg = "#d97706", "#fff9e6"
+                    elif key == "中选:非中选使用比例" and norm not in ("", "NAN"):
+                        # 比例填写5:5等具体内容时显示绿色
+                        color, bg = "#28a745", "#e6fffa"
                     else:
-                        color, bg = "#007bff", "#e6f2ff"
+                        color, bg = "#d97706", "#fff9e6"
+
 
                     # 单行HTML，避免缩进引起解析错误
                     card = (
