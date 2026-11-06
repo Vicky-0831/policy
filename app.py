@@ -293,25 +293,28 @@ def load_vbp_data():
 # ==========================================
 # 第12批集采数据读取
 # ==========================================
+
 @st.cache_data
 def load_vbp12_data():
     file_path = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "VBP12.xlsx")
+        os.path.dirname(os.path.abspath(__file__)),
+        "VBP12.xlsx"
+    )
 
     if not os.path.exists(file_path):
-    st.error(f"❌ 文件不存在：{file_path}")
-    return None
+        st.error(f"❌ 文件不存在：{file_path}")
+        return None
 
-st.success("✅ 已找到 VBP12.xlsx 文件")
+    st.success("✅ 已找到 VBP12.xlsx 文件")
 
-try:
-    excel = pd.ExcelFile(file_path)
-    st.write("Excel包含的Sheet：", excel.sheet_names)
-except Exception as e:
-    st.error(f"Excel打开失败：{e}")
-    return None
+    try:
+        excel = pd.ExcelFile(file_path)
+        st.write("Excel包含的Sheet：", excel.sheet_names)
+    except Exception as e:
+        st.error(f"Excel打开失败：{e}")
+        return None
 
+    # 以下保留原来的数据读取代码
     try:
         raw = pd.read_excel(
             file_path,
