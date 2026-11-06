@@ -294,6 +294,7 @@ def load_vbp_data():
 # 第12批集采数据读取
 # ==========================================
 
+
 @st.cache_data
 def load_vbp12_data():
     file_path = os.path.join(
@@ -301,72 +302,45 @@ def load_vbp12_data():
         "VBP12.xlsx"
     )
 
-    if not os.path.exists(file_path):
-        st.error(f"❌ 文件不存在：{file_path}")
+    if not os.path.isfile(file_path):
+        st.error(f"未找到 VBP12.xlsx：{file_path}")
         return None
 
-    st.success("✅ 已找到 VBP12.xlsx 文件")
-
-    try:
-        excel = pd.ExcelFile(file_path)
-        st.write("Excel包含的Sheet：", excel.sheet_names)
-    except Exception as e:
-        st.error(f"Excel打开失败：{e}")
-        return None
-
-    # 以下保留原来的数据读取代码
     try:
         raw = pd.read_excel(
-            file_path,
-            sheet_name="12批集采",
-            header=None
+            file_path, sheet_name="12批集采", header=None
         )
 
-        # Excel第7-15行为9省执行政策
-        df = raw.iloc[6:].copy()
+        # 第7行起，读取C到V列
+        df = raw.iloc[6:, 2:22].copy()
 
-        columns = {
-            3: "类型",
-            4: "省份",
-            5: "序号",
-            6: "执行日期",
-            7: "中选:非中选使用比例",
-            8: "使用比例原文",
-            9: "提及合并考核",
-            10: "合并考核原文",
-            11: "提及红黄标色",
-            12: "红黄标原文",
-            13: "提及不一刀切",
-            14: "不一刀切原文",
-            15: "提及高价非中选异常使用",
-            16: "异常使用原文",
-            17: "提及按医保支付价支付",
-            18: "医保支付价原文",
-            19: "提及不得集中扎堆采购",
-            20: "集中采购原文",
-            21: "较1-8批集采的差异",
-            22: "此次文件原文链接"
-        }
+        df.columns = [
+            "类型", "省份", "序号", "执行日期",
+            "中选:非中选使用比例", "使用比例原文",
+            "提及合并考核", "合并考核原文",
+            "提及红黄标色", "红黄标原文",
+            "提及不一刀切", "不一刀切原文",
+            "提及高价非中选异常使用", "异常使用原文",
+            "提及按医保支付价支付", "医保支付价原文",
+            "提及不得集中扎堆采购", "集中采购原文",
+            "较1-8批集采的差异", "此次文件原文链接"
+        ]
 
-        # Excel列序号转为DataFrame从0开始的索引
-        df = df.iloc[:, [c - 1 for c in columns]]
-        df.columns = list(columns.values())
-
-        # 处理合并单元格，只保留已发执行文件
         df["类型"] = df["类型"].ffill()
-        df = df[
-            (df["类型"] == "已发执行文件")
+        df = df.loc[
+            df["类型"].astype(str).str.strip().eq("已发执行文件")
             & df["省份"].notna()
         ].copy()
 
         df["省份"] = df["省份"].astype(str).str.strip()
-
+        df = df[df["省份"].ne("")]
 
         return df.reset_index(drop=True)
 
     except Exception as e:
-        st.error(f"第12批集采数据读取失败：{e}")
+        st.error(f"读取 VBP12.xlsx 失败：{e}")
         return None
+
 
 @st.cache_data
 def load_cpzba_data():
@@ -807,170 +781,137 @@ elif st.session_state.step == 'L2':
 
         
 
+
         # ==========================================
-        # 第12批集采政策查询（精简版）
+        # 第12批集采：精简五指标卡片
         # ==========================================
         elif biz == "第12批集采":
-
-            import re
             import html
+            import re
 
             df12 = load_vbp12_data()
 
             if df12 is None or df12.empty:
-                st.warning("⚠️ 未读取到第12批集采政策数据")
+                st.warning("⚠️ 未读取到第12批集采已发文的省份数据")
 
             else:
-                # ---------- 选择省份 ----------
                 prov12 = st.selectbox(
                     "查询省份",
-                    df12["省份"].unique().tolist(),
+                    df12["省份"].drop_duplicates().tolist(),
                     key="vbp12_province"
                 )
 
-                row12 = df12[
-                    df12["省份"] == prov12
+                row12 = df12.loc[
+                    df12["省份"].eq(prov12)
                 ].iloc[0]
 
                 st.markdown(
                     f"##### 📌 {prov12} - 第12批集采政策要点"
                 )
 
-                # ---------- 五个核心政策指标 ----------
                 metrics = [
-                    (
-                        "⚖️ 中选:非中选比例",
-                        "中选:非中选使用比例"
-                    ),
-                    (
-                        "📊 提及合并考核",
-                        "提及合并考核"
-                    ),
-                    (
-                        "🚦 提及红黄标色",
-                        "提及红黄标色"
-                    ),
-                    (
-                        "🛡️ 提及不一刀切",
-                        "提及不一刀切"
-                    ),
-                    (
-                        "👁️ 提及高价非中选异常使用",
-                        "提及高价非中选异常使用"
-                    )
+                    ("⚖️ 中选:非中选比例",
+                     "中选:非中选使用比例"),
+                    ("📊 提及合并考核",
+                     "提及合并考核"),
+                    ("🚦 提及红黄标色",
+                     "提及红黄标色"),
+                    ("🛡️ 提及不一刀切",
+                     "提及不一刀切"),
+                    ("👁️ 提及高价非中选异常使用",
+                     "提及高价非中选异常使用"),
                 ]
 
-                html_cards = '<div class="metric-grid">'
+                cols = st.columns(5, gap="small")
 
-                for label, key in metrics:
+                for i, (label, key) in enumerate(metrics):
+                    raw = row12[key]
+                    value = (
+                        str(raw).strip()
+                        if pd.notna(raw) else ""
+                    )
+                    norm = value.upper()
 
-                    raw_value = row12[key]
+                    if i == 0:
+                        display = (
+                            value.replace("：", ":")
+                            if norm not in ("", "N", "NAN")
+                            else "未提及"
+                        )
+                        favorable = (
+                            "5:5" in display
+                            or "仅完成任务量" in display
+                        )
+                        concern = False
+                    else:
+                        display = (
+                            "是" if norm == "Y"
+                            else "否" if norm == "N"
+                            else "未提及"
+                        )
 
-                    val = (
-                        str(raw_value).strip()
-                        if pd.notna(raw_value) else ""
+                        favorable = (
+                            (i in (1, 3) and norm == "Y")
+                            or (i in (2, 4) and norm == "N")
+                        )
+                        concern = (
+                            i in (2, 4) and norm == "Y"
+                        )
+
+                    if favorable:
+                        color, bg = "#28a745", "#e6fffa"
+                    elif concern:
+                        color, bg = "#d97706", "#fff9e6"
+                    else:
+                        color, bg = "#007bff", "#e6f2ff"
+
+                    # 单行HTML，避免缩进引起解析错误
+                    card = (
+                        f'<div style="border-left:4px solid {color};'
+                        f'background:{bg};border-radius:8px;'
+                        f'padding:14px 10px;min-height:70px;'
+                        f'box-sizing:border-box;'
+                        f'overflow-wrap:anywhere">'
+                        f'<div style="font-size:11px;color:#666;'
+                        f'margin-bottom:6px">'
+                        f'{html.escape(label)}</div>'
+                        f'<div style="font-size:15px;'
+                        f'font-weight:700;color:{color}">'
+                        f'{html.escape(display)}</div></div>'
                     )
 
-                    # ---------- 显示文字 ----------
-                    if key == "中选:非中选使用比例":
-                        if val.upper() == "N" or not val:
-                            display_val = "未提及"
-                        else:
-                            display_val = val.replace("：", ":")
-                    else:
-                        if val.upper() == "Y":
-                            display_val = "是"
-                        elif val.upper() == "N":
-                            display_val = "否"
-                        else:
-                            display_val = "未提及"
-
-                    # ---------- 卡片颜色 ----------
-                    # 默认蓝色
-                    color, bg = "#007bff", "#e6f2ff"
-
-                    # 中选与非中选比例
-                    if key == "中选:非中选使用比例":
-                        if "5:5" in display_val:
-                            color, bg = "#28a745", "#e6fffa"
-
-                    # 合并考核、不一刀切
-                    elif key in [
-                        "提及合并考核",
-                        "提及不一刀切"
-                    ]:
-                        if val.upper() == "Y":
-                            color, bg = "#28a745", "#e6fffa"
-                        else:
-                            color, bg = "#007bff", "#e6f2ff"
-
-                    # 红黄标、高价异常使用
-                    elif key in [
-                        "提及红黄标色",
-                        "提及高价非中选异常使用"
-                    ]:
-                        if val.upper() == "Y":
-                            color, bg = "#f0ad4e", "#fff9e6"
-                        else:
-                            color, bg = "#28a745", "#e6fffa"
-
-                    safe_label = html.escape(label)
-                    safe_value = html.escape(display_val)
-
-                    html_cards += f"""
-                    <div class="metric-card"
-                         style="
-                         border-left-color:{color};
-                         background-color:{bg};
-                         margin-bottom:8px;
-                         min-height:65px;
-                         ">
-                        <div style="
-                            font-size:11px;
-                            color:#666;
-                            margin-bottom:5px;
-                        ">
-                            {safe_label}
-                        </div>
-                        <div style="
-                            font-size:15px;
-                            font-weight:700;
-                            color:{color};
-                        ">
-                            {safe_value}
-                        </div>
-                    </div>
-                    """
-
-                html_cards += "</div>"
-
-                st.markdown(
-                    html_cards,
-                    unsafe_allow_html=True
-                )
+                    with cols[i]:
+                        st.markdown(
+                            card,
+                            unsafe_allow_html=True
+                        )
 
                 st.markdown("---")
 
-                # ---------- 政策原文链接 ----------
+                # 政策原文链接
                 raw_link = row12["此次文件原文链接"]
-
                 link_text = (
                     str(raw_link).strip()
                     if pd.notna(raw_link) else ""
                 )
 
                 urls = re.findall(
-                    r'https?://[^\s，,；;<>"]+',
+                    r"https?://[^\s，,；;<>\"']+",
                     link_text
                 )
 
                 if urls:
-                    for url in dict.fromkeys(urls):
-                        st.markdown(
-                            f"🔗 [查看该省份执行文件原文]({url})"
-                        )
+                    for j, url in enumerate(
+                        dict.fromkeys(urls), start=1
+                    ):
+                        label = "🔗 查看该省份执行文件原文"
+                        if len(urls) > 1:
+                            label += f" {j}"
+
+                        st.link_button(label, url)
                 else:
-                    st.caption("📄 该省政策原文链接待补充")
+                    st.caption("📄 该省份的原文链接待补充")
+
 
         elif biz == "1-8批集采续约":
             df_vbp = load_vbp_data()
