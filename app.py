@@ -295,7 +295,8 @@ def load_vbp_data():
 # ==========================================
 
 
-@st.cache_data
+# 修改后
+@st.cache_data(ttl=60)
 def load_vbp12_data():
     file_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
