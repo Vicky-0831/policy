@@ -290,6 +290,63 @@ def load_vbp_data():
         return df
     except: return None
 
+# ==========================================
+# 第12批集采数据读取
+# ==========================================
+@st.cache_data
+def load_vbp12_data():
+    file_path = "1红黄标和1-8批接续各省政策表.xlsx"
+
+    if not os.path.exists(file_path):
+        return None
+
+    try:
+        raw = pd.read_excel(
+            file_path,
+            sheet_name="12批集采",
+            header=None
+        )
+
+        # Excel第7-15行为9省执行政策
+        df = raw.iloc[6:].copy()
+
+        columns = {
+            3: "类型",
+            4: "省份",
+            5: "序号",
+            6: "执行日期",
+            7: "中选:非中选使用比例",
+            8: "使用比例原文",
+            9: "提及合并考核",
+            10: "合并考核原文",
+            11: "提及红黄标色",
+            12: "红黄标原文",
+            13: "提及不一刀切",
+            14: "不一刀切原文",
+            15: "提及高价非中选异常使用",
+            16: "异常使用原文",
+            17: "提及按医保支付价支付",
+            18: "医保支付价原文",
+            19: "提及不得集中扎堆采购",
+            20: "集中采购原文",
+            21: "较1-8批集采的差异",
+            22: "此次文件原文链接"
+        }
+
+        # Excel列序号转为DataFrame从0开始的索引
+        df = df.iloc[:, [c - 1 for c in columns]]
+        df.columns = list(columns.values())
+
+        # 去掉后续未填报的省份
+        df = df.dropna(subset=["省份"])
+        df["省份"] = df["省份"].astype(str).str.strip()
+
+        return df.reset_index(drop=True)
+
+    except Exception as e:
+        st.error(f"第12批集采数据读取失败：{e}")
+        return None
+
 @st.cache_data
 def load_cpzba_data():
     if not os.path.exists('cpzba.xlsx'): return None
@@ -682,7 +739,15 @@ elif st.session_state.step == 'L2':
                         st.markdown(f'<div class="file-card"><b>{f}</b><br><a href="{url}" target="_blank" style="font-size:12px; color:#0066cc;">🔗 查看原文</a></div>', unsafe_allow_html=True)
 
     elif st.session_state.l1 == "地方":
-        biz_opts = ["国谈落地", "1-8批集采续约", "PVBP", "DRG/DIP", "分级管理目录", "红黄标", "其他"]
+        biz_opts = [
+    "国谈落地",
+    "1-8批集采续约",
+    "第12批集采",
+    "PVBP",
+    "DRG/DIP",
+    "分级管理目录",
+    "红黄标",
+    "其他"]
         biz = st.selectbox("请选择政策领域", biz_opts)
         
         if biz == "国谈落地":
@@ -718,6 +783,266 @@ elif st.session_state.step == 'L2':
                 st.markdown("---")
                 for _, r in df[df['省份'] == prov].iterrows():
                     if pd.notna(r['链接']): st.markdown(f"📄 [{r['原文']}]({r['链接']})")
+
+        
+        # ==========================================
+        # 第12批集采政策查询
+        # ==========================================
+        elif biz == "第12批集采":
+
+            import re
+            from pathlib import Path
+
+            st.markdown(
+                "##### 📁 第12批国家组织药品集中采购执行政策"
+            )
+
+            df12 = load_vbp12_data()
+
+            if df12 is None or df12.empty:
+                st.warning("⚠️ 未读取到第12批集采政策数据")
+
+            else:
+                # ---------- 全国执行情况 ----------
+                total = len(df12)
+
+                ratio_count = (
+                    df12["中选:非中选使用比例"]
+                    .astype(str)
+                    .str.replace("：", ":", regex=False)
+                    .str.contains("5:5", regex=False)
+                    .sum()
+                )
+
+                no_cut_count = (
+                    df12["提及不一刀切"]
+                    .astype(str)
+                    .str.upper()
+                    .eq("Y")
+                    .sum()
+                )
+
+                c1, c2, c3 = st.columns(3)
+
+                c1.metric("📄 已发文省份", f"{total} 省")
+                c2.metric("⚖️ 明确5:5比例", f"{ratio_count} 省")
+                c3.metric("🛡️ 提及不一刀切", f"{no_cut_count} 省")
+
+                st.markdown("---")
+
+                # ---------- 选择省份 ----------
+                prov12 = st.selectbox(
+                    "🔍 请选择查询省份",
+                    df12["省份"].unique().tolist(),
+                    key="vbp12_province"
+                )
+
+                row12 = df12[
+                    df12["省份"] == prov12
+                ].iloc[0]
+
+                st.markdown(
+                    f"##### 📌 {prov12} - 第12批集采执行政策要点"
+                )
+
+                # 执行日期
+                exec_date = row12["执行日期"]
+
+                if pd.notna(exec_date):
+                    exec_date = pd.to_datetime(
+                        exec_date, errors="coerce"
+                    )
+
+                    if pd.notna(exec_date):
+                        st.info(
+                            "📅 执行日期：" +
+                            exec_date.strftime("%Y年%m月%d日")
+                        )
+
+                # ---------- 政策指标 ----------
+                metrics = [
+                    ("⚖️ 中选:非中选使用比例",
+                     "中选:非中选使用比例",
+                     "使用比例原文"),
+
+                    ("📊 提及合并考核",
+                     "提及合并考核",
+                     "合并考核原文"),
+
+                    ("🚦 提及红黄标色",
+                     "提及红黄标色",
+                     "红黄标原文"),
+
+                    ("🛡️ 提及不一刀切",
+                     "提及不一刀切",
+                     "不一刀切原文"),
+
+                    ("👁️ 提及高价非中选异常使用",
+                     "提及高价非中选异常使用",
+                     "异常使用原文"),
+
+                    ("💰 提及按医保支付价支付",
+                     "提及按医保支付价支付",
+                     "医保支付价原文"),
+
+                    ("📦 提及不得集中扎堆采购",
+                     "提及不得集中扎堆采购",
+                     "集中采购原文")
+                ]
+
+                # ---------- 指标卡片 ----------
+                html_cards = '<div class="metric-grid">'
+
+                for label, key, detail_key in metrics:
+
+                    value = row12[key]
+                    val = (
+                        str(value).strip()
+                        if pd.notna(value) else "未提及"
+                    )
+
+                    if val in ["", "nan", "N"]:
+                        display_val = "未提及"
+                    elif val == "Y":
+                        display_val = "是"
+                    else:
+                        display_val = val
+
+                    # 颜色规则延续原来的1-8批
+                    color = "#007bff"
+                    bg = "#e6f2ff"
+
+                    if key == "中选:非中选使用比例":
+                        if "5:5" in val.replace("：", ":"):
+                            color, bg = "#28a745", "#e6fffa"
+
+                    elif key in [
+                        "提及合并考核",
+                        "提及不一刀切"
+                    ]:
+                        if val == "Y":
+                            color, bg = "#28a745", "#e6fffa"
+
+                    elif key in [
+                        "提及红黄标色",
+                        "提及高价非中选异常使用",
+                        "提及不得集中扎堆采购"
+                    ]:
+                        if val == "Y":
+                            color, bg = "#f0ad4e", "#fff9e6"
+
+                    elif key == "提及按医保支付价支付":
+                        if val == "Y":
+                            color, bg = "#28a745", "#e6fffa"
+
+                    html_cards += f"""
+                    <div class="metric-card"
+                         style="border-left-color:{color};
+                                background-color:{bg};
+                                margin-bottom:8px;">
+                        <div style="font-size:12px;
+                                    color:#666;">
+                            {label}
+                        </div>
+                        <div style="font-size:16px;
+                                    font-weight:700;
+                                    color:{color};">
+                            {display_val}
+                        </div>
+                    </div>
+                    """
+
+                html_cards += "</div>"
+
+                st.markdown(
+                    html_cards,
+                    unsafe_allow_html=True
+                )
+
+                # ---------- 查看详细政策原文 ----------
+                st.markdown("---")
+                st.markdown("##### 📖 详细政策条款")
+
+                for label, key, detail_key in metrics:
+
+                    detail = row12[detail_key]
+
+                    if pd.notna(detail) and str(detail).strip():
+
+                        with st.expander(label):
+                            st.write(str(detail))
+
+                # ---------- 与1-8批政策对比 ----------
+                diff = row12["较1-8批集采的差异"]
+
+                if pd.notna(diff) and str(diff).strip():
+                    st.markdown("---")
+                    st.markdown("##### 🔄 较1-8批集采的政策变化")
+
+                    st.info(str(diff))
+
+                # ---------- 查看政策原文 ----------
+                st.markdown("---")
+                st.markdown("##### 📄 政策文件原文")
+
+                raw_link = row12["此次文件原文链接"]
+
+                link_text = (
+                    str(raw_link).strip()
+                    if pd.notna(raw_link) else ""
+                )
+
+                urls = re.findall(
+                    r'https?://[^\s，,；;<>"]+',
+                    link_text
+                )
+
+                if urls:
+                    for i, url in enumerate(
+                        dict.fromkeys(urls), start=1
+                    ):
+                        st.link_button(
+                            f"🔗 查看{prov12}政策原文 {i}",
+                            url
+                        )
+
+                # 支持将原文放入项目文件夹
+                folder = Path("12批集采原文")
+
+                local_files = []
+
+                if folder.exists():
+                    local_files = [
+                        f for f in folder.iterdir()
+                        if f.is_file()
+                        and prov12 in f.name
+                        and f.suffix.lower() in [
+                            ".pdf", ".doc", ".docx"
+                        ]
+                    ]
+
+                for file in sorted(local_files):
+                    st.download_button(
+                        f"📥 下载 {file.name}",
+                        data=file.read_bytes(),
+                        file_name=file.name,
+                        mime="application/octet-stream",
+                        key=f"vbp12_{file.name}"
+                    )
+
+                if not urls and not local_files:
+                    st.caption(
+                        "📎 已收录政策文件名称，"
+                        "暂未配置可访问的原文链接。"
+                    )
+
+                    if link_text:
+                        st.write(link_text)
+
+                st.caption(
+                    "数据来源：第12批集采各省执行政策要点详表"
+                    "（截至2026年11月2日）"
+                )
 
         elif biz == "1-8批集采续约":
             df_vbp = load_vbp_data()
