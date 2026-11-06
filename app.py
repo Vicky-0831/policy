@@ -300,7 +300,17 @@ def load_vbp12_data():
     "VBP12.xlsx")
 
     if not os.path.exists(file_path):
-        return None
+    st.error(f"❌ 文件不存在：{file_path}")
+    return None
+
+st.success("✅ 已找到 VBP12.xlsx 文件")
+
+try:
+    excel = pd.ExcelFile(file_path)
+    st.write("Excel包含的Sheet：", excel.sheet_names)
+except Exception as e:
+    st.error(f"Excel打开失败：{e}")
+    return None
 
     try:
         raw = pd.read_excel(
