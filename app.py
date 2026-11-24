@@ -1217,36 +1217,30 @@ elif st.session_state.step == 'L2':
                         '（信息来源于公众号整理）</span>',
                         unsafe_allow_html=True
                     )
-
                     metrics_html = '''
                     <div class="metric-grid">
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
                             <div style="font-size:11px; color:#666;">是否明确比例</div>
                             <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
                         </div>
-
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
                             <div style="font-size:11px; color:#666;">是否明确计算公式分母为按药品总金额</div>
                             <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
                         </div>
-
                         <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
                             <div style="font-size:11px; color:#666;">是否排除重点监护药品</div>
                             <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
                         </div>
-
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
                             <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
                             <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
                         </div>
-
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
                             <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
                             <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
                         </div>
                     </div>
                     '''
-
                     st.markdown(metrics_html, unsafe_allow_html=True)
                 elif selected_prov == "山西":
                     st.markdown(
