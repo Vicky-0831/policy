@@ -914,33 +914,31 @@ elif st.session_state.step == 'L2':
                     html_m += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_m + '</div>', unsafe_allow_html=True)
                 
-# ==========================================
-# 各省国谈落地政策原文链接
-# 以Word政策链接为准，不重复展示Excel旧链接
-# ==========================================
 
-st.markdown("---")
-st.markdown("##### 📁 相关政策原文及官方文件")
+                # ==========================================
+                # 各省国谈落地政策原文链接（以Word为准）
+                # ==========================================
+                st.markdown("---")
+                st.markdown("##### 📁 相关政策原文及官方文件")
 
-policy_links = GUOTAN_POLICY_LINKS.get(prov, [])
+                policy_links = GUOTAN_POLICY_LINKS.get(prov, [])
 
-if policy_links:
-    for title, url in policy_links:
-        st.markdown(
-            f"""
-            <div class="file-card">
-                <b>📄 {title}</b><br>
-                <a href="{url}" target="_blank"
-                   style="font-size:13px;color:#0066cc;">
-                    🔗 点击查看政策原文
-                </a>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-else:
-    st.info("该省份政策原文不予公开或暂无可用链接。")
-
+                if policy_links:
+                    for title, url in policy_links:
+                        st.markdown(
+                            f"""
+                            <div class="file-card">
+                                <b>📄 {title}</b><br>
+                                <a href="{url}" target="_blank"
+                                   style="font-size:13px;color:#0066cc;">
+                                    🔗 点击查看政策原文
+                                </a>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                else:
+                    st.info("该省份政策原文不予公开或暂无可用链接。")
 
         
 
