@@ -382,6 +382,143 @@ LEVEL_CATALOG_PDFS = {
     "浙江": BASE_URL + "zj2021.pdf",
 }
 
+# ==========================================
+# --- 2025年国谈落地政策原文链接（以Word为准）---
+# ==========================================
+
+GUOTAN_POLICY_LINKS = {
+    "青海": [
+        ("2026年医保及商保创新药品目录通知",
+         "https://ybj.qinghai.gov.cn/20251223/81a74f4922be451194abb5129f2e5a4d/c.html"),
+    ],
+    "广东": [
+        ("2026年医保及商保创新药品目录通知",
+         "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4834119.html"),
+        ("2026年双通道和单独支付药品范围通知",
+         "https://hsa.gd.gov.cn/zwdt/snkb/content/post_4834142.html"),
+    ],
+    "浙江": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "http://ybj.zj.gov.cn/art/2025/12/24/art_1229225623_2583046.html"),
+        ("2026年双通道管理药品名单",
+         "http://ybj.zj.gov.cn/art/2025/12/25/art_1229225636_5720836.html"),
+    ],
+    "四川": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbzj.sc.gov.cn/scsybj/nc010104/2025/12/25/77f9f82872414d2ea5b1caf52256d7db.shtml"),
+    ],
+    "甘肃": [
+        ("2025年医保及商保创新药品目录落实通知",
+         "https://ylbz.gansu.gov.cn/ylbzj/c105248/202512/174261439.shtml"),
+        ("2025年谈判药品和竞价药品分类结果通知",
+         "https://ylbz.gansu.gov.cn/ylbzj/c105248/202512/174261476.shtml"),
+    ],
+    "河北": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbzj.hebei.gov.cn/content/4852"),
+    ],
+    "陕西": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ybj.shaanxi.gov.cn/zfxxgk/fdzdgknr/zcwj/202512/t20251226_3599633.html"),
+    ],
+    "吉林": [
+        ("2025年医保及商保创新药品目录及医疗机构制剂目录通知",
+         "https://xxgk.jl.gov.cn/zsjg/fgw/xxgkmlqy/202512/t20251226_9382853.html"),
+    ],
+    "山东": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "http://ybj.shandong.gov.cn/art/2025/12/22/art_310912_10319443.html"),
+    ],
+    "安徽": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ybj.ah.gov.cn/public/7071/150378271.html"),
+    ],
+    "海南": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ybj.hainan.gov.cn/xxgk/tzgg/202512/t20251226_4001425.html"),
+    ],
+    "重庆": [
+        ("2025年医保及商保创新药品目录通知",
+         "https://ylbzj.cq.gov.cn/zwgk_535/zfxxgkml/zcwj_291934/gfxwj/202512/t20251226_15274756.html"),
+    ],
+    "湖北": [
+        ("2025年医保及商保创新药品目录转发通知",
+         "https://ybj.hubei.gov.cn/zfxxgk/zc/qtzdgkwj/gkwj/202512/t20251226_5843191.shtml"),
+    ],
+    "内蒙古": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbzj.nmg.gov.cn/zwgk/zfxxgk/fdzdgknr/bmwj/202512/t20251227_2840735.html"),
+    ],
+    "辽宁": [
+        ("2025年医保及商保创新药品目录转发通知",
+         "https://ybj.ln.gov.cn/ybj/zwgk/zcwjyjd/2025122915374090784/index.shtml"),
+    ],
+    "江西": [
+        ("2025年医保及商保创新药品目录转发通知",
+         "https://ybj.jiangxi.gov.cn/jxsylbzj/col/col27600/content/content_2005553012361138176.html"),
+    ],
+    "宁夏": [
+        ("2025年医保及商保创新药品目录通知",
+         "https://ylbz.nx.gov.cn/zfxxgk/fdzdgknr/tzgg/202512/t20251229_5122107.html"),
+    ],
+    "西藏": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbzj.xizang.gov.cn/zwgk/zcwj/202512/t20251229_516518.html"),
+    ],
+    "山西": [],
+    "贵州": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbzj.guizhou.gov.cn/zcfg/202512/t20251230_89103364.html"),
+    ],
+    "江苏": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ybj.jiangsu.gov.cn/art/2025/12/30/art_74037_11703721.html"),
+    ],
+    "新疆": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbzj.xinjiang.gov.cn/ylbzj/tzgg/202512/65f6655d1532427a9983be97377c0d6d.shtml"),
+        ("2025年自治区及兵团双通道管理药品名单",
+         "https://ylbzj.xinjiang.gov.cn/ylbzj/tzgg/202512/e7dae06f2a9c472990beb1526690e5fe.shtml"),
+    ],
+    "天津": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202512/t20251231_7212051.html"),
+        ("2025年门诊用药保障机制范围通知",
+         "https://ylbz.tj.gov.cn/xxgk/zcfg/ybjwj/202512/t20251231_7212062.html"),
+    ],
+    "云南": [
+        ("2025年医保及商保创新药品目录转发通知",
+         "https://ylbz.yn.gov.cn/index.php?c=show&id=5875"),
+    ],
+    "湖南": [
+        ("2025年医保及商保创新药品目录落地执行通知",
+         "https://ybj.hunan.gov.cn/ybj/first113541/firstF/f2113606/202512/t20251231_33884338.html"),
+    ],
+    "河南": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ylbz.henan.gov.cn/2025/12-31/3280397.html"),
+    ],
+    "福建": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ybj.fujian.gov.cn/zfxxgkzl/fdzdgknr/qtyzdgkzfxx/202512/t20251231_7069964.htm"),
+    ],
+    "黑龙江": [],
+    "北京": [
+        ("2025年医保及商保创新药品目录落实通知",
+         "https://ybj.beijing.gov.cn/zwgk/2024zcwj/202512/t20251230_4378644.html"),
+    ],
+    "上海": [
+        ("2025年医保及商保创新药品目录执行通知",
+         "https://ybj.sh.gov.cn/zxzc/20251231/2fb9e8b5dd834022adb5ce3efa18f199.html"),
+        ("上海市纳入双通道管理的药品名单",
+         "https://www.smpaa.cn/xxgk/gggs/2025/12/31/19616.shtml"),
+    ],
+    "广西": [
+        ("2025年医保药品目录执行通知",
+         "http://ybj.gxzf.gov.cn/zfxxgkzl/zcfg/zcfg_9912/bmwj/zcfggybf/t27074615.shtml"),
+    ],
+}
+
 LINKS = {
     "2012年抗菌药物管理办法": BASE_URL + "nhc_kjyw_2012.pdf",
     "2015年抗菌药物评价指标": BASE_URL + "nhc_kjyw_zk_2015.pdf",
@@ -776,9 +913,34 @@ elif st.session_state.step == 'L2':
                         elif "否" in val: color, bg = "#f0ad4e", "#fff9e6"
                     html_m += f'<div class="metric-card" style="border-left-color:{color}; background-color:{bg};"><div style="font-size:11px; color:#666;">{label}</div><div style="font-size:15px; font-weight:700; color:{color};">{val}</div></div>'
                 st.markdown(html_m + '</div>', unsafe_allow_html=True)
-                st.markdown("---")
-                for _, r in df[df['省份'] == prov].iterrows():
-                    if pd.notna(r['链接']): st.markdown(f"📄 [{r['原文']}]({r['链接']})")
+                
+# ==========================================
+# 各省国谈落地政策原文链接
+# 以Word政策链接为准，不重复展示Excel旧链接
+# ==========================================
+
+st.markdown("---")
+st.markdown("##### 📁 相关政策原文及官方文件")
+
+policy_links = GUOTAN_POLICY_LINKS.get(prov, [])
+
+if policy_links:
+    for title, url in policy_links:
+        st.markdown(
+            f"""
+            <div class="file-card">
+                <b>📄 {title}</b><br>
+                <a href="{url}" target="_blank"
+                   style="font-size:13px;color:#0066cc;">
+                    🔗 点击查看政策原文
+                </a>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+else:
+    st.info("该省份政策原文不予公开或暂无可用链接。")
+
 
         
 
