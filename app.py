@@ -1177,7 +1177,10 @@ elif st.session_state.step == 'L2':
                 "上海": "上海医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知",
                 "青海": "青海医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知",
                 "甘肃": "甘肃医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知",
-                "西藏": "西藏医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知"
+                "西藏": "西藏医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知",
+                "吉林": "吉林医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知",
+                "海南": "海南医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知",
+                "广东": "广东医疗保障局关于做好挂网药品价格风险预警标识管理工作的通知"
             }
             selected_prov = st.selectbox("请选择省份", list(red_yellow_map.keys()))
             if selected_prov:
@@ -1735,6 +1738,105 @@ elif st.session_state.step == 'L2':
                         <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
                             <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
                             <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                    </div>
+                    '''
+                    st.markdown(metrics_html, unsafe_allow_html=True)
+
+                elif selected_prov == "吉林":
+                    st.markdown(
+                        '### 吉林省 - 红黄标政策要点 '
+                        '<span style="font-size:12px; color:#888; font-weight:normal;">'
+                        '（信息来源于公众号整理）</span>',
+                        unsafe_allow_html=True
+                    )
+
+                    metrics_html = '''
+                    <div class="metric-grid">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确比例</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确计算公式分母为按药品总金额</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                            <div style="font-size:11px; color:#666;">是否排除重点监护药品</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                    </div>
+                    '''
+                    st.markdown(metrics_html, unsafe_allow_html=True)
+    
+                elif selected_prov == "海南":
+                    st.markdown(
+                        '### 海南省 - 红黄标政策要点 '
+                        '<span style="font-size:12px; color:#888; font-weight:normal;">'
+                        '（信息来源于公众号整理）</span>',
+                        unsafe_allow_html=True
+                    )
+                    metrics_html = '''
+                    <div class="metric-grid">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确比例</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确计算公式分母为按药品总金额</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                            <div style="font-size:11px; color:#666;">是否排除重点监护药品</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                    </div>
+                    '''
+                    st.markdown(metrics_html, unsafe_allow_html=True)
+                elif selected_prov == "广东":
+                    st.markdown(
+                        '### 广东省 - 红黄标政策要点 '
+                        '<span style="font-size:12px; color:#888; font-weight:normal;">'
+                        '（信息来源于公众号整理）</span>',
+                        unsafe_allow_html=True
+                    )
+                    metrics_html = '''
+                    <div class="metric-grid">
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确比例</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确计算公式分母为按药品总金额</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #f0ad4e; background-color: #fff9e6;">
+                            <div style="font-size:11px; color:#666;">是否排除重点监护药品</div>
+                            <div style="font-size:15px; font-weight:700; color:#f0ad4e;">否</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
+                            <div style="font-size:11px; color:#666;">是否明确一刀切管理</div>
+                            <div style="font-size:15px; font-weight:700; color:#28a745;">是</div>
                         </div>
                         <div class="metric-card" style="border-left-color: #28a745; background-color: #e6fffa;">
                             <div style="font-size:11px; color:#666;">是否提及常态化检测</div>
